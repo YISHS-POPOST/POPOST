@@ -1,19 +1,25 @@
 import { View, StyleSheet, Text, SafeAreaView } from "react-native";
 import {BoldText} from "../components/Text";
 import theme from "../theme";
+import StartHeader from "../components/start/StartHeader";
 
 const StartScreen = () => {
   return (
     <SafeAreaView style={theme.container}>
-      <BoldText style={styles.fontText}>안녕</BoldText>
-      <Text style={[theme.pt5, theme.pb5, styles.fontText]}>안녕하세요</Text>
+      <StartHeader />
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   fontText: {
-    fontSize : 20,
+    fontSize: 20,
+  },
+  content: {
+    flex: 1,
+  },
+  buttons: {
+    flex: 1,
   },
 });
 
