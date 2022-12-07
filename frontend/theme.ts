@@ -1,30 +1,9 @@
 import { StyleSheet } from "react-native";
 
-const calcRem = (size: number) => `${size / 16}rem`;
-
 const colors = {
   red: "#F0305E",
   blue: "#164AFF",
   softBlue: "#DDE1F2",
-};
-
-const fontSizes = {
-  small: calcRem(14),
-  base: calcRem(16),
-  lg: calcRem(18),
-  xl: calcRem(20),
-  xxl: calcRem(22),
-  xxxl: calcRem(24),
-  titleSize: calcRem(50),
-};
-
-const margins = {
-  small: calcRem(8),
-  base: calcRem(10),
-  lg: calcRem(12),
-  xl: calcRem(14),
-  xxl: calcRem(16),
-  xxxl: calcRem(18),
 };
 
 const verticalContainer = {
@@ -32,13 +11,43 @@ const verticalContainer = {
 };
 
 const styles = StyleSheet.create({
+  fontSmall: {
+    fontSize: 14,
+  },
+  fontBase: {
+    fontSize: 16,
+  },
+  fontLg: {
+    fontSize: 18,
+  },
+  fontXl: {
+    fontSize: 20,
+  },
+  fontXxl: {
+    fontSize: 22,
+  },
+  fontXxxl: {
+    fontSize: 24,
+  },
+  fontTitleSize: {
+    fontSize: 30,
+  },
   container: {
     flex: 1,
     paddingLeft: verticalContainer.base,
     paddingRight: verticalContainer.base,
   },
   fontWeightBold: {
-    fontWeight: "bold",
+    fontFamily: "Pretendard-Bold",
+  },
+  fontWeightBlack: {
+    fontFamily: "Pretendard-Black",
+  },
+  fontWeightRegular: {
+    fontFamily: "Pretendard-Regular",
+  },
+  fontWeightThin: {
+    fontFamily: "Pretendard-Thin",
   },
   mt1: {
     marginTop: 7,
@@ -197,10 +206,8 @@ const styles = StyleSheet.create({
 
 const theme = {
   colors,
-  fontSizes,
-  margins,
   verticalContainer,
-  ...styles
+  ...styles,
 };
 
 export default theme;
