@@ -4,7 +4,7 @@ import { StyleProp, TextStyle } from "react-native";
 
 interface PropType {
   children: string;
-  style: StyleProp<TextStyle> | null;
+  style ?: StyleProp<TextStyle> | null;
 }
 
 export const BoldText = (props: PropType) => {
