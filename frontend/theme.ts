@@ -13,8 +13,6 @@ const verticalContainer = {
   base: 25,
 };
 
-
-
 const styles = StyleSheet.create({
   fontSmall: {
     fontSize: 14,

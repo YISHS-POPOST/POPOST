@@ -11,8 +11,8 @@ const LoginLogo = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container : {
+    height : 150,
   },
   blackText: {
     fontSize: 40,
