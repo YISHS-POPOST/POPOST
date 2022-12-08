@@ -3,7 +3,6 @@ import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import theme from "./theme";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,15 +14,46 @@ const App = () => {
         <Stack.Screen
           name="login"
           component={LoginScreen}
-          options={{
-            title: "로그인",
-            ...theme.headerOptions,
-          }}
+          options={{ headerShown: true }}
         />
-        <Stack.Screen name="register" component={RegisterScreen} />
+        <Stack.Screen
+          name="register"
+          component={RegisterScreen}
+          options={{ headerShown: true }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
 
 export default App;
+
+// import StartScreen from "./screens/StartScreen";
+// import RegisterScreen from "./screens/RegisterScreen";
+// import LoginScreen from "./screens/LoginScreen";
+// import { NavigationContainer } from "@react-navigation/native";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// import theme from "./theme";
+
+// const Stack = createNativeStackNavigator();
+
+// const App = () => {
+//   return (
+//     <NavigationContainer>
+//       <Stack.Navigator screenOptions={{ headerShown: false }}>
+//         <Stack.Screen name="start" component={StartScreen} />
+//         <Stack.Screen
+//           name="login"
+//           component={LoginScreen}
+//           options={{
+//             title: "로그인",
+//             ...theme.headerOptions,
+//           }}
+//         />
+//         <Stack.Screen name="register" component={RegisterScreen} />
+//       </Stack.Navigator>
+//     </NavigationContainer>
+//   );
+// };
+
+// export default App;
