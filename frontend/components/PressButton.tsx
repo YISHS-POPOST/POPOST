@@ -1,15 +1,22 @@
-import { Pressable, StyleSheet } from "react-native";
-import theme from "../../theme";
-import { BoldText } from "../Text";
+import {
+  Pressable,
+  StyleSheet,
+  StyleProp,
+  PressableProps,
+} from "react-native";
+import theme from "../theme";
+import { BoldText } from "./Text";
 import { useState } from "react";
 
-interface propsType {
-  backgroundColor: string;
+interface propsType extends PressableProps {
   content: string;
+  style: StyleProp<any>;
+  textStyle: StyleProp<any>;
+  onPress?: () => void;
 }
 
-const StartPressButton = (props: propsType) => {
-  const { backgroundColor, content } = props;
+const PressButton = (props: propsType) => {
+  const { style, content, textStyle, onPress } = props;
   const [pressed, setPressed] = useState<boolean>(false);
 
   return (
@@ -19,7 +26,8 @@ const StartPressButton = (props: propsType) => {
         theme.pt2,
         theme.pb2,
         styles.button,
-        { backgroundColor, opacity: pressed ? 0.5 : 1 },
+        style,
+        { opacity: pressed ? 0.5 : 1 },
         theme.mt1,
         theme.mb1,
       ]}
@@ -27,13 +35,14 @@ const StartPressButton = (props: propsType) => {
         setPressed(true);
       }}
       onPress={() => {
+        if (onPress) onPress();
         setPressed(false);
       }}
       onPressOut={() => {
         setPressed(false);
       }}
     >
-      <BoldText style={[theme.fontXl, styles.buttonText]}>{content}</BoldText>
+      <BoldText style={[theme.fontXl, textStyle]}>{content}</BoldText>
     </Pressable>
   );
 };
@@ -43,11 +52,8 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   button: {
-    borderRadius: 100,
-  },
-  buttonText: {
-    color: "#fff",
+    borderRadius: 13,
   },
 });
 
-export default StartPressButton;
+export default PressButton;
