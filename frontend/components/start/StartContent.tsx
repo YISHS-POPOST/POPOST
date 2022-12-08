@@ -1,19 +1,21 @@
 import { StyleSheet, View } from "react-native";
 import StartContentText from "./StartContentText";
 import StartContentButton from "./StartContentButton";
+import {ProfileScreenNavigationProp} from "../../types/NavigateType";
 
-const StartContent = () => {
+
+const StartContent = ({navigation} : ProfileScreenNavigationProp) => {
   return (
     <View style={styles.container}>
       <StartContentText />
-      <StartContentButton />
+      <StartContentButton navigation={navigation} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 6,
+    flex: 1,
   },
 });
 
