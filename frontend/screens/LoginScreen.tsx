@@ -9,7 +9,7 @@ const LoginScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   // 비율 1 : 3 : 2
 
   return (
-    <SafeAreaView style={[styles.container , theme.container]}>
+    <SafeAreaView style={[theme.container]}>
       <LoginLogo />
       <LoginForm />
       <LoginOther />
@@ -18,9 +18,6 @@ const LoginScreen = ({ navigation }: ProfileScreenNavigationProp) => {
 };
 
 const styles = StyleSheet.create({
-  container : {
-    flex : 1,
-  }
 });
 
 export default LoginScreen;

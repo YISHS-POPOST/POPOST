@@ -20,7 +20,14 @@ const App = () => {
             ...theme.headerOptions,
           }}
         />
-        <Stack.Screen name="register" component={RegisterScreen} />
+        <Stack.Screen
+          name="register"
+          component={RegisterScreen}
+          options={{
+            title: "회원가입",
+            ...theme.headerOptions,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

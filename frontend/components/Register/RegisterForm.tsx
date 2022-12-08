@@ -23,7 +23,7 @@ const RegistarForm = () => {
                 <PressButton
                     style={styles.buttonLogin}
                     textStyle={styles.buttonLoginText}
-                    content="로그인"
+                    content="회원가입"
                 />
             </View>
         </View>
@@ -36,7 +36,9 @@ const styles = StyleSheet.create({
         backgroundColor: "#fff",
         ...theme.mb2,
         ...theme.flexDirectionRow, 
-        ...theme.alignItemsCenter
+        ...theme.alignItemsCenter,
+        borderWidth : 1.4,
+        borderColor : '#ddd',
     },
     input: {
         height: 60,        
@@ -45,6 +47,7 @@ const styles = StyleSheet.create({
         ...theme.fontBase,
         ...theme.ml1,
         color: "#000",
+        width : '100%'
         
     },
     buttonLogin: {
