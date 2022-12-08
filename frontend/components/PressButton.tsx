@@ -42,7 +42,7 @@ const PressButton = (props: propsType) => {
         setPressed(false);
       }}
     >
-      <BoldText style={[theme.fontXl, textStyle]}>{content}</BoldText>
+      <BoldText style={[theme.fontLg, textStyle, styles.textStyle]}>{content}</BoldText>
     </Pressable>
   );
 };
@@ -53,6 +53,9 @@ const styles = StyleSheet.create({
   },
   button: {
     borderRadius: 13,
+  },
+  textStyle: {
+    letterSpacing: -0.5
   },
 });
 
