@@ -1,16 +1,19 @@
 import { StyleSheet } from "react-native";
+import { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 
 const colors = {
   red: "#F0305E",
   blue: "#164AFF",
   softBlue: "#DDE1F2",
   purple: "#7C42FF",
-  backgroundWhite: "#C9D4ED",
+  backgroundWhite: "#F6F7FB",
 };
 
 const verticalContainer = {
   base: 25,
 };
+
+
 
 const styles = StyleSheet.create({
   fontSmall: {
@@ -206,10 +209,24 @@ const styles = StyleSheet.create({
   },
 });
 
+const headerOptions: NativeStackNavigationOptions = {
+  headerShown: true,
+  headerTitleAlign: "center",
+  headerTitleStyle: styles.fontWeightBold,
+  contentStyle: {
+    backgroundColor: colors.backgroundWhite,
+  },
+  headerStyle : {
+    backgroundColor : colors.backgroundWhite,
+  },
+  headerShadowVisible : false,
+};
+
 const theme = {
   colors,
   verticalContainer,
   ...styles,
+  headerOptions,
 };
 
 export default theme;
