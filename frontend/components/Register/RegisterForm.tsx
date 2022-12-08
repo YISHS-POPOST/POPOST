@@ -1,46 +1,57 @@
-import { useState } from 'react';
-import { View, StyleSheet, TextInput, Pressable } from "react-native";
-
+import { View, StyleSheet, TextInput } from "react-native";
 import theme from "../../theme";
-import {BoldText, RegularText} from "../../components/Text";
+import PressButton from "../PressButton";
+import Feather from 'react-native-vector-icons/Feather';
 
 
 const RegistarForm = () => {
     return (
         <View>
-            <View style={[styles.inputBorder, theme.mb2]}>
-                <TextInput placeholder="Id" style={[theme.fontBase, styles.input, theme.ml2]} placeholderTextColor={"#9b9b9b"} />
+            <View style={[styles.inputBorder]}>
+                <Feather name="user" size={20} style={theme.ml2} color={"#ccc"}/>    
+                <TextInput placeholder="Id" style={[styles.input]} placeholderTextColor={"#ccc"} />
             </View>
             <View style={[styles.inputBorder, theme.mb2]}>
-                <TextInput placeholder="Email address" style={[theme.fontBase, styles.input, theme.ml2]} placeholderTextColor={"#9b9b9b"} />
+                <Feather name="mail" size={20} style={theme.ml2} color={"#ccc"}/>
+                <TextInput placeholder="Email address" style={[styles.input]} placeholderTextColor={"#ccc"} />
             </View>
             <View style={[styles.inputBorder, theme.mb1]}>
-                <TextInput placeholder="Password" style={[theme.fontBase, styles.input, theme.ml2]} placeholderTextColor={"#9b9b9b"} />
+                <Feather name="lock" size={20} style={theme.ml2} color={"#ccc"}/>
+                <TextInput placeholder="Password" style={[styles.input]} placeholderTextColor={"#ccc"} />
             </View>
             <View>
-                <Pressable style={[styles.button, theme.alignItemsCenter, theme.pt2, theme.pb2,theme.mt1, theme.mb1,]}>
-                    <BoldText style={[theme.fontBase, styles.text]}>Sign Up</BoldText>
-                </Pressable>
+                <PressButton
+                    style={styles.buttonLogin}
+                    textStyle={styles.buttonLoginText}
+                    content="로그인"
+                />
             </View>
         </View>
     );
 }
 
 const styles = StyleSheet.create({
-    button: {
-        backgroundColor: theme.colors.purple,
+    inputBorder : {
         borderRadius: 15,
-    },
-    text: {
-        color: "#fff", 
+        backgroundColor: "#fff",
+        ...theme.mb2,
+        ...theme.flexDirectionRow, 
+        ...theme.alignItemsCenter
     },
     input: {
         height: 60,        
         letterSpacing: -0.5, 
+        ...theme.fontWeightBold,
+        ...theme.fontBase,
+        ...theme.ml1,
+        color: "#000",
+        
     },
-    inputBorder : {
-        borderRadius: 15,
-        backgroundColor: "#fff",
+    buttonLogin: {
+        backgroundColor: theme.colors.purple,
+      },
+    buttonLoginText: {
+    color: "#fff",
     },
 });
 
