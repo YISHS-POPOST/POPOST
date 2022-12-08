@@ -1,13 +1,27 @@
 import { StyleSheet, View, Pressable } from "react-native";
 import theme from "../../theme";
-import { BoldText } from "../Text";
-import StartPressButton from "./StartPressButton";
+import PressButton from "../PressButton";
+import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 
-const StartContentButton = () => {
+const StartContentButton = ({navigation} : ProfileScreenNavigationProp) => {
   return (
     <View style={[styles.container, theme.flexDirectionColumn]}>
-      <StartPressButton backgroundColor={theme.colors.blue} content="로그인" />
-      <StartPressButton backgroundColor={theme.colors.red} content="회원가입" />
+      <PressButton
+        style={styles.buttonLogin}
+        textStyle={styles.buttonLoginText}
+        content="로그인"
+        onPress={() => {
+          navigation.navigate("login");
+        }}
+      />
+      <PressButton
+        style={styles.buttonRegister}
+        textStyle={styles.buttonRegisterText}
+        content="아직 회원이 아니신가요?"
+        onPress={() => {
+          navigation.navigate("register");
+        }}
+      />
     </View>
   );
 };
@@ -22,11 +36,19 @@ const styles = StyleSheet.create({
   buttonText: {
     color: "#fff",
   },
-  buttonRed: {
-    backgroundColor: theme.colors.red,
+  buttonLogin: {
+    backgroundColor: theme.colors.purple,
   },
-  buttonBlue: {
-    backgroundColor: theme.colors.blue,
+  buttonRegister: {
+    backgroundColor: "#fff",
+    borderColor: theme.colors.purple,
+    borderWidth: 1,
+  },
+  buttonLoginText: {
+    color: "#fff",
+  },
+  buttonRegisterText: {
+    color: theme.colors.purple,
   },
 });
 

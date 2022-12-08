@@ -4,13 +4,13 @@ import theme from "../theme";
 import StartHeader from "../components/start/StartHeader";
 import StartImage from "../components/start/StartImage";
 import StartContent from "../components/start/StartContent";
+import {ProfileScreenNavigationProp} from "../types/NavigateType";
 
-const StartScreen = () => {
+const StartScreen = ({navigation} : ProfileScreenNavigationProp) => {
   return (
     <SafeAreaView style={[theme.container , styles.background]}>
-      <StartHeader />
       <StartImage />
-      <StartContent />
+      <StartContent navigation={navigation} />
     </SafeAreaView>
   );
 };
