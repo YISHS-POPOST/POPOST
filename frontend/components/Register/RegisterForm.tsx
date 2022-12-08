@@ -1,45 +1,46 @@
 import { useState } from 'react';
-import { View, StyleSheet, SafeAreaView, TextInput, Button, TouchableOpacity, Text, Alert } from "react-native";
+import { View, StyleSheet, TextInput, Pressable } from "react-native";
 
 import theme from "../../theme";
-import {BoldText} from "../../components/Text";
+import {BoldText, RegularText} from "../../components/Text";
 
 
 const RegistarForm = () => {
-    const [register, setRegister] = useState({id: "", email: "", password: ""});
-
-    const RegisterAction = () => {
-        return Alert.alert("Register", "성공적으로 회원가입하셨습니다!", [{text : "확인"}]);
-    }
-
     return (
-        <>
-            <View style={styles.inputBorder}>
-                <TextInput placeholder="Id" style={[theme.mt5, theme.fontLg]} />
+        <View>
+            <View style={[styles.inputBorder, theme.mb2]}>
+                <TextInput placeholder="Id" style={[theme.fontBase, styles.input, theme.ml2]} placeholderTextColor={"#9b9b9b"} />
             </View>
-            <View style={styles.inputBorder}>
-                <TextInput placeholder="Email" style={[theme.mt5, theme.fontLg]} />
+            <View style={[styles.inputBorder, theme.mb2]}>
+                <TextInput placeholder="Email address" style={[theme.fontBase, styles.input, theme.ml2]} placeholderTextColor={"#9b9b9b"} />
             </View>
-            <View style={styles.inputBorder}>
-                <TextInput placeholder="Password" style={[theme.mt5, theme.fontLg]} />
+            <View style={[styles.inputBorder, theme.mb1]}>
+                <TextInput placeholder="Password" style={[theme.fontBase, styles.input, theme.ml2]} placeholderTextColor={"#9b9b9b"} />
             </View>
-            <TouchableOpacity style={[styles.button, theme.mt5, theme.alignItemsCenter]} activeOpacity={0.8} onPress={RegisterAction}>
-                <BoldText style={{color: theme.colors.blue}}>SIGN UP</BoldText>
-            </TouchableOpacity>
-        </>
+            <View>
+                <Pressable style={[styles.button, theme.alignItemsCenter, theme.pt2, theme.pb2,theme.mt1, theme.mb1,]}>
+                    <BoldText style={[theme.fontBase, styles.text]}>Sign Up</BoldText>
+                </Pressable>
+            </View>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    inputBorder : {
-        borderBottomWidth: 2,
-        borderBottomColor: theme.colors.blue,
-        borderStyle: "solid",
-    },
     button: {
-        borderRadius: 4,
-        backgroundColor: theme.colors.softBlue,
-        padding: 10
+        backgroundColor: theme.colors.purple,
+        borderRadius: 15,
+    },
+    text: {
+        color: "#fff", 
+    },
+    input: {
+        height: 60,        
+        letterSpacing: -0.5, 
+    },
+    inputBorder : {
+        borderRadius: 15,
+        backgroundColor: "#fff",
     },
 });
 

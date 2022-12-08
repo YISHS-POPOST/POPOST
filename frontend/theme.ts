@@ -4,10 +4,11 @@ const colors = {
   red: "#F0305E",
   blue: "#164AFF",
   softBlue: "#DDE1F2",
+  purple: "#7c42ff",
 };
 
 const verticalContainer = {
-  base: 15,
+  base: 25,
 };
 
 const styles = StyleSheet.create({
