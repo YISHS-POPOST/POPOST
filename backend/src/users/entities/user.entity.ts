@@ -1,10 +1,10 @@
 import { Entity, PrimaryColumn, Column } from 'typeorm';
 
-@Entity('users')
+@Entity({name : 'users'})
 export class Users {
-    @PrimaryColumn()
+    @Column()
     id : string;
-
+    
     @Column()
     password : string;
 
