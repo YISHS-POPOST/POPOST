@@ -16,8 +16,8 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post("/register")
-  create() {
-    return true;
+  asdfasdf(@Body() data:any) {
+    console.log(data);
   }
 
   @Post("/login")
