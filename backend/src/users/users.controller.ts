@@ -15,9 +15,7 @@ import { Users } from './entities/user.entity';
 
 @Controller("users")
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {
-    this.usersService = usersService;
-  }
+  constructor(private readonly UsersService: UsersService) {}
 
   @Post("/register/:userId")
   async register() {
@@ -26,8 +24,7 @@ export class UsersController {
 
   @Post("/login")
   async login(@Body() body: any) {
-    console.log(body);
-    return body;
+    return this.UsersService.findOne('test1');
   }
 
   // @Post()

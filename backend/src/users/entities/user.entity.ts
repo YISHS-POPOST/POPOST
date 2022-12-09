@@ -1,13 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm/index';
 
-@Entity('users')
+@Entity({name : 'users'})
 export class Users {
     @PrimaryGeneratedColumn('rowid')
     id : number;
-
-    @Column()
-    user_id : string;
-
+    
     @Column()
     password : string;
 
