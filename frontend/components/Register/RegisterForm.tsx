@@ -21,7 +21,7 @@ const RegistarForm = () => {
             
         })
     }
-
+    
     const targetInputChange = (key: string, val: string) => {
         setUser(prev => ({
           ...prev,
