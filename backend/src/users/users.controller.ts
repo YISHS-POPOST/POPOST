@@ -13,7 +13,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 
 @Controller("users")
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly UsersService: UsersService) {}
 
   @Post("/register")
   asdfasdf(@Body() data:any) {
@@ -22,8 +22,7 @@ export class UsersController {
 
   @Post("/login")
   async login(@Body() body: any) {
-    console.log(body);
-    return body;
+    return this.UsersService.findOne('test1');
   }
 
   // @Post()
