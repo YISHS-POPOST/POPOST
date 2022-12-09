@@ -5,7 +5,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import { useState, useCallback } from 'react';
 import axios from 'axios';
 
-type RegisterUser = {
+interface RegisterUser {
     id:string;
     password:string;
     email:string;
@@ -17,16 +17,16 @@ const RegistarForm = () => {
     const [user, setUser] = useState<RegisterUser>({id: "", password: "", email: "", name: "", phone: ""});
 
     const registerAction = async () => {
-
-        // await axios.post(`http://localhost:3000/users/register`, user).then((res:any) => {
-        //     console.log(res);
-        //     Alert.alert(res);
-        // })
-
-        await fetch('http://10.0.0.2:3000/users/register' , {
-            method : 'POST',
-            body : JSON.stringify(user),
-        }).then(res => console.log(res)).catch(err => console.log(err))
+        await fetch("http://10.0.2.2:3000/users/register", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            body: JSON.stringify(user),
+        }).then(res => {
+            console.log(res);
+        });
     }
     
     const targetInputChange = (key: string, val: string) => {
@@ -46,7 +46,7 @@ const RegistarForm = () => {
             </View>
             <View style={[styles.inputBorder, theme.mb1]}>
                 <Feather name="lock" size={20} style={theme.ml2} color={"#ccc"}/>
-                <TextInput placeholder="Password" style={[styles.input]} placeholderTextColor={"#ccc"} onChangeText={(text) => targetInputChange("password", text)} />
+                <TextInput placeholder="Password" style={[styles.input]} placeholderTextColor={"#ccc"} onChangeText={(text) => targetInputChange("password", text)} secureTextEntry={true} />
             </View>
             <View style={[styles.inputBorder, theme.mb1]}>
                 <Feather name="mail" size={20} style={theme.ml2} color={"#ccc"}/>

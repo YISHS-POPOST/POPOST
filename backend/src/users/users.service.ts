@@ -9,26 +9,30 @@ import { InjectRepository } from "@nestjs/typeorm";
 export class UsersService {
   constructor(
     @InjectRepository(Users)
-    private readonly repository: Repository<Users>,
+    private readonly UsersRepository: Repository<Users>
   ) {}
-  create(createUserDto: CreateUserDto) {
-    return "This action adds a new user";
+
+  register(id: string) {
+    return this.UsersRepository.find();
   }
 
-  findAll() {
-    return `This action returns all users`;
-  }
+  // create(createUserDto: CreateUserDto) {
+  //   return 'This action adds a new user';
+  // }
 
-  findOne(id: string) {
+  // findAll() {
+  //   return `This action returns all users`;
+  // }
 
-    return this.repository.find();
-  }
+  // findOne(id: number) {
+  //   return `This action returns a #${id} user`;
+  // }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
+  // update(id: number, updateUserDto: UpdateUserDto) {
+  //   return `This action updates a #${id} user`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} user`;
+  // }
 }
