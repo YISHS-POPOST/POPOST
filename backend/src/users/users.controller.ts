@@ -10,21 +10,25 @@ import {
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
-
-import { Users } from './entities/user.entity';
+import { Users } from "./entities/user.entity";
+import { Repository } from "typeorm";
 
 @Controller("users")
 export class UsersController {
-  constructor(private readonly UsersService: UsersService) {}
+  constructor(
+    private readonly UsersService: UsersService,
+  ) {}
 
   @Post("/register/:userId")
   async register() {
-    return this.usersService.findAll();
+    // return this.UsersService.findAll();
   }
 
   @Post("/login")
-  async login(@Body() body: any) {
-    return this.UsersService.findOne('test1');
+  async login(@Body() body: any)  {
+    const {id} = body;
+    const findUser = await this.UsersService.findOne(id);
+    return findUser;
   }
 
   // @Post()
