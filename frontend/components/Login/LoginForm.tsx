@@ -24,7 +24,7 @@ const LoginForm = () => {
   };
 
   const loginAction = async () => {
-    await fetch("http://10.0.2.2:3000/users/login", {
+    await fetch("/users/login", {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -32,7 +32,7 @@ const LoginForm = () => {
       },
       body: JSON.stringify(user),
     }).then(res => {
-      console.log(res);
+      console.log(res.json());
     });
   };
   

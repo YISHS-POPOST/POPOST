@@ -16,6 +16,10 @@ export class UsersService {
     return this.UsersRepository.find();
   }
 
+  async findOne(id : string) : Promise<Users>{
+    return await this.UsersRepository.findOneBy({id});
+  }
+
   // create(createUserDto: CreateUserDto) {
   //   return 'This action adds a new user';
   // }
