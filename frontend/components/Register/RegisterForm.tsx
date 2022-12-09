@@ -1,8 +1,8 @@
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput, Alert } from "react-native";
 import theme from "../../theme";
 import PressButton from "../PressButton";
 import Feather from 'react-native-vector-icons/Feather';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import axios from 'axios';
 
 type RegisterUser = {
@@ -16,10 +16,17 @@ type RegisterUser = {
 const RegistarForm = () => {
     const [user, setUser] = useState<RegisterUser>({id: "", password: "", email: "", name: "", phone: ""});
 
-    const registerAction = () => {
-        axios.post("http://localhost:3000/register", user).then((res:any) => {
-            
-        })
+    const registerAction = async () => {
+
+        // await axios.post(`http://localhost:3000/users/register`, user).then((res:any) => {
+        //     console.log(res);
+        //     Alert.alert(res);
+        // })
+
+        await fetch('http://10.0.0.2:3000/users/register' , {
+            method : 'POST',
+            body : JSON.stringify(user),
+        }).then(res => console.log(res)).catch(err => console.log(err))
     }
 
     const targetInputChange = (key: string, val: string) => {
@@ -29,7 +36,7 @@ const RegistarForm = () => {
         }));
     };
 
-    console.log(user);
+    // console.log(user);
 
     return (
         <View>
