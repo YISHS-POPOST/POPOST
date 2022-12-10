@@ -11,7 +11,7 @@ import { ProfileScreenNavigationProp } from "../../types/NavigateType";
         textStyle={styles.buttonLoginText}
         content="로그인"
         onPress={() => {
-          navigation.navigate("login");
+          navigation.navigate("Login");
         }}
       />
       <PressButton
@@ -19,7 +19,7 @@ import { ProfileScreenNavigationProp } from "../../types/NavigateType";
         textStyle={styles.buttonRegisterText}
         content="아직 회원이 아니신가요?"
         onPress={() => {
-          navigation.navigate("register");
+          navigation.navigate("Register");
         }}
       />
     </View>

@@ -29,8 +29,8 @@ export class UsersService {
     await this.UsersRepository.save(user);
   }
 
-  async findOne(id : string){
-    return await this.UsersRepository.findOneBy({id});
+  async findUser(id : string , password : string){
+    return await this.UsersRepository.findOneBy({id , password});
   }
 
   // create(createUserDto: CreateUserDto) {
