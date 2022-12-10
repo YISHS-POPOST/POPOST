@@ -32,8 +32,8 @@ export class UsersController {
 
   @Post("/login")
   async login(@Body() body: any)  {
-    const {id} = body;
-    const findUser = await this.UsersService.findOne(id);
+    const {id , password} = body;
+    const findUser = await this.UsersService.findUser(id , password);
     return findUser;
   }
 

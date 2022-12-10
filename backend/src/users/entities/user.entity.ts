@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm/i
 
 @Entity({ name: "users" })
 export class User {
-  @PrimaryGeneratedColumn('rowid')
+  @PrimaryColumn()
   id: string;
 
   @Column()

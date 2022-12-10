@@ -11,7 +11,7 @@ const LoginScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   return (
     <SafeAreaView style={[theme.container]}>
       <LoginLogo />
-      <LoginForm />
+      <LoginForm navigation={navigation} />
       <LoginOther />
     </SafeAreaView>
   );

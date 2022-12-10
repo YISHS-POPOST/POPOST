@@ -4,13 +4,17 @@ import { BoldText, RegularText } from "../Text";
 import PressButton from "../PressButton";
 import Feather from "react-native-vector-icons/Feather";
 import { useState } from "react";
+import axios, { ResponseType } from "axios";
+import { UserType } from "../../types/UserInformationType";
+import { ProfileScreenNavigationProp } from "../../types/NavigateType";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface LoginUser {
   id: string;
   password: string;
 }
 
-const LoginForm = () => {
+const LoginForm = ({ navigation }: ProfileScreenNavigationProp) => {
   const [user, setUser] = useState<LoginUser>({
     id: "",
     password: "",
@@ -24,18 +28,17 @@ const LoginForm = () => {
   };
 
   const loginAction = async () => {
-    await fetch("/users/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    }).then(res => {
-      console.log(res.json());
-    });
+    const findUser: UserType | Error = await axios
+      .post("http://10.0.2.2:3000/users/login", user)
+      .then(res => {
+        AsyncStorage.setItem("user_id", res.data.id);
+        navigation.replace("DrawerNavigationRoutes");
+      })
+      .catch(err => err);
+
+    console.log(findUser);
   };
-  
+
   return (
     <View
       style={[
