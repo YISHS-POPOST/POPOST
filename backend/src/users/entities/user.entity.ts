@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, PrimaryColumn } from 'typeorm/index';
 
 @Entity({ name: "users" })
-export class Users {
-  @PrimaryColumn()
+export class User {
+  @PrimaryGeneratedColumn('rowid')
   id: string;
 
   @Column()

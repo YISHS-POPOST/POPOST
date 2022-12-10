@@ -10,7 +10,7 @@ import {
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
-import { Users } from "./entities/user.entity";
+import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 
 @Controller("users")
@@ -19,10 +19,16 @@ export class UsersController {
     private readonly UsersService: UsersService,
   ) {}
 
-  @Post("/register/:userId")
-  async register() {
-    // return this.UsersService.findAll();
+  @Post()
+  async test() {
+    return this.UsersService.find(); 
   }
+
+  @Post("/register")
+  async register(@Body() userData: CreateUserDto) {
+    return this.UsersService.create(userData);
+  }
+
 
   @Post("/login")
   async login(@Body() body: any)  {
