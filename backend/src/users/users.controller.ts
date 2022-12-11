@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  Req,
+  Res,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -19,21 +21,15 @@ export class UsersController {
     private readonly UsersService: UsersService,
   ) {}
 
-  @Post()
-  async test() {
-    return this.UsersService.find(); 
-  }
-
   @Post("/register")
-  async register(@Body() userData: CreateUserDto) {
+  async register(@Res() res: any, @Body() userData: CreateUserDto) {
     return this.UsersService.create(userData);
   }
 
-
   @Post("/login")
   async login(@Body() body: any)  {
-    const {id} = body;
-    const findUser = await this.UsersService.findOne(id);
+    const {id , password} = body;
+    const findUser = await this.UsersService.findUser(id , password);
     return findUser;
   }
 
