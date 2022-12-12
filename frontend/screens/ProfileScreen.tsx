@@ -5,7 +5,7 @@ import theme from '../theme';
 const ProfileScreen = () => {
     return (
         <SafeAreaView style={[styles.container , theme.pt4 , theme.pb4 , theme.container]}>
-            <Image  source={require('../assets/image/profile/test_profile.jpg')} style={[styles.image]} />
+            <Image source={require('../assets/image/profile/test_profile.jpg')} style={[styles.image]} />
         </SafeAreaView>
     );
 }
