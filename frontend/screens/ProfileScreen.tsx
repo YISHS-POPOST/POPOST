@@ -1,17 +1,17 @@
-import ProfileInformation from "../components/profile/ProfileInformation";
-import { SafeAreaView, StyleSheet , View} from "react-native";
+import { SafeAreaView, StyleSheet, View, ScrollView } from "react-native";
 import theme from "../theme";
-import ProfileInfoItem from "../components/profile/ProfileInfoItem";
+import ProfileItems from "../components/profile/ProfileItems";
+import ProfileInformation from "../components/profile/ProfileInformation";
+import ProfileActivities from "../components/profile/ProfileActivities";
 
 
 const ProfileScreen = () => {
   return (
-    <SafeAreaView style={[styles.container, theme.pb4]}>
+    <ScrollView style={[styles.container, theme.pb4]}>
       <ProfileInformation />
-      <View style={[theme.container , theme.mt3]}>
-        <ProfileInfoItem />
-      </View>
-    </SafeAreaView>
+      <ProfileItems />
+      <ProfileActivities />
+    </ScrollView>
   );
 };
 
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: theme.colors.backgroundWhite,
   },
-  
 });
 
 export default ProfileScreen;

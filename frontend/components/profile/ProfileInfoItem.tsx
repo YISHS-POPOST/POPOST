@@ -6,8 +6,6 @@ import { IconProps } from "react-native-vector-icons/Icon";
 
 // 아이콘 , 타이틀 , 계
 
-
-
 interface InfoItem {
   icon: IconProps;
   title: string;
@@ -28,18 +26,21 @@ const ProfileInfoItem = ({ icon, title, total, unit }: InfoItem) => {
         theme.justifyContentBetween,
         theme.alignItemsCenter,
         theme.sectionBorderRadius,
+        theme.mb3,
       ]}
     >
       <View style={[theme.flexDirectionRow, theme.alignItemsCenter]}>
-        <Feather
-          name={icon}
-          color={theme.colors.blue}
-          size={25}
-          style={[theme.p1]}
-        />
+        <Feather {...icon} size={25} style={[theme.p1]} />
         <BoldText style={[theme.fontXl, styles.infoTitle]}>{title}</BoldText>
       </View>
-      <RegularText style={[theme.fontLg]}>{`${total}${unit}`}</RegularText>
+      <View style={[theme.alignItemsCenter, theme.flexDirectionRow]}>
+        <BoldText
+          style={[theme.fontLg, styles.totalText]}
+        >{`${total.toLocaleString()}`}</BoldText>
+        <BoldText style={[styles.unitText, theme.fontXl, theme.ml1]}>
+          {unit}
+        </BoldText>
+      </View>
     </View>
   );
 };
@@ -50,6 +51,13 @@ const styles = StyleSheet.create({
     height: 80,
   },
   infoTitle: {
+    color: "#333",
+  },
+  totalText: {
+    color: "#333/",
+    letterSpacing: -1,
+  },
+  unitText: {
     color: "#333",
   },
 });
