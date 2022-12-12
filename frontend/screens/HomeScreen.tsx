@@ -1,7 +1,24 @@
-import { View , Text} from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
+import { BoldText } from '../components/Text';
 
-const MainScreen = () => {
-    return <View><Text>로그인 완료 메인화면 구현바람.</Text></View>;
+import HomeNote from '../components/Home/HomeNote';
+
+import theme from '../theme';
+
+const HomeScreen = () => {
+    return (
+        <SafeAreaView style={theme.container}>
+            <BoldText style={[theme.fontTitleSize, styles.titleText, theme.mt3, theme.mb2]}>HOME</BoldText>
+            <HomeNote />
+        </SafeAreaView>
+    );
 }
 
-export default MainScreen;
+const styles = StyleSheet.create({
+    titleText: {
+        color: "#000",
+        letterSpacing: -0.5,
+    }
+})
+
+export default HomeScreen;

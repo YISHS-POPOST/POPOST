@@ -52,6 +52,21 @@ const styles = StyleSheet.create({
   fontWeightThin: {
     fontFamily: "Pretendard-Thin",
   },
+  m1: {
+    margin: 7,
+  },
+  m2: {
+    margin: 14,
+  },
+  m3: {
+    margin: 21,
+  },
+  m4: {
+    margin: 28,
+  },
+  m5: {
+    margin: 35,
+  },
   mt1: {
     marginTop: 7,
   },
@@ -111,6 +126,21 @@ const styles = StyleSheet.create({
   },
   mr5: {
     marginRight: 35,
+  },
+  p1: {
+    padding: 7,
+  },
+  p2: {
+    padding: 14,
+  },
+  p3: {
+    padding: 21,
+  },
+  p4: {
+    padding: 28,
+  },
+  p5: {
+    padding: 35,
   },
   pt1: {
     paddingTop: 7,

@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native";
 
 import theme from "../theme";
 import {BoldText} from "../components/Text";

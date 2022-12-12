@@ -47,7 +47,7 @@ const Auth = () => {
 const Main = () => {
   return (
     <Tap.Navigator
-      initialRouteName="MainScreen"  screenOptions={{ headerShown: false }}
+      initialRouteName="MainScreen" screenOptions={{ headerShown: false }}
     >
       <Tap.Screen name="Home" component={HomeScreen} options={{
         title: '홈',
