@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import { BoldText } from '../components/Text';
-
+ 
 import HomeWeather from '../components/home/HomeWeather';
 import HomeCommunity from '../components/home/HomeCommunity';
 import HomeMessenger from '../components/home/HomeMessenger';
