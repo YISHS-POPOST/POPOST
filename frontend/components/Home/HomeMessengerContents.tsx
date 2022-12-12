@@ -2,7 +2,7 @@ import { View, StyleSheet, Image } from 'react-native';
 
 import theme from '../../theme';
 
-import { BoldText, RegularText } from '../../components/Text';
+import { BoldText, RegularText } from '../Text';
 
 const HomeMessengerContents = () => {
     return (

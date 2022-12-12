@@ -3,8 +3,8 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import theme from '../../theme';
-import { BoldText, RegularText } from '../../components/Text';
-import HomeCommunityContents from '../../components/Home/HomeCommunityContents'
+import { BoldText, RegularText } from '../Text';
+import HomeCommunityContents from './HomeCommunityContents'
 
 const HomeCommunity = () => {
     return (
