@@ -6,8 +6,6 @@ import StartLoading from "../components/loading/StartLoading";
 
 const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   //State for ActivityIndicator animation
-  const [animating, setAnimating] = useState(true);
-
   useEffect(() => {
     setTimeout(() => {
       //Check if user_id is set or not
