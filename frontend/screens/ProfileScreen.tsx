@@ -1,23 +1,25 @@
-import {SafeAreaView , Image, StyleSheet} from 'react-native';
-import theme from '../theme';
+import ProfileInformation from "../components/profile/ProfileInformation";
+import { SafeAreaView, StyleSheet , View} from "react-native";
+import theme from "../theme";
+import ProfileInfoItem from "../components/profile/ProfileInfoItem";
 
 
 const ProfileScreen = () => {
-    return (
-        <SafeAreaView style={[styles.container , theme.pt4 , theme.pb4 , theme.container]}>
-            <Image  source={require('../assets/image/profile/test_profile.jpg')} style={[styles.image]} />
-        </SafeAreaView>
-    );
-}
+  return (
+    <SafeAreaView style={[styles.container, theme.pb4]}>
+      <ProfileInformation />
+      <View style={[theme.container , theme.mt3]}>
+        <ProfileInfoItem />
+      </View>
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-    container : {
-        backgroundColor : '#fff',
-    },
-    image : {
-        width : 100,
-        height : 100,    
-    }
+  container: {
+    backgroundColor: theme.colors.backgroundWhite,
+  },
+  
 });
 
 export default ProfileScreen;

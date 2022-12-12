@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     flexDirection : 'row',
     flex : 1,
     width : '100%'
-  }
+  },
 });
 
 export default HomeHeader;
