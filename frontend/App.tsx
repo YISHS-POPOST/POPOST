@@ -14,6 +14,7 @@ import theme from "./theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeHeader from "./components/Home/HomeHeader";
+import ProfileHeader from "./components/profile/ProfileHeader";
 
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -52,6 +53,19 @@ const Main = () => {
       initialRouteName="MainScreen"
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          borderColor: "rgba(0,0,0,.1)",
+          backgroundColor: "#fff",
+          borderTopLeftRadius: 15,
+          borderTopRightRadius: 15,
+          height: 55,
+          borderWidth: 1,
+        },
+        tabBarLabelStyle: {
+          fontFamily: "Pretendard-Bold",
+          fontSize: 13,
+          letterSpacing: 1,
+        },
       }}
     >
       <Tap.Screen
@@ -63,7 +77,7 @@ const Main = () => {
             <Ionicons
               name={focused ? "ios-home" : "ios-home-outline"}
               color={color}
-              size={size}
+              size={23}
             />
           ),
           headerShown: true,
@@ -84,7 +98,7 @@ const Main = () => {
             <Ionicons
               name={focused ? "ios-map" : "ios-map-outline"}
               color={color}
-              size={size}
+              size={23}
             />
           ),
         }}
@@ -98,7 +112,7 @@ const Main = () => {
             <Ionicons
               name={focused ? "people" : "people-outline"}
               color={color}
-              size={size}
+              size={23}
             />
           ),
         }}
@@ -112,7 +126,7 @@ const Main = () => {
             <MaterialCommunityIcons
               name={focused ? "message-badge" : "message-badge-outline"}
               color={color}
-              size={size}
+              size={23}
             />
           ),
         }}
@@ -126,9 +140,11 @@ const Main = () => {
             <MaterialCommunityIcons
               name={focused ? "face-man" : "face-man-outline"}
               color={color}
-              size={size}
+              size={23}
             />
           ),
+          headerShown: true,
+          headerTitle: ProfileHeader,
         }}
       />
     </Tap.Navigator>
