@@ -1,8 +1,8 @@
 import { SafeAreaView, StyleSheet } from "react-native";
 import { BoldText } from '../components/Text';
 
-import HomeNote from '../components/Home/HomeNote';
-import HomeCommunity from '../components/Home/HomeCommunity';
+import HomeNote from '../components/home/HomeNote';
+import HomeCommunity from '../components/home/HomeCommunity';
 
 import theme from '../theme';
 

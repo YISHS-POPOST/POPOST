@@ -14,6 +14,9 @@ const verticalContainer = {
 };
 
 const styles = StyleSheet.create({
+  sectionBorderRadius : {
+    borderRadius : 15,
+  },
   fontSmall: {
     fontSize: 14,
   },

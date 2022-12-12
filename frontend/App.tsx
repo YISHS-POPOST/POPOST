@@ -13,7 +13,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import theme from "./theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import HomeHeader from "./components/Home/HomeHeader";
+import HomeHeader from "./components/home/HomeHeader";
 import ProfileHeader from "./components/profile/ProfileHeader";
 
 const Tap = createBottomTabNavigator();
@@ -82,9 +82,9 @@ const Main = () => {
           ),
           headerShown: true,
           headerStyle: {
-            backgroundColor : '#fff',
+            backgroundColor: "#fff",
             borderBottomColor: "rgba(0,0,0,.1)",
-            borderBottomWidth: .2,
+            borderBottomWidth: 0.2,
           },
           headerTitle: HomeHeader,
         }}
@@ -145,6 +145,7 @@ const Main = () => {
           ),
           headerShown: true,
           headerTitle: ProfileHeader,
+          headerShadowVisible: false,
         }}
       />
     </Tap.Navigator>
@@ -155,11 +156,11 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Tap.Screen
-            name="Main"
-            component={Main}
-            options={{ headerShown: false }}
-          />
+        <Tap.Screen
+          name="Main"
+          component={Main}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -171,7 +172,6 @@ const App = () => {
           component={Auth}
           options={{ headerShown: false }}
         />
-        
       </Stack.Navigator>
     </NavigationContainer>
   );
