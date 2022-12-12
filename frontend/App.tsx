@@ -9,9 +9,11 @@ import MessengerScreen from "./screens/MessengerScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/Ionicons';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import theme from "./theme";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import HomeHeader from "./components/home/HomeHeader";
 
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -47,47 +49,91 @@ const Auth = () => {
 const Main = () => {
   return (
     <Tap.Navigator
-      initialRouteName="MainScreen"  screenOptions={{ headerShown: false }}
+      initialRouteName="MainScreen"
+      screenOptions={{
+        headerShown: false,
+      }}
     >
-      <Tap.Screen name="Home" component={HomeScreen} options={{
-        title: '홈',
-        tabBarIcon: ({color, size}) => (
-          <Icon name="ios-home-outline" color={color} size={size} />
-        ),
-      }}
+      <Tap.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          title: "홈",
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons
+              name={focused ? "ios-home" : "ios-home-outline"}
+              color={color}
+              size={size}
+            />
+          ),
+          headerShown: true,
+          headerStyle: {
+            backgroundColor : 'rgba(0,0,0,0)',
+            borderBottomColor: "rgba(0,0,0,.5)",
+            borderBottomWidth: .2,
+          },
+          headerTitle: HomeHeader,
+        }}
       />
-      <Tap.Screen name="map" component={MapScreen} options={{
-        title: '지도',
-        tabBarIcon: ({color, size}) => (
-          <Icon name="map" color={color} size={size} />
-        ),
-      }}
+      <Tap.Screen
+        name="map"
+        component={MapScreen}
+        options={{
+          title: "지도",
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons
+              name={focused ? "ios-map" : "ios-map-outline"}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
       />
-      <Tap.Screen name="community" component={CommunityScreen} options={{
-        title: '커뮤니티',
-        tabBarIcon: ({color, size}) => (
-          <Icon name="community" color={color} size={size} />
-        ),
-      }}
+      <Tap.Screen
+        name="community"
+        component={CommunityScreen}
+        options={{
+          title: "커뮤니티",
+          tabBarIcon: ({ color, size, focused }) => (
+            <Ionicons
+              name={focused ? "people" : "people-outline"}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
       />
-      <Tap.Screen name="messenger" component={MessengerScreen} options={{
-        title: '메신저',
-        tabBarIcon: ({color, size}) => (
-          <Icon name="messenger" color={color} size={size} />
-        ),
-      }}
+      <Tap.Screen
+        name="messenger"
+        component={MessengerScreen}
+        options={{
+          title: "메신저",
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name={focused ? "message-badge" : "message-badge-outline"}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
       />
-      <Tap.Screen name="profile" component={ProfileScreen} options={{
-        title: '프로필',
-        tabBarIcon: ({color, size}) => (
-          <Icon name="profile" color={color} size={size} />
-        ),
-      }}
+      <Tap.Screen
+        name="profile"
+        component={ProfileScreen}
+        options={{
+          title: "프로필",
+          tabBarIcon: ({ color, size, focused }) => (
+            <MaterialCommunityIcons
+              name={focused ? "face-man" : "face-man-outline"}
+              color={color}
+              size={size}
+            />
+          ),
+        }}
       />
     </Tap.Navigator>
   );
-}
-
+};
 
 const App = () => {
   return (
