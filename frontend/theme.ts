@@ -40,6 +40,11 @@ const styles = StyleSheet.create({
     paddingLeft: verticalContainer.base,
     paddingRight: verticalContainer.base,
   },
+  mainContainer: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
   fontWeightBold: {
     fontFamily: "Pretendard-Bold",
   },
