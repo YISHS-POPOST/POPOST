@@ -2,7 +2,7 @@ import StartScreen from "./screens/StartScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SplashScreen from "./screens/SplashScreen";
-import MainScreen from "./screens/MainScreen";
+import HomeScreen from "./screens/HomeScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import theme from "./theme";
@@ -37,6 +37,16 @@ const Auth = () => {
   );
 };
 
+const Main = () => {
+  return (
+    <Stack.Navigator
+      initialRouteName="MainScreen"  screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="Home" component={HomeScreen} />
+    </Stack.Navigator>
+  );
+}
+
 
 const App = () => {
   return (
@@ -55,7 +65,7 @@ const App = () => {
         />
         <Stack.Screen
           name="Main"
-          component={MainScreen}
+          component={Main}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>
