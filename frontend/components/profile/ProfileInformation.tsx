@@ -14,7 +14,7 @@ const ProfileInformation = () => {
       </View>
       <View style={[theme.mb3, theme.mt3]}>
         <BlackText style={[styles.name]}>최시우스 주니오르</BlackText>
-        <RegularText style={[theme.fontBase]}>
+        <RegularText style={[theme.fontBase, styles.informationText]}>
           Creative director at @ui8.net Creative director at @ui8.net Creative
           director at @ui8.net
         </RegularText>
@@ -79,11 +79,15 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   messageBtn: {
-    backgroundColor: "#E6E8EA",
+    backgroundColor: theme.colors.blue,
     flex: 1,
   },
   messageText: {
-    color: "#333",
+    color: "#fff",
+  },
+  informationText: {
+    color: "#999",
+    letterSpacing: -1,
   },
 });
 
