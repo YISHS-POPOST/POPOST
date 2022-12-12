@@ -3,6 +3,8 @@ import {
   StyleSheet,
   StyleProp,
   PressableProps,
+  TextStyle,
+  ViewStyle,
 } from "react-native";
 import theme from "../theme";
 import { BoldText } from "./Text";
@@ -10,8 +12,8 @@ import { useState } from "react";
 
 interface propsType extends PressableProps {
   content: string;
-  style: StyleProp<any>;
-  textStyle: StyleProp<any>;
+  style: StyleProp<ViewStyle>;
+  textStyle: StyleProp<TextStyle>;
   onPress?: () => void;
 }
 
@@ -42,7 +44,9 @@ const PressButton = (props: propsType) => {
         setPressed(false);
       }}
     >
-      <BoldText style={[theme.fontLg, textStyle, styles.textStyle]}>{content}</BoldText>
+      <BoldText style={[theme.fontLg, textStyle, styles.textStyle]}>
+        {content}
+      </BoldText>
     </Pressable>
   );
 };
@@ -55,7 +59,7 @@ const styles = StyleSheet.create({
     borderRadius: 13,
   },
   textStyle: {
-    letterSpacing: -0.5
+    letterSpacing: -0.5,
   },
 });
 
