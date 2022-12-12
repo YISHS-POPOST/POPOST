@@ -1,19 +1,21 @@
 import { View, StyleSheet, Image } from 'react-native';
-
+ 
 import theme from '../../theme';
 
 import { BoldText, RegularText } from '../Text';
 
 const HomeMessengerContents = () => {
     return (
-        <View style={[theme.flexDirectionRow]}>
-            <Image source={require('../../assets/image/profile/test_profile.jpg')} style={[styles.image]} />
-            <View style={[theme.justifyContentBetween, theme.flexDirectionRow]}>
+        <View style={[theme.flexDirectionRow, theme.justifyContentBetween]}>
+            <View style={[theme.flexDirectionRow]}>
+                <Image source={require('../../assets/image/profile/test_profile.jpg')} style={[styles.image]} />
                 <View style={[theme.ml2, theme.mt1]}>
                     <RegularText style={[styles.nameText, theme.fontSmall]}>최시우스 주니오르</RegularText>
-                    <RegularText style={[styles.contentText, theme.fontSmall]}>메시지 좀 봐줄래 병123신아 ?...</RegularText>
+                    <RegularText style={[styles.contentText, theme.fontSmall]}>메세지 텍스트입니다...</RegularText>
                 </View>
-                <RegularText style={[styles.timeText, theme.fontSmall, theme.alignItemsEnd]}>19분 전</RegularText>
+            </View>
+            <View style={[theme.justifyContentCenter]}>
+                <RegularText style={[styles.timeText, theme.fontSmall, theme.justifyContentEnd]}>19분 전</RegularText>
             </View>
         </View>
     );
