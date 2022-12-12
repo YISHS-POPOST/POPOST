@@ -1,19 +1,16 @@
-import { View, StyleSheet, Text, SafeAreaView } from "react-native";
+import { View, StyleSheet } from "react-native";
 import theme from '../../theme';
 import { BoldText, RegularText } from '../../components/Text';
 
-const RegisterText = () => {
+import { ProfileScreenNavigationProp } from "../../types/NavigateType";
+
+const RegisterText = ({navigation} : ProfileScreenNavigationProp) => {
     return (
-        <View style={[theme.mt2, theme.alignItemsCenter]}>
-            <RegularText>회원가입을 하셨습니까?
-                <BoldText style={[{color: theme.colors.purple}]}>  로그인</BoldText>
-            </RegularText>
+        <View style={[theme.mt2, theme.flexDirectionRow, theme.justifyContentCenter]}>
+            <RegularText>회원가입을 하셨습니까?</RegularText>
+            <BoldText style={[{color: theme.colors.purple}]} onPress={() => navigation.navigate("login")}>  로그인</BoldText>
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    
-});
 
 export default RegisterText;

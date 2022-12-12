@@ -9,17 +9,11 @@ import RegisterForm from '../components/Register/RegisterForm';
 
 const RegistarScreen = () => {
     return (
-        <SafeAreaView style={[theme.container, styles.background]}>
+        <SafeAreaView style={[theme.container]}>
             <RegisterHeader />
             <RegisterContents />
         </SafeAreaView>
     );
 }
-
-const styles = StyleSheet.create({
-    background : {
-        backgroundColor: "#eee",
-    }
-});
 
 export default RegistarScreen;

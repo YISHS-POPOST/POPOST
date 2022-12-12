@@ -1,9 +1,9 @@
-import { StyleSheet, View, Pressable } from "react-native";
+import { StyleSheet, View } from "react-native";
 import theme from "../../theme";
 import PressButton from "../PressButton";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 
-const StartContentButton = ({navigation} : ProfileScreenNavigationProp) => {
+  const StartContentButton = ({navigation} : ProfileScreenNavigationProp) => {
   return (
     <View style={[styles.container, theme.flexDirectionColumn]}>
       <PressButton
@@ -11,7 +11,7 @@ const StartContentButton = ({navigation} : ProfileScreenNavigationProp) => {
         textStyle={styles.buttonLoginText}
         content="로그인"
         onPress={() => {
-          navigation.navigate("login");
+          navigation.navigate("Login");
         }}
       />
       <PressButton
@@ -19,7 +19,7 @@ const StartContentButton = ({navigation} : ProfileScreenNavigationProp) => {
         textStyle={styles.buttonRegisterText}
         content="아직 회원이 아니신가요?"
         onPress={() => {
-          navigation.navigate("register");
+          navigation.navigate("Register");
         }}
       />
     </View>
