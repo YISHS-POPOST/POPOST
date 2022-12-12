@@ -14,21 +14,14 @@ interface RegisterUser {
 }
 
 const RegistarForm = () => {
-    const [user, setUser] = useState<RegisterUser>({id: "", password: "", email: "", name: "", phone: ""});
+    const [user, setUser] = useState<RegisterUser>({
+        id: "", 
+        password: "", 
+        email: "", 
+        name: "", 
+        phone: ""
+    });
 
-    const registerAction = async () => {
-        await fetch("http://10.0.2.2:3000/users/register", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-              },
-            body: JSON.stringify(user),
-        }).then(res => {
-            console.log(res);
-        });
-    }
-    
     const targetInputChange = (key: string, val: string) => {
         setUser(prev => ({
           ...prev,
@@ -36,7 +29,14 @@ const RegistarForm = () => {
         }));
     };
 
-    // console.log(user);
+    const registerAction = async () => {
+        await axios
+            .post("http://10.0.2.2:3000/users/register", user)
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => err)
+    }
 
     return (
         <View>

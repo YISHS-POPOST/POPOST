@@ -1,9 +1,11 @@
-import { Injectable, Options } from "@nestjs/common";
+import { Injectable, Options, Res } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
+import { HttpException } from "@nestjs/common/exceptions";
+import { HttpStatus } from "@nestjs/common/enums";
 
 @Injectable()
 export class UsersService {
@@ -12,13 +14,21 @@ export class UsersService {
     private readonly UsersRepository: Repository<User>
   ) {}
 
-  async find() {
-    return this.UsersRepository.find();
-  }
-
   async create(userData: CreateUserDto) {
     const { id, password, email, name, phone } = userData;
 
+    const idCheck = await this.UsersRepository.findOneBy({id});
+    
+    if(idCheck) {
+        console.log(idCheck);
+        "중복입니다."
+        const error = {error: "에러입니다."};
+        throw new HttpException(
+          { message: 'Input data validation falied',  error},
+          HttpStatus.BAD_REQUEST,
+        );
+    }
+  
     const user = new User();
     user.id = id;
     user.password = password;
@@ -26,7 +36,8 @@ export class UsersService {
     user.name = name;
     user.phone = phone;
 
-    await this.UsersRepository.save(user);
+    return await this.UsersRepository.save(user);
+    
   }
 
   async findUser(id : string , password : string){
