@@ -15,6 +15,7 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeHeader from "./components/home/HomeHeader";
 import ProfileHeader from "./components/profile/ProfileHeader";
+import CommunityHeader from './components/community/CommunityHeader';
 
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -115,6 +116,10 @@ const Main = () => {
               size={23}
             />
           ),
+          headerShown: true,
+          headerTitle: CommunityHeader,
+          headerShadowVisible: false,
+          headerStyle: { height: 70 },
         }}
       />
       <Tap.Screen

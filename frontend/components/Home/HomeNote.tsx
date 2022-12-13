@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
         borderRadius: 15,
     },
     informationContainer: {
-        height: 180,
+        height: 190,
     },
     regText: {
         color: "#555", 

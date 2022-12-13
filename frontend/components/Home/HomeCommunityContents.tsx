@@ -8,12 +8,12 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const HomeCommunityContents = () => {
     {/*컴포넌트화 2개 들어와야함*/}
     return (
-        <View style={[theme.flexDirectionRow, theme.mb1, theme.justifyContentBetween]}>
-            <RegularText style={[styles.regText, theme.fontBase]}>제목 | 실시간 여수정보고 근황...</RegularText>
-            <View style={[theme.alignItemsCenter, theme.flexDirectionRow]}>
+        <View style={[theme.flexDirectionRow, theme.mb1, theme.justifyContentBetween, styles.container, theme.p1]}>
+            <RegularText style={[styles.regText, theme.fontBase, theme.pl1]}>실시간 여수정보고 근황...</RegularText>
+            <View style={[theme.alignItemsCenter, theme.flexDirectionRow, theme.pr1]}>
                 <AntDesign name="like2" size={13} style={styles.state}/>
                 <RegularText style={[styles.state]}>69</RegularText>
-                <MaterialCommunityIcons name="comment-outline" size={13} style={[styles.state, theme.ml2]}/>
+                <MaterialCommunityIcons name="comment-outline" size={13} style={[styles.state, theme.ml1]}/>
                 <RegularText style={[styles.state]}>10</RegularText>
             </View>
         </View>
@@ -21,11 +21,16 @@ const HomeCommunityContents = () => {
 }
 
 const styles = StyleSheet.create({
+    container: {
+        borderRadius: 10,
+        backgroundColor: "#333",
+    },
     state: {
-        color: "#777",
+        color: "#fff",
+        marginRight: 3,
     },
     regText: {
-        color: "#555", 
+        color: "#fff", 
         letterSpacing: -0.5,
     },
 })
