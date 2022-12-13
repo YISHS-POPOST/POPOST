@@ -1,17 +1,11 @@
-import { SafeAreaView, StyleSheet , ScrollView } from "react-native";
-import MessengerHeader from "../components/messenger/MessengerHeader";
+import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
 import MessengerList from "../components/messenger/MessengerList";
-import MessengerSearch from "../components/messenger/MessengerSearch";
-import theme from "../theme";
+import { ProfileScreenNavigationProp } from "../types/NavigateType";
 
-const MessengerScreen = () => {
+const MessengerScreen = ({navigation} : ProfileScreenNavigationProp) => {
   return (
-    <SafeAreaView style={[theme.container, styles.container]}>
-      <ScrollView >
-        <MessengerHeader />
-        <MessengerSearch />
-        <MessengerList />
-      </ScrollView>
+    <SafeAreaView style={[styles.container]}>
+      <MessengerList navigation={navigation} />
     </SafeAreaView>
   );
 };

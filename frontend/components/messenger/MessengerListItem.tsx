@@ -1,15 +1,39 @@
-import { View, StyleSheet, Image, ImageSourcePropType } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity } from "react-native";
 import theme from "../../theme";
 import { BoldText, RegularText } from "../Text";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemInterface } from "../../types/MessengerType";
+import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 
+interface ListInterface extends ItemInterface {
+  navigation: ProfileScreenNavigationProp;
+}
 
 // 사진 , 상태 , 이름 , 확인 , 시간 , 마지막 메신저
-const MessengerListItem = ({image , state , name , check , time , content}  : ItemInterface) => {
+
+const MessengerListItem = ({
+  image,
+  state,
+  name,
+  check,
+  time,
+  content,
+  navigation,
+}: ListInterface) => {
+  const nowDate = new Date();
+  const timeTxt =
+    time.getDate() === nowDate.getDate() &&
+    time.getMonth() === nowDate.getMonth()
+      ? `${time.getHours()}:${
+          time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()
+        }`
+      : time.getDate() === nowDate.getDate() - 1 &&
+        time.getMonth() === nowDate.getMonth()
+      ? "Yesterday"
+      : `${time.getMonth() + 1}월 ${time.getDate()}일`;
 
   return (
-    <View
+    <TouchableOpacity
       style={[
         styles.item,
         theme.pt1,
@@ -17,7 +41,11 @@ const MessengerListItem = ({image , state , name , check , time , content}  : It
         theme.mt2,
         theme.mb2,
         theme.flexDirectionRow,
+        theme.container,
       ]}
+      onPress={() => {
+        navigation.navigate("MessengerChat", { image, name, state });
+      }}
     >
       <View style={[theme.positionRelative, styles.imgContainer]}>
         <View
@@ -27,14 +55,15 @@ const MessengerListItem = ({image , state , name , check , time , content}  : It
             theme.alignItemsCenter,
           ]}
         >
-          <Image
-            source={image}
-            style={[styles.image]}
-          />
+          <Image source={image} style={[styles.image]} />
         </View>
-        <View style={[styles.state]}></View>
+        <View
+          style={[
+            styles.state,
+            { backgroundColor: state ? "#1AB104" : "#777" },
+          ]}
+        ></View>
       </View>
-
       <View
         style={[
           styles.content,
@@ -57,12 +86,14 @@ const MessengerListItem = ({image , state , name , check , time , content}  : It
               size={20}
               style={[theme.mr1]}
             />
-            <RegularText>19:32</RegularText>
+            <RegularText>{timeTxt}</RegularText>
           </View>
         </View>
-        <RegularText>{content}</RegularText>
+        <RegularText style={[styles.contentText, theme.fontBase]}>
+          {content.length > 40 ? content.substring(0, 40) + "..." : content}
+        </RegularText>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -92,7 +123,6 @@ const styles = StyleSheet.create({
     width: 25,
     height: 25,
     zIndex: 10,
-    backgroundColor: "#1AB104",
     borderRadius: 100,
     left: 50,
     top: 45,
@@ -102,6 +132,9 @@ const styles = StyleSheet.create({
   imgContainer: {
     width: 70,
     height: 70,
+  },
+  contentText: {
+    color: "#666",
   },
 });
 

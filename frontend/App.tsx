@@ -15,7 +15,9 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import HomeHeader from "./components/home/HomeHeader";
 import ProfileHeader from "./components/profile/ProfileHeader";
-import CommunityHeader from './components/community/CommunityHeader';
+import CommunityHeader from "./components/community/CommunityHeader";
+import MessengerChatScreen from "./screens/MessengerChatScreen";
+import MessengerChatHeader from "./components/messenger/MessengerChatHeader";
 
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -176,6 +178,15 @@ const App = () => {
           name="Auth"
           component={Auth}
           options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="MessengerChat"
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerTitle: () => MessengerChatHeader(navigation),
+            headerBackVisible: true,
+          })}
+          component={MessengerChatScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
