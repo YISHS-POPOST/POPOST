@@ -5,7 +5,7 @@ import PressButton from "../PressButton";
 
 const ProfileInformation = () => {
   return (
-    <View style={[theme.container, styles.container, theme.pt3, theme.pb3]}>
+    <View style={[theme.mainContainer, styles.container, theme.pt3, theme.pb3]}>
       <View style={[styles.imageView]}>
         <Image
           source={require("../../assets/image/profile/test_profile.jpg")}

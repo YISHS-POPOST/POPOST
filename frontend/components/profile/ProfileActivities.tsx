@@ -5,10 +5,10 @@ import { BoldText, RegularText } from "../Text";
 // 좋아요 , 공유애 맞춘 섹션
 const ProfileActivities = () => {
   return (
-    <View style={[theme.container, theme.mb3]}>
+    <View style={[theme.mainContainer, theme.mb3]}>
       <View style={[styles.container, theme.p3, theme.sectionBorderRadius]}>
         <View style={[theme.pb2]}>
-          <BoldText style={[theme.fontXxxl]}>나의 활동</BoldText>
+          <BoldText style={[theme.fontXxxl , styles.title]}>나의 활동</BoldText>
         </View>
         <View
           style={[
@@ -16,7 +16,7 @@ const ProfileActivities = () => {
             theme.alignItemsCenter,
             theme.justifyContentBetween,
             styles.activityContainer,
-            theme.sectionBorderRadius
+            theme.sectionBorderRadius,
           ]}
         >
           <View
@@ -70,6 +70,9 @@ const styles = StyleSheet.create({
   },
   activityContainer : {
     backgroundColor : '#333',
+  },
+  title : {
+    color : '#333',
   }
 });
 
