@@ -4,7 +4,7 @@ import ProfileInfoItem from "./ProfileInfoItem";
 
 const ProfileItems = () => {
   return (
-    <View style={[theme.container, theme.mt3]}>
+    <View style={[theme.mainContainer, theme.mt3]}>
       <ProfileInfoItem
         icon={{ name: "users", color: theme.colors.blue }}
         title="팔로워"

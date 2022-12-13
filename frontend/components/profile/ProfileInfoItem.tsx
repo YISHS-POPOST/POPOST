@@ -35,7 +35,7 @@ const ProfileInfoItem = ({ icon, title, total, unit }: InfoItem) => {
       </View>
       <View style={[theme.alignItemsCenter, theme.flexDirectionRow]}>
         <BoldText
-          style={[theme.fontLg, styles.totalText]}
+          style={[theme.fontXxxl, styles.totalText]}
         >{`${total.toLocaleString()}`}</BoldText>
         <BoldText style={[styles.unitText, theme.fontXl, theme.ml1]}>
           {unit}
@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   totalText: {
-    color: "#333/",
+    color: "#333",
     letterSpacing: -1,
   },
   unitText: {
