@@ -9,8 +9,7 @@ import HomeCommunityContents from './HomeCommunityContents'
 const HomeCommunity = () => {
     return (
         <View style={[styles.container, theme.p4, theme.mt3]}>
-            <RegularText  style={[styles.titleText, theme.fontXl]}>오늘의 <BoldText>"핫"</BoldText> 커뮤니티 게시글</RegularText>
-            <View style={[styles.span, theme.mt1, theme.mb2]}></View>
+            <BoldText style={[styles.titleText, theme.fontXl, theme.mb2]}>오늘의 핫 커뮤니티 게시글</BoldText>
             <View>
                 {/* 나중에 컴포넌트화 2개 들어와야함*/}
                 <HomeCommunityContents />
@@ -23,7 +22,7 @@ const HomeCommunity = () => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
-        height: 160,
+        height: 180,
         borderRadius: 15,
     },
     span: {
@@ -31,27 +30,10 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: "#999",
     },
-    state: {
-        color: "#777",
-    },
     titleText: {
         color: "#000", 
         letterSpacing: -0.5,
     },
-    regText: {
-        color: "#555", 
-        letterSpacing: -0.5,
-    },
-    boldText: {
-        color: "#000", 
-        letterSpacing: -0.5,
-    },
-    smallText: {
-        color: "#a0a0a0", 
-        letterSpacing: -0.5,
-        ...theme.justifyContentEnd,
-        textAlign : 'right'
-    }
 })
 
 export default HomeCommunity;

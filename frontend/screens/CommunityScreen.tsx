@@ -1,9 +1,19 @@
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, ScrollView} from 'react-native';
+
+import CommunityPost from '../components/community/CommunityPost';
+
+
 
 const CommunityScreen = () => {
     return (
-        <SafeAreaView></SafeAreaView>
+        <SafeAreaView>
+            <ScrollView>
+                <CommunityPost />
+            </ScrollView>
+        </SafeAreaView>
     );
 }
+
+
 
 export default CommunityScreen;
