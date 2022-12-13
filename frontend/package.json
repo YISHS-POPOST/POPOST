@@ -16,6 +16,7 @@
     "@react-navigation/native-stack": "^6.9.4",
     "@types/react-native-vector-icons": "^6.4.12",
     "axios": "^1.2.1",
+    "link-preview-js": "^3.0.4",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-dotenv": "^3.4.6",

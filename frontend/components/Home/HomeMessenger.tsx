@@ -29,10 +29,10 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: "#fff",
         borderRadius: 15,
-        height: 280,
+        height: 300,
     },
     subContainer: {
-        height: 170,
+        height: 190,
     },
     boldText: {
         color: "#000", 

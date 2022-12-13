@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, ScrollView } from "react-native";
+import { SafeAreaView, StyleSheet, ScrollView, View } from "react-native";
 import { BoldText } from '../components/Text';
  
 import HomeWeather from '../components/home/HomeWeather';
@@ -10,14 +10,14 @@ import theme from '../theme';
 
 const HomeScreen = () => {
     return (
-        <SafeAreaView style={[theme.mainContainer, styles.bg]}>
-            <ScrollView>
+        <ScrollView overScrollMode="never">
+            <SafeAreaView style={[theme.mainContainer, styles.bg]}>
                 <HomeWeather />
                 <HomeCommunity />
                 <HomeMessenger />
-                <HomeNote />
-            </ScrollView>
-        </SafeAreaView>
+            </SafeAreaView>
+            <HomeNote />
+        </ScrollView>
     );
 }
 

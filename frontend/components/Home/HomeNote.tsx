@@ -1,42 +1,60 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
  
 import theme from '../../theme';
 import { BoldText, RegularText } from '../Text';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeNote = () => {
     return (
-        <View style={[styles.container, theme.p4, theme.mt3, theme.mb3, theme.flexDirectionColumn, theme.justifyContentBetween]}>
-            <View style={[styles.informationContainer, theme.flexDirectionColumn, theme.justifyContentBetween]}>
+        <ScrollView overScrollMode="never" horizontal={true} showsVerticalScrollIndicator={false} style={[theme.mt2, theme.mb2, styles.container]}>
+            <View style={[styles.informationContainer, theme.ml2, theme.p3]}>
                 <View>
-                    <RegularText style={[styles.regText, theme.fontBase]}>쪽지를 생성한 개수</RegularText>
-                    <BoldText style={[theme.fontXxxl, styles.boldText]}>"6" 개 입니다.</BoldText>
+                    <RegularText style={[styles.regText, theme.fontSmall]}>생성한 쪽지</RegularText>
+                    <BoldText style={[theme.fontXl, styles.boldText]}>6개</BoldText>
                 </View>
-                <View>
-                    <RegularText style={[styles.regText, theme.fontBase]}>다른 유저가 쪽지를 펼쳐본 횟수</RegularText>
-                    <BoldText style={[theme.fontXxxl, styles.boldText]}>"10" 번 입니다.</BoldText>
-                </View>
-                <View>
-                    <RegularText style={[styles.regText, theme.fontBase]}>다른 유저의 쪽지를 펼쳐본 횟수</RegularText>
-                    <BoldText style={[theme.fontXxxl, styles.boldText]}>"1" 번 입니다.</BoldText>
+                <View style={theme.alignItemsEnd}>
+                    <MaterialCommunityIcons name="notebook-plus-outline" size={30} color={"#000"} style={theme.icon}/>
                 </View>
             </View>
-            <View style={[theme.flexDirectionRow, theme.justifyContentEnd, theme.alignItemsCenter]}>
-                <Icon name="keyboard-arrow-right" size={15} style={[styles.nextText]}/>
-                <RegularText style={[styles.nextText, theme.fontSmall]}>쪽지 정보 상세보기</RegularText>
+            <View style={[styles.informationContainer, theme.ml2, theme.mr2, theme.p3]}>
+                <View>
+                    <RegularText style={[styles.regText, theme.fontSmall]}>놓친 쪽지</RegularText>
+                    <BoldText style={[theme.fontXl, styles.boldText]}>6111개</BoldText>
+                </View>
+                <View style={theme.alignItemsEnd}>
+                    <MaterialCommunityIcons name="notebook-minus-outline" size={30} color={"#000"} style={theme.icon}/>
+                </View>
             </View>
-        </View>
+            <View style={[styles.informationContainer, theme.mr2, theme.p3]}>
+                <View>
+                    <RegularText style={[styles.regText, theme.fontSmall]}>펼쳐본 쪽지</RegularText>
+                    <BoldText style={[theme.fontXl, styles.boldText]}>632개</BoldText>
+                </View>
+                <View style={theme.alignItemsEnd}>
+                    <MaterialCommunityIcons name="notebook-check-outline" size={30} color={"#000"} style={theme.icon}/>
+                </View>
+            </View>
+            <View style={[styles.informationContainer, theme.mr2,  theme.p3]}>
+                <View>
+                    <RegularText style={[styles.regText, theme.fontSmall]}>전체</RegularText>
+                    <BoldText style={[theme.fontXl, styles.boldText]}>더보기</BoldText>
+                </View>
+            </View>
+        </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: "#fff",
-        height: 280,
-        borderRadius: 15,
+        height: 300,
     },
     informationContainer: {
-        height: 190,
+        width: 140,
+        height: 150,
+        backgroundColor: "#fff",
+        borderRadius: 15,
+        ...theme.flexDirectionColumn,
+        ...theme.justifyContentBetween
     },
     regText: {
         color: "#555", 

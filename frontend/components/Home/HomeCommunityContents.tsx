@@ -23,7 +23,7 @@ const HomeCommunityContents = () => {
 const styles = StyleSheet.create({
     container: {
         borderRadius: 10,
-        backgroundColor: "#333",
+        backgroundColor: "#444",
     },
     state: {
         color: "#fff",
