@@ -4,7 +4,6 @@ import theme from "../../theme";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 const MessengerSearch = () => {
-
   return (
     <View
       style={[
@@ -16,10 +15,7 @@ const MessengerSearch = () => {
         theme.positionRelative,
       ]}
     >
-      <MaterialIcons
-        name="search"
-        size={23}
-      />
+      <MaterialIcons name="search" size={23} />
       <TextInput
         style={[
           styles.textInput,
@@ -28,6 +24,7 @@ const MessengerSearch = () => {
           theme.fontWeightRegular,
         ]}
         placeholder="검색할 사람을 입력해주세요."
+        placeholderTextColor="#777"
       ></TextInput>
     </View>
   );
@@ -41,11 +38,8 @@ const styles = StyleSheet.create({
   },
   textInput: {
     flex: 1,
-    color: "#ddd",
+    color: "#333",
   },
-  icon: {
-    
-},
 });
 
 export default MessengerSearch;

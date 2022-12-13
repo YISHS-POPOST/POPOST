@@ -9,21 +9,20 @@ const MessengerHeader = () => {
       style={[
         theme.alignItemsCenter,
         theme.justifyContentBetween,
-        theme.pt3,
-        theme.pb3,
-        theme.flexDirectionRow
+        theme.pt2,
+        theme.pb2,
+        theme.flexDirectionRow,
       ]}
     >
-      <BoldText style={[styles.title]}>Chats</BoldText>
-        <Feather name="share" size={25} color="#333"   />      
+      <BoldText style={[styles.title, theme.fontXxxl]}>Chats</BoldText>
+      <Feather name="share" size={25} color="#333" />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   title: {
-    color: "#000",
-    fontSize : 40
+    color: "#333",
   },
 });
 
