@@ -8,6 +8,8 @@ import {
   Delete,
   Req,
   Res,
+  HttpCode,
+  HttpStatus,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -22,8 +24,10 @@ export class UsersController {
   ) {}
 
   @Post("/register")
+  @HttpCode(HttpStatus.CREATED)
   async register(@Res() res: any, @Body() userData: CreateUserDto) {
-    return this.UsersService.create(userData);
+    const registerUser = this.UsersService.create(userData);
+    return registerUser;
   }
 
   @Post("/login")

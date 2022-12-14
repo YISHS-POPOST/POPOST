@@ -15,7 +15,7 @@ import { UsersModule } from './users/users.module';
       password: "1234",
       database: "popost",
       entities: [User],
-      synchronize: true,
+      synchronize: false,
     }),
     UsersModule,
   ],
