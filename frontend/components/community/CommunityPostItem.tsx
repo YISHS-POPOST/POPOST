@@ -3,36 +3,27 @@ import theme from "../../theme";
 import { BoldText, RegularText } from "../../components/Text";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import CommunityLinkPreview from './CommunityLinkPreview';
+import { ItemInterface } from "../../types/CommunityType";
+import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 
-// import CommunityLinkPreview from './CommunityLinkPreview';
+interface ListInterface extends ItemInterface {
+    navigation: ProfileScreenNavigationProp;
+}
 
-import { getLinkPreview } from "link-preview-js";
-import { useEffect, useState } from "react";
-
-const CommunityPostItem = () => {};
-
-const CommunityLinkPreview = () => {
-  const [metaData, setMetaData] = useState({});
-
-  useEffect(() => {
-    getLinkPreview("http://ai-design.or.kr/").then((data: any) => {
-      setMetaData([
-        {
-          titie: `${data.title}`,
-          description: `${data.description}`,
-          image: `${data.images[0]}`,
-        },
-      ]);
-    });
-  }, []);
-
-  return <View></View>;
-};
-
-const CommunityPost = () => {
+const CommunityPostItem = ({
+    user_image,
+    user_name,
+    create_dt,
+    title,
+    contents,
+    link,
+    comment,
+    view,
+    navigation,
+}:ListInterface) => {
   return (
     <View>
-      {/* {CommunityPostItem}       */}
       <View style={[theme.mt2, styles.container]}>
         <View
           style={[
@@ -48,15 +39,12 @@ const CommunityPost = () => {
               theme.alignItemsCenter,
             ]}
           >
-            <Image
-              source={require("../../assets/image/profile/test_profile.jpg")}
-              style={[styles.image]}
-            />
+            <Image source={user_image} style={[styles.image]} />
             <View style={theme.ml2}>
               <BoldText
                 style={[styles.text, styles.textLineHeight, styles.black]}
               >
-                배태형
+                {user_name}
               </BoldText>
               <RegularText
                 style={[styles.text, styles.textLineHeight, styles.gray]}
@@ -66,7 +54,7 @@ const CommunityPost = () => {
               <RegularText
                 style={[styles.text, styles.textLineHeight, styles.gray]}
               >
-                3분 전
+                {create_dt}
               </RegularText>
             </View>
           </View>
@@ -97,17 +85,17 @@ const CommunityPost = () => {
           <BoldText
             style={[styles.text, styles.black, theme.fontLg, theme.mb2]}
           >
-            내 청소구역을 도와줘 !!
+            {title}
           </BoldText>
           <RegularText style={[styles.text, styles.black, theme.fontBase]}>
-            작년에 선풍적인 인기를 끌었던 내 청소구역을 도와줘!!
+            {contents}
           </RegularText>
         </View>
         <View>
-          <CommunityLinkPreview />
+            {link === "0" ? null : <CommunityLinkPreview siteUrl={link}/>}
         </View>
         <View style={[theme.mt2, theme.alignItemsEnd]}>
-          <RegularText style={[styles.text, styles.gray]}>조회 5</RegularText>
+          <RegularText style={[styles.text, styles.gray]}>{`조회 ${view}`}</RegularText>
         </View>
         <View style={[theme.mb2, theme.flexDirectionRow]}>
           <View
@@ -135,10 +123,10 @@ const CommunityPost = () => {
               size={17}
             />
             <RegularText style={[styles.icon, theme.fontSmall, theme.ml1]}>
-              0
+              {`${comment}`}
             </RegularText>
           </View>
-          <View
+          {/* <View
             style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
           >
             <MaterialCommunityIcons
@@ -149,16 +137,9 @@ const CommunityPost = () => {
             <RegularText style={[styles.icon, theme.fontSmall, theme.ml1]}>
               0
             </RegularText>
-          </View>
+          </View> */}
         </View>
       </View>
-
-      {/* {CommunityPostItem}       */}
-      {/* <FlatList
-                data={data}
-                renderItem={CommunityPostItem}
-                keyExtractor={(item) => String(item.id)}
-            /> */}
     </View>
   );
 };
@@ -195,4 +176,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CommunityPost;
+export default CommunityPostItem;

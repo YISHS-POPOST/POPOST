@@ -35,8 +35,6 @@ const LoginForm = ({ navigation }: ProfileScreenNavigationProp) => {
         navigation.replace("DrawerNavigationRoutes");
       })
       .catch(err => err);
-
-    console.log(findUser);
   };
 
   return (

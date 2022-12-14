@@ -18,6 +18,9 @@ import ProfileHeader from "./components/profile/ProfileHeader";
 import CommunityHeader from "./components/community/CommunityHeader";
 import MessengerChatScreen from "./screens/MessengerChatScreen";
 import MessengerChatHeader from "./components/messenger/MessengerChatHeader";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import CommunityWriteScreen from './screens/CommunityWriteScreen';
+import CommunityWriteHeader from "./components/community/CommunityWriteHeader";
 
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -119,8 +122,8 @@ const Main = () => {
             />
           ),
           headerShown: true,
-          headerTitle: CommunityHeader,
           headerShadowVisible: false,
+          headerTitle: CommunityHeader,
           headerStyle: { height: 70 },
         }}
       />
@@ -160,14 +163,11 @@ const Main = () => {
 };
 
 const App = () => {
+  AsyncStorage.setItem('user_id','test1');
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Tap.Screen
-          name="Main"
-          component={Main}
-          options={{ headerShown: false }}
-        />
+        
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -179,6 +179,11 @@ const App = () => {
           component={Auth}
           options={{ headerShown: false }}
         />
+        <Tap.Screen
+          name="Main"
+          component={Main}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="MessengerChat"
           options={({ navigation }) => ({
@@ -187,6 +192,17 @@ const App = () => {
             headerBackVisible: true,
           })}
           component={MessengerChatScreen}
+        />
+        <Stack.Screen
+          name="CommunityWrite"
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerTitle: () => CommunityWriteHeader(navigation),
+            headerBackVisible: true,
+            headerShadowVisible : false,
+            
+          })}
+          component={CommunityWriteScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -5,8 +5,6 @@ import Feather from 'react-native-vector-icons/Feather';
 import Octicons from 'react-native-vector-icons/Octicons';
 
 
-
-
 const CommunityHeader = () => {
     return (
         <View style={[styles.container, theme.justifyContentBetween, theme.flexDirectionRow]}>
