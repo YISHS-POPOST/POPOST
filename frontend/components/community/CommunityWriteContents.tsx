@@ -1,8 +1,5 @@
 import { View, StyleSheet, TextInput, ScrollView } from 'react-native';
 import theme from '../../theme';
-import { BoldText } from '../../components/Text';
-import Feather from 'react-native-vector-icons/Feather';
-import Octicons from 'react-native-vector-icons/Octicons';
 
 const CommunityWriteContents = () => {    
     return (
@@ -16,7 +13,7 @@ const CommunityWriteContents = () => {
             </View>
             <View style={styles.span}></View>
             <View>
-                <TextInput placeholder='링크' style={[theme.fontWeightRegular, theme.fontBase, styles.contentsInput, styles.text]} placeholderTextColor={"#adadad"} multiline ={true} />
+                <TextInput placeholder='링크는 하나만 추가 가능합니다.' style={[theme.fontWeightRegular, theme.fontBase, styles.contentsInput, styles.text]} placeholderTextColor={"#adadad"} multiline ={true} />
             </View>
         </View>
     );
@@ -25,6 +22,7 @@ const CommunityWriteContents = () => {
 const styles = StyleSheet.create({
     text: {
         letterSpacing: -0.5,
+        color: "#000",
     },
     span: {
         backgroundColor: "#dfdfdf",
@@ -32,14 +30,14 @@ const styles = StyleSheet.create({
         width: "100%",
     },
     titleInput: {
-
+        height: 100,
     },
     contentsInput: {
-        height: 400, 
+        height: 500,
         textAlignVertical: "top"
     },
     linkInput: {
-        height: 400, 
+        height: 100,
         textAlignVertical: "top"
     },
 });
