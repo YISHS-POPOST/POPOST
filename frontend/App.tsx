@@ -18,6 +18,7 @@ import ProfileHeader from "./components/profile/ProfileHeader";
 import CommunityHeader from "./components/community/CommunityHeader";
 import MessengerChatScreen from "./screens/MessengerChatScreen";
 import MessengerChatHeader from "./components/messenger/MessengerChatHeader";
+import MessengerChatHeaderRight from "./components/messenger/MessengerChatHeaderRight";
 
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -181,10 +182,15 @@ const App = () => {
         />
         <Stack.Screen
           name="MessengerChat"
-          options={({ navigation }) => ({
+          options={({ navigation, route }) => ({
             headerShown: true,
-            headerTitle: () => MessengerChatHeader(navigation),
+            headerTitle: () => MessengerChatHeader(navigation, route),
             headerBackVisible: true,
+            headerRight: () => MessengerChatHeaderRight(navigation, route),
+            contentStyle: {
+              backgroundColor: theme.colors.backgroundWhite,
+            },
+            headerShadowVisible: false,
           })}
           component={MessengerChatScreen}
         />

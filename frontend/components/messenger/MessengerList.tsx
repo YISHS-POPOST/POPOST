@@ -8,7 +8,7 @@ import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 
 type renderItemType = { item: ItemInterface };
 
-const MessengerList = ({navigation} : ProfileScreenNavigationProp) => {
+const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
   const date = new Date();
 
   const info: ItemInterface[] = [
@@ -138,6 +138,7 @@ const MessengerList = ({navigation} : ProfileScreenNavigationProp) => {
           </View>
         );
       }}
+      showsVerticalScrollIndicator={false}
     />
   );
 };
