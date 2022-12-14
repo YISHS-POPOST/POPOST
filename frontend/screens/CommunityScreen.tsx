@@ -1,18 +1,20 @@
-import {SafeAreaView, ScrollView} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet} from 'react-native';
 
-import CommunityPost from '../components/community/CommunityPost';
+import CommunityList from '../components/community/CommunityList';
+import CommunityWriteBtn from '../components/community/CommunityWriteBtn';
+import { ProfileScreenNavigationProp } from '../types/NavigateType';
 
-
-
-const CommunityScreen = () => {
+const CommunityScreen = ({navigation} : ProfileScreenNavigationProp) => {
     return (
         <SafeAreaView>
-            <ScrollView>
-                <CommunityPost />
-            </ScrollView>
+            <CommunityList />
+            <CommunityWriteBtn navigation={navigation} />
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+});
 
 
 
