@@ -5,26 +5,26 @@ import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 
 const CommunityWriteBtn = ({navigation}: ProfileScreenNavigationProp) => {
     return (
-        <TouchableOpacity onPress={() => navigation.navigate("CommunityWrite")}>
-            <View style={[styles.button, theme.justifyContentCenter, theme.alignItemsCenter]}>
-                <FontAwesome5 name="pencil-alt" size={23} color={"#fff"}/>
-            </View>
+        <TouchableOpacity activeOpacity={0.8} onPress={() => navigation.navigate("CommunityWrite")} style={[styles.button, theme.justifyContentCenter, theme.alignItemsCenter]}>
+            <FontAwesome5 name="pencil-alt" size={23} color={"#fff"}/>
         </TouchableOpacity>
     );
 }
 
 const styles = StyleSheet.create({
     button: {
-        borderRadius: 200,
+        borderRadius: 50,
         width: 65,
         height: 65,
         backgroundColor: theme.colors.blue,
         zIndex: 100,
         position: "absolute",
-        bottom: 0,
-        right: 0,
-        margin: 14,
+        bottom: 14,
+        right: 14,
     },
+    pressBtn : {
+        backgroundColor : '#333'
+    }
 });
 
 export default CommunityWriteBtn;

@@ -3,15 +3,20 @@ import theme from "../theme";
 import ProfileItems from "../components/profile/ProfileItems";
 import ProfileInformation from "../components/profile/ProfileInformation";
 import ProfileActivities from "../components/profile/ProfileActivities";
+import CommunityWriteBtn from "../components/community/CommunityWriteBtn";
+import { ProfileScreenNavigationProp } from "../types/NavigateType";
 
-
-const ProfileScreen = () => {
+const ProfileScreen = ({navigation} : ProfileScreenNavigationProp) => {
   return (
+    <View>
     <ScrollView style={[styles.container, theme.pb4]} showsVerticalScrollIndicator={false}>
       <ProfileInformation />
       <ProfileItems />
       <ProfileActivities />
     </ScrollView>
+      <CommunityWriteBtn navigation={navigation} />
+    </View>
+    
   );
 };
 
