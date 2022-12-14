@@ -9,6 +9,8 @@ const colors = {
   backgroundWhite: "#F6F7FB",
 };
 
+const headerIconSize = 25;
+
 const verticalContainer = {
   base: 25,
 };
@@ -243,7 +245,13 @@ const styles = StyleSheet.create({
   positionAbsolute: {
     position: "absolute",
   },
+  headerHeight : {
+    height : 70,
+  },
 });
+
+
+
 
 const headerOptions: NativeStackNavigationOptions = {
   headerShown: true,
@@ -256,6 +264,7 @@ const headerOptions: NativeStackNavigationOptions = {
     backgroundColor : colors.backgroundWhite,
   },
   headerShadowVisible : false,
+  
 };
 
 const theme = {
@@ -263,6 +272,7 @@ const theme = {
   verticalContainer,
   ...styles,
   headerOptions,
+  headerIconSize,
 };
 
 export default theme;

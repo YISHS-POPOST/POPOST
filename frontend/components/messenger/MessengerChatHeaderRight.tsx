@@ -7,7 +7,7 @@ const MessengerChatHeaderRight = (
   navigation: ProfileScreenNavigationProp,
   route: any
 ) => {
-  return <MaterialIcons name="post-add" color={theme.colors.purple} size={30} />;
+  return <MaterialIcons name="post-add" color={theme.colors.purple} size={theme.headerIconSize} />;
 };
 
 const styles = StyleSheet.create({

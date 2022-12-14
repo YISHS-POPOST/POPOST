@@ -25,7 +25,7 @@ const MessengerChatHeader = (
         <Entypo
           name="chevron-left"
           onPress={() => navigation.pop()}
-          size={35}
+          size={theme.headerIconSize}
           color={theme.colors.purple}
         />
         <View
@@ -56,7 +56,6 @@ const MessengerChatHeader = (
           </View>
         </View>
       </View>
-      
     </View>
   );
 };

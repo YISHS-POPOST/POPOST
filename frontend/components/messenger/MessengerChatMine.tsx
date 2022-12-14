@@ -37,8 +37,9 @@ const MessengerChatMine = ({ time, content }: Props) => {
         <RegularText style={{ color: "#666" }}>{timeTxt}</RegularText>
       </View>
       <View style={[theme.ml2]}>
-        {content.map(item => (
+        {content.map((item , idx) => (
           <BoldText
+            key={idx}
             style={[
               styles.text,
               theme.fontBase,

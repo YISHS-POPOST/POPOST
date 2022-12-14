@@ -19,7 +19,7 @@ import CommunityHeader from "./components/community/CommunityHeader";
 import MessengerChatScreen from "./screens/MessengerChatScreen";
 import MessengerChatHeader from "./components/messenger/MessengerChatHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import CommunityWriteScreen from './screens/CommunityWriteScreen';
+import CommunityWriteScreen from "./screens/CommunityWriteScreen";
 import CommunityWriteHeader from "./components/community/CommunityWriteHeader";
 import MessengerChatHeaderRight from "./components/messenger/MessengerChatHeaderRight";
 
@@ -61,18 +61,11 @@ const Main = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          borderColor: "rgba(0,0,0,.1)",
           backgroundColor: "#fff",
-          borderTopLeftRadius: 15,
-          borderTopRightRadius: 15,
-          height: 55,
-          borderWidth: 1,
+          height: 60,
         },
-        tabBarLabelStyle: {
-          fontFamily: "Pretendard-Bold",
-          fontSize: 13,
-          letterSpacing: 1,
-        },
+        headerStyle: theme.headerHeight,
+        tabBarShowLabel : false,
       }}
     >
       <Tap.Screen
@@ -83,8 +76,8 @@ const Main = () => {
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
               name={focused ? "ios-home" : "ios-home-outline"}
-              color={color}
-              size={23}
+              color={focused ? "#333" : "#888"}
+              size={25}
             />
           ),
           headerShown: true,
@@ -92,6 +85,7 @@ const Main = () => {
             backgroundColor: "#fff",
             borderBottomColor: "rgba(0,0,0,.1)",
             borderBottomWidth: 0.2,
+            ...theme.headerHeight,
           },
           headerTitle: HomeHeader,
         }}
@@ -104,10 +98,13 @@ const Main = () => {
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
               name={focused ? "ios-map" : "ios-map-outline"}
-              color={color}
-              size={23}
+              color={focused ? "#333" : "#888"}
+              size={25}
             />
           ),
+          headerStyle: {
+            ...theme.headerHeight,
+          },
         }}
       />
       <Tap.Screen
@@ -118,14 +115,14 @@ const Main = () => {
           tabBarIcon: ({ color, size, focused }) => (
             <Ionicons
               name={focused ? "people" : "people-outline"}
-              color={color}
-              size={23}
+              color={focused ? "#333" : "#888"}
+              size={25}
             />
           ),
           headerShown: true,
           headerShadowVisible: false,
           headerTitle: CommunityHeader,
-          headerStyle: { height: 70 },
+          headerStyle: theme.headerHeight,
         }}
       />
       <Tap.Screen
@@ -136,10 +133,13 @@ const Main = () => {
           tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name={focused ? "message-badge" : "message-badge-outline"}
-              color={color}
-              size={23}
+              color={focused ? "#333" : "#888"}
+              size={25}
             />
           ),
+          headerStyle: {
+            ...theme.headerHeight,
+          },
         }}
       />
       <Tap.Screen
@@ -150,8 +150,8 @@ const Main = () => {
           tabBarIcon: ({ color, size, focused }) => (
             <MaterialCommunityIcons
               name={focused ? "face-man" : "face-man-outline"}
-              color={color}
-              size={23}
+              color={focused ? "#333" : "#888"}
+              size={25}
             />
           ),
           headerShown: true,
@@ -164,11 +164,10 @@ const Main = () => {
 };
 
 const App = () => {
-  AsyncStorage.setItem('user_id','test1');
+  AsyncStorage.setItem("user_id", "test1");
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-        
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
@@ -205,8 +204,7 @@ const App = () => {
             headerShown: true,
             headerTitle: () => CommunityWriteHeader(navigation),
             headerBackVisible: true,
-            headerShadowVisible : false,
-            
+            headerShadowVisible: false,
           })}
           component={CommunityWriteScreen}
         />

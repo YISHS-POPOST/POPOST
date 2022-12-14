@@ -48,8 +48,9 @@ const MessengerChatOther = ({ image, name, time, content }: Props) => {
           >
             {name}
           </RegularText>
-          {content.map(item => (
+          {content.map((item , idx) => (
             <BoldText
+              key={idx}
               style={[styles.text, theme.fontBase, theme.p2, theme.mb1]}
             >
               {item}

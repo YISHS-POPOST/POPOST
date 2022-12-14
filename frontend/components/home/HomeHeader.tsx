@@ -11,13 +11,14 @@ const HomeHeader = () => {
           styles.container,
           theme.justifyContentBetween,
           theme.alignItemsCenter,
+          theme.headerHeight
         ]}
       >
         <WithLocalSvg asset={LogoTextSvg} width={100} height={"100%"} />
         <View>
           <MaterialCommunityIcons
             name="bell-outline"
-            size={25}
+            size={theme.headerIconSize}
             color={"#555"}
           />
         </View>

@@ -6,47 +6,78 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const HomeNote = () => {
     return (
-        <ScrollView overScrollMode="never" horizontal={true} showsVerticalScrollIndicator={false} style={[theme.mt2, theme.mb2, styles.container]}>
-            <View style={[styles.informationContainer, theme.ml2, theme.p3]}>
-                <View>
-                    <RegularText style={[styles.regText, theme.fontSmall]}>생성한 쪽지</RegularText>
-                    <BoldText style={[theme.fontXl, styles.boldText]}>6개</BoldText>
-                </View>
-                <View style={theme.alignItemsEnd}>
-                    <MaterialCommunityIcons name="notebook-plus-outline" size={30} color={"#000"} style={theme.icon}/>
-                </View>
-            </View>
-            <View style={[styles.informationContainer, theme.ml2, theme.mr2, theme.p3]}>
-                <View>
-                    <RegularText style={[styles.regText, theme.fontSmall]}>놓친 쪽지</RegularText>
-                    <BoldText style={[theme.fontXl, styles.boldText]}>6111개</BoldText>
-                </View>
-                <View style={theme.alignItemsEnd}>
-                    <MaterialCommunityIcons name="notebook-minus-outline" size={30} color={"#000"} style={theme.icon}/>
-                </View>
-            </View>
-            <View style={[styles.informationContainer, theme.mr2, theme.p3]}>
-                <View>
-                    <RegularText style={[styles.regText, theme.fontSmall]}>펼쳐본 쪽지</RegularText>
-                    <BoldText style={[theme.fontXl, styles.boldText]}>632개</BoldText>
-                </View>
-                <View style={theme.alignItemsEnd}>
-                    <MaterialCommunityIcons name="notebook-check-outline" size={30} color={"#000"} style={theme.icon}/>
-                </View>
-            </View>
-            <View style={[styles.informationContainer, theme.mr2,  theme.p3]}>
-                <View>
-                    <RegularText style={[styles.regText, theme.fontSmall]}>전체</RegularText>
-                    <BoldText style={[theme.fontXl, styles.boldText]}>더보기</BoldText>
-                </View>
-            </View>
-        </ScrollView>
+      <ScrollView
+        overScrollMode="never"
+        horizontal={true}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        style={[theme.mt2, theme.mb2, styles.container]}
+      >
+        <View style={[styles.informationContainer, theme.ml2, theme.p3]}>
+          <View>
+            <RegularText style={[styles.regText, theme.fontSmall]}>
+              생성한 쪽지
+            </RegularText>
+            <BoldText style={[theme.fontXl, styles.boldText]}>6개</BoldText>
+          </View>
+          <View style={theme.alignItemsEnd}>
+            <MaterialCommunityIcons
+              name="notebook-plus-outline"
+              size={30}
+              color={"#000"}
+              style={theme.icon}
+            />
+          </View>
+        </View>
+        <View
+          style={[styles.informationContainer, theme.ml2, theme.mr2, theme.p3]}
+        >
+          <View>
+            <RegularText style={[styles.regText, theme.fontSmall]}>
+              놓친 쪽지
+            </RegularText>
+            <BoldText style={[theme.fontXl, styles.boldText]}>6111개</BoldText>
+          </View>
+          <View style={theme.alignItemsEnd}>
+            <MaterialCommunityIcons
+              name="notebook-minus-outline"
+              size={30}
+              color={"#000"}
+              style={theme.icon}
+            />
+          </View>
+        </View>
+        <View style={[styles.informationContainer, theme.mr2, theme.p3]}>
+          <View>
+            <RegularText style={[styles.regText, theme.fontSmall]}>
+              펼쳐본 쪽지
+            </RegularText>
+            <BoldText style={[theme.fontXl, styles.boldText]}>632개</BoldText>
+          </View>
+          <View style={theme.alignItemsEnd}>
+            <MaterialCommunityIcons
+              name="notebook-check-outline"
+              size={30}
+              color={"#000"}
+              style={theme.icon}
+            />
+          </View>
+        </View>
+        <View style={[styles.informationContainer, theme.mr2, theme.p3]}>
+          <View>
+            <RegularText style={[styles.regText, theme.fontSmall]}>
+              전체
+            </RegularText>
+            <BoldText style={[theme.fontXl, styles.boldText]}>더보기</BoldText>
+          </View>
+        </View>
+      </ScrollView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
-        height: 300,
+        backgroundColor : theme.colors.backgroundWhite
     },
     informationContainer: {
         width: 140,

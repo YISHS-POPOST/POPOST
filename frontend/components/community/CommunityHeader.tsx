@@ -4,7 +4,6 @@ import { BoldText } from '../../components/Text';
 import Feather from 'react-native-vector-icons/Feather';
 import Octicons from 'react-native-vector-icons/Octicons';
 
-
 const CommunityHeader = () => {
     return (
         <View style={[styles.container, theme.justifyContentBetween, theme.flexDirectionRow]}>
@@ -14,7 +13,7 @@ const CommunityHeader = () => {
                 <TextInput placeholder="사람, 키워드로 검색" style={[styles.input]} placeholderTextColor={"#5e5e5e"} />
             </View>
             <View style={[theme.justifyContentCenter, theme.mr1]}>
-                <Octicons name='comment' size={23} style={styles.msgIcon}/>
+                <Octicons name='comment' size={theme.headerIconSize} style={styles.msgIcon}/>
             </View>
         </View>
     );

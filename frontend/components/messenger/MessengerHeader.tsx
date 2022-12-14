@@ -15,7 +15,7 @@ const MessengerHeader = () => {
       ]}
     >
       <BoldText style={[styles.title, theme.fontXxxl]}>Chats</BoldText>
-      <Feather name="share" size={25} color="#333" />
+      <Feather name="share" size={theme.headerIconSize} color="#333" />
     </View>
   );
 };
