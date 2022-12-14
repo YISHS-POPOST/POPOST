@@ -1,8 +1,9 @@
 import {View , StyleSheet} from "react-native";
 import { WithLocalSvg } from "react-native-svg";
-import LogoTextSvg from "../../assets/image/svg/logo_text.svg";
+import LogoTextSvg from "../../assets/image/svg/logo.svg";
 import theme from "../../theme";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { BlackText, BoldText } from "../Text";
 
 const HomeHeader = () => {
     return (
@@ -14,7 +15,10 @@ const HomeHeader = () => {
           theme.headerHeight
         ]}
       >
-        <WithLocalSvg asset={LogoTextSvg} width={100} height={"100%"} />
+        <View style={[theme.alignItemsCenter , theme.flexDirectionRow]}>
+          <WithLocalSvg asset={LogoTextSvg} width={40} height={40} style={[{opacity:.5}]} />
+          <BlackText style={[{color : '#666' , letterSpacing : -.5}  , theme.fontXxxl , theme.ml1]}>POPOST</BlackText>
+        </View>
         <View>
           <MaterialCommunityIcons
             name="bell-outline"
