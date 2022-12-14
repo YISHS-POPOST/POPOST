@@ -7,7 +7,7 @@ import ProfileActivities from "../components/profile/ProfileActivities";
 
 const ProfileScreen = () => {
   return (
-    <ScrollView style={[styles.container, theme.pb4]}>
+    <ScrollView style={[styles.container, theme.pb4]} showsVerticalScrollIndicator={false}>
       <ProfileInformation />
       <ProfileItems />
       <ProfileActivities />

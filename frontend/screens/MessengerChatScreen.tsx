@@ -1,17 +1,24 @@
-import { useEffect } from "react";
-import { ImageSourcePropType, View } from "react-native";
-import { ItemInterface } from "../types/MessengerType";
-import { RouteProp } from "@react-navigation/native";
-import { NativeStackDescriptor } from "@react-navigation/native-stack/lib/typescript/src/types";
-import MessengerChatHeader from "../components/messenger/MessengerChatHeader";
+import { ScrollView, StyleSheet, View } from "react-native";
+import MessengerChatBottom from "../components/messenger/MessengerChatBottom";
+import MessengerChatContent from "../components/messenger/MessengerChatContent";
+import theme from "../theme";
+
 
 const MessengerChatScreen = ({ route }: any) => {
-  const { image, name, state }: ItemInterface = route.params;
+  const {image , name , state} = route.params;
 
   return (
-    <View>
+    <View style={[theme.flexDirectionColumn, styles.container]}>
+      <MessengerChatContent image={image} name={name} />
+      <MessengerChatBottom />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container : {
+    flex : 1,
+  }
+})
 
 export default MessengerChatScreen;

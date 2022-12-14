@@ -15,3 +15,8 @@ export interface ChatInterface {
   name: string;
   state: boolean;
 }
+
+export interface ChatPropsType  {
+  image: ImageSourcePropType;
+  name: string;
+}

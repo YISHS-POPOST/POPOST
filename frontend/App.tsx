@@ -21,6 +21,7 @@ import MessengerChatHeader from "./components/messenger/MessengerChatHeader";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import CommunityWriteScreen from './screens/CommunityWriteScreen';
 import CommunityWriteHeader from "./components/community/CommunityWriteHeader";
+import MessengerChatHeaderRight from "./components/messenger/MessengerChatHeaderRight";
 
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -186,10 +187,15 @@ const App = () => {
         />
         <Stack.Screen
           name="MessengerChat"
-          options={({ navigation }) => ({
+          options={({ navigation, route }) => ({
             headerShown: true,
-            headerTitle: () => MessengerChatHeader(navigation),
+            headerTitle: () => MessengerChatHeader(navigation, route),
             headerBackVisible: true,
+            headerRight: () => MessengerChatHeaderRight(navigation, route),
+            contentStyle: {
+              backgroundColor: theme.colors.backgroundWhite,
+            },
+            headerShadowVisible: false,
           })}
           component={MessengerChatScreen}
         />
