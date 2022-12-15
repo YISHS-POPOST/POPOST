@@ -1,10 +1,10 @@
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput, Alert } from "react-native";
 import theme from "../../theme";
 import { BoldText, RegularText } from "../Text";
 import PressButton from "../PressButton";
 import Feather from "react-native-vector-icons/Feather";
 import { useState, useRef, createRef } from "react";
-import axios, { ResponseType } from "axios";
+import axios from "axios";
 import { UserType } from "../../types/UserInformationType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -32,10 +32,17 @@ const LoginForm = ({ navigation }: ProfileScreenNavigationProp) => {
     await axios
       .post(API_URL + "/users/login", user)
       .then(res => {
-        // AsyncStorage.setItem("user_id", res.data.id);
-        // navigation.replace("DrawerNavigationRoutes");
+        const { status } = res;
+        Alert.alert("성공", "로그인이 완료되었습니다.");
+        if (status === 200) {
+          AsyncStorage.setItem("user_id", res.data.id);
+          return navigation.replace("SplashScreen");
+        }
       })
-      .catch(err => err.response.data.message);
+      .catch(err => {
+        const message : string = err.response.data.message;
+        return Alert.alert('오류',message);
+      });
   };
 
   return (

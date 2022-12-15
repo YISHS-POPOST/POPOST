@@ -4,8 +4,6 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { ForbiddenException, HttpException } from "@nestjs/common/exceptions";
-import { HttpStatus } from "@nestjs/common/enums";
 
 @Injectable()
 export class UsersService {
@@ -37,6 +35,8 @@ export class UsersService {
   async findUser(id : string , password : string){
     return await this.UsersRepository.findOneBy({id , password});
   }
+
+  
 
   // create(createUserDto: CreateUserDto) {
   //   return 'This action adds a new user';
