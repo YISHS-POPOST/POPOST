@@ -5,18 +5,22 @@ import ProfileInformation from "../components/profile/ProfileInformation";
 import ProfileActivities from "../components/profile/ProfileActivities";
 import CommunityWriteBtn from "../components/community/CommunityWriteBtn";
 import { ProfileScreenNavigationProp } from "../types/NavigateType";
+import ProfileLogout from "../components/profile/ProfileLogout";
 
-const ProfileScreen = ({navigation} : ProfileScreenNavigationProp) => {
+const ProfileScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   return (
     <View>
-    <ScrollView style={[styles.container, theme.pb4]} showsVerticalScrollIndicator={false}>
-      <ProfileInformation />
-      <ProfileItems />
-      <ProfileActivities />
-    </ScrollView>
+      <ScrollView
+        style={[styles.container, theme.pb4]}
+        showsVerticalScrollIndicator={false}
+      >
+        <ProfileInformation />
+        <ProfileItems />
+        <ProfileActivities />
+        <ProfileLogout navigation={navigation} />
+      </ScrollView>
       <CommunityWriteBtn navigation={navigation} />
     </View>
-    
   );
 };
 

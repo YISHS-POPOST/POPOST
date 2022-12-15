@@ -164,27 +164,27 @@ const Main = () => {
 };
 
 const App = () => {
-  AsyncStorage.setItem("user_id", "test1");
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Tap.Screen
-            name="Auth"
-            component={Auth}
-            options={{ headerShown: false }}
-        />
-      <Tap.Screen
-          name="Main"
-          component={Main}
+        <Tap.Screen
+          name="Auth"
+          component={Auth}
           options={{ headerShown: false }}
         />
-        
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
           // Hiding header for Splash Screen
           options={{ headerShown: false }}
         />
+
+        <Tap.Screen
+          name="Main"
+          component={Main}
+          options={{ headerShown: false }}
+        />
+
         <Stack.Screen
           name="MessengerChat"
           options={({ navigation, route }) => ({
