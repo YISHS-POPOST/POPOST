@@ -4,7 +4,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { HttpException } from "@nestjs/common/exceptions";
+import { ForbiddenException, HttpException } from "@nestjs/common/exceptions";
 import { HttpStatus } from "@nestjs/common/enums";
 
 @Injectable()
@@ -17,27 +17,29 @@ export class UsersService {
   async create(userData: CreateUserDto) {
     const { id, password, email, name, phone } = userData;
 
-    const idCheck = await this.UsersRepository.findOneBy({id});
-    
-    if(idCheck) {
-        console.log(idCheck);
-        "중복입니다."
-        const error = {error: "에러입니다."};
-        throw new HttpException(
-          { message: 'Input data validation falied',  error},
-          HttpStatus.BAD_REQUEST,
-        );
-    }
-  
-    const user = new User();
-    user.id = id;
-    user.password = password;
-    user.email = email;
-    user.name = name;
-    user.phone = phone;
+    const idCheck = await this.UsersRepository.findOne({where : {id}});
 
-    return await this.UsersRepository.save(user);
-    
+    if(idCheck) {
+      throw new ForbiddenException({
+        statusCode: HttpStatus.FORBIDDEN,
+        message: [`이미 등록된 사용자입니다.`],
+        error: 'Forbidden',
+      });
+    }
+    try {
+      const user = new User();
+      user.id = id;
+      user.password = password;
+      user.email = email;
+      user.name = name;
+      user.phone = phone;
+
+      return await this.UsersRepository.save(user);
+    } catch(error) {
+        return {
+          ...error,
+        }
+    }
   }
 
   async findUser(id : string , password : string){

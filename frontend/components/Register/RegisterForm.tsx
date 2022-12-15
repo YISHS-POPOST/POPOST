@@ -30,12 +30,21 @@ const RegistarForm = () => {
     };
 
     const registerAction = async () => {
-        await axios
+        if(!user.id || !user.password || !user.email || !user.name || !user.phone) {
+            return Alert.alert('회원가입', '모든 값은 필수입니다.');
+        }
+
+        const registerUser = await axios
             .post("http://10.0.2.2:3000/users/register", user)
-            .then(res => {
-                console.log(res.data);
+            .then(response => {
+                console.log(response);
             })
-            .catch(err => err)
+            .catch(err => {
+                const errMsg = err.response.data.message[0];
+                Alert.alert('회원가입', `${errMsg}`);
+            })
+        
+            console.log(registerUser);
     }
 
     return (
