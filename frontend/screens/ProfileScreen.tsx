@@ -8,6 +8,7 @@ import { ProfileScreenNavigationProp } from "../types/NavigateType";
 import ProfileLogout from "../components/profile/ProfileLogout";
 
 const ProfileScreen = ({ navigation }: ProfileScreenNavigationProp) => {
+  
   return (
     <View>
       <ScrollView
