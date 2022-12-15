@@ -6,10 +6,6 @@ import {
   Patch,
   Param,
   Delete,
-  Req,
-  Res,
-  HttpCode,
-  HttpStatus,
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -28,7 +24,19 @@ export class UsersController {
   @Post("/register")
   async register(@Body() userData: any) {
     const registerUser = await this.UsersService.create(userData);
-    return registerUser;
+    if(registerUser === "fail") {
+      return {
+        success: false,
+        message: "이미 사용중인 ID입니다.",
+        status: 403,
+      }
+    }else{
+      return {
+        success: true,
+        message: "성공적으로 하였습니다.",
+        status: 201,
+      }
+    }
   }
 
   @Post("/login")

@@ -20,13 +20,8 @@ export class UsersService {
     const idCheck = await this.UsersRepository.findOneBy({id});
 
     if(idCheck) {
-      throw new ForbiddenException({
-        statusCode: HttpStatus.FORBIDDEN,
-        message: [`이미 등록된 사용자입니다.`],
-        error: 'Forbidden',
-      });
-    }
-    try {
+      return "fail";
+    }else {
       const user = new User();
       user.id = id;
       user.password = password;
@@ -34,11 +29,8 @@ export class UsersService {
       user.name = name;
       user.phone = phone;
 
-      return await this.UsersRepository.save(user);
-    } catch(error) {
-        return {
-          ...error,
-        }
+      await this.UsersRepository.save(user);
+      return "success";
     }
   }
 

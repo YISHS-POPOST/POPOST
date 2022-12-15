@@ -7,12 +7,13 @@ import RegisterTitle from '../../components/Register/RegisterTitle';
 import RegisterForm from '../../components/Register/RegisterForm';
 import RegisterText from '../../components/Register/RegisterText';
 import RegisterButton from '../../components/Register/RegisterButton';
+import { ProfileScreenNavigationProp } from '../../types/NavigateType';
 
-const RegisterContent = () => {
+const RegisterContent = ({navigation}:ProfileScreenNavigationProp) => {
     return (
         <View style={styles.container}>
             <RegisterTitle />
-            <RegisterForm />
+            <RegisterForm navigation={navigation}/>
             <RegisterText />
             <RegisterButton />
         </View>

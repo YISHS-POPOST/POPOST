@@ -4,7 +4,6 @@ import PressButton from "../PressButton";
 import Feather from 'react-native-vector-icons/Feather';
 import { useState } from 'react';
 import axios from 'axios';
-
 import { ProfileScreenNavigationProp } from '../../types/NavigateType';
 
 interface RegisterUser {
@@ -15,13 +14,13 @@ interface RegisterUser {
     phone:string
 }
 
-const RegistarForm = () => {
+const RegistarForm = ({navigation}:ProfileScreenNavigationProp) => {
     const [user, setUser] = useState<RegisterUser>({
         id: "", 
         password: "", 
         email: "", 
         name: "", 
-        phone: ""
+        phone: "",
     });
 
     const targetInputChange = (key: string, val: string) => {
@@ -31,19 +30,18 @@ const RegistarForm = () => {
         }));
     };
 
-    const registerAction = async ({navigation}:ProfileScreenNavigationProp) => {
+    const registerAction = async () => {
         if(!user.id || !user.password || !user.email || !user.name || !user.phone) {
             return Alert.alert('회원가입', '모든 값은 필수입니다.', [{text: "확인"}]);
         }
 
         await axios
             .post("http://10.0.2.2:3000/users/register", user)
-            .then(response => {
-                Alert.alert('회원가입', '성공적으로 회원가입하셨습니다.', [{text: "확인"}]);
-            })
-            .catch(err => {
-                const errMsg = err.response.data.message[0];
-                Alert.alert('회원가입', `${errMsg}`, [{text: "확인"}]);
+            .then(res => {
+                Alert.alert(
+                    '회원가입', 
+                    `${res.data.message}`, 
+                    [{text: "확인", onPress: () => res.data.status === 201 ? navigation.navigate("Login") : null}]);
             })
     }
 
