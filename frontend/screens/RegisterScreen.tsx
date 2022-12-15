@@ -1,17 +1,14 @@
 import { SafeAreaView } from "react-native";
-
 import theme from "../theme";
-import {BoldText} from "../components/Text";
-
 import RegisterHeader from '../components/Register/RegisterHeader';
 import RegisterContents from '../components/Register/RegisterContent';
-import RegisterForm from '../components/Register/RegisterForm';
+import { ProfileScreenNavigationProp } from '../types/NavigateType';
 
-const RegistarScreen = () => {
+const RegistarScreen = ({navigation} : ProfileScreenNavigationProp) => {
     return (
         <SafeAreaView style={[theme.container]}>
             <RegisterHeader />
-            <RegisterContents />
+            <RegisterContents navigation={navigation} />
         </SafeAreaView>
     );
 }
