@@ -4,6 +4,8 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
+import { ForbiddenException, HttpException } from "@nestjs/common/exceptions";
+import HttpError from "asset/HttpError";
 
 @Injectable()
 export class UsersService {
@@ -12,14 +14,13 @@ export class UsersService {
     private readonly UsersRepository: Repository<User>
   ) {}
 
+  async findUserId(id: string) {
+    return await this.UsersRepository.findOne({where : {id}});
+  }
+
   async create(userData: CreateUserDto) {
     const { id, password, email, name, phone } = userData;
-
-    const idCheck = await this.UsersRepository.findOneBy({id});
-
-    if(idCheck) {
-      return "fail";
-    }else {
+      
       const user = new User();
       user.id = id;
       user.password = password;
@@ -27,9 +28,7 @@ export class UsersService {
       user.name = name;
       user.phone = phone;
 
-      await this.UsersRepository.save(user);
-      return "success";
-    }
+      return await this.UsersRepository.save(user);
   }
 
   async findUser(id : string , password : string){

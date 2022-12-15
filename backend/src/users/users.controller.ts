@@ -7,6 +7,8 @@ import {
   Param,
   Res,
   Delete,
+  Req,
+  Res,
   Response,
   HttpException,
 } from "@nestjs/common";
@@ -17,6 +19,7 @@ import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 import { ConfigService } from "@nestjs/config";
 import HttpError from "asset/HttpError";
+import { ConnectableObservable } from "rxjs";
 
 @Controller("users")
 export class UsersController {
@@ -26,21 +29,13 @@ export class UsersController {
   ) {}
 
   @Post("/register")
-  async register(@Body() userData: any) {
-    const registerUser = await this.UsersService.create(userData);
-    if (registerUser === "fail") {
-      return {
-        success: false,
-        message: "이미 사용중인 ID입니다.",
-        status: 403,
-      };
-    } else {
-      return {
-        success: true,
-        message: "성공적으로 하였습니다.",
-        status: 201,
-      };
-    }
+  async register(@Body() userData: any, @Res() res: any) {
+    const findUserId = await this.UsersService.findUserId(userData.id);
+
+    if(findUserId !== null) throw new HttpError(404, "이미 가입한 아이디입니다.")
+    
+    await this.UsersService.create(userData);
+    return res.status(201).send({ message : "회원가입에 성공하셨습니다." });
   }
 
   @Post("/login")
