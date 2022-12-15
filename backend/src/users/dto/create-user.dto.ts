@@ -4,7 +4,7 @@ export class CreateUserDto {
     email : string;
     name : string;
     phone : string;
-    introduce : string;
-    nickname : string;
-    profile : string;
+    // introduce : string;
+    // nickname : string;
+    // profile : string;
 }
