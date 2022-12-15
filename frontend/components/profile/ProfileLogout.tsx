@@ -3,23 +3,18 @@ import PressButton from "../PressButton";
 import theme from "../../theme";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
-import { useDispatch , useSelector } from "react-redux";
-import { getUsers } from "../../src/actions/userAction";
-import {useEffect} from "react";
+import { useDispatch } from "react-redux";
+import { userLogout } from "../../src/actions/userAction";
+import { AppDispatch } from "../../src/stores";
 
 const ProfileLogout = ({ navigation }: ProfileScreenNavigationProp) => {
-  const dispatch = useDispatch();
-  const userList = useSelector((state: any) => state.usersList);
-
-  useEffect(() => {
-    dispatch(getUsers());
-  }, [])
-  
-  console.log(userList);
+  const dispatch = useDispatch<AppDispatch>();
 
   const logout = async () => {
     try {
       await AsyncStorage.removeItem("user_id");
+      await AsyncStorage.removeItem("user_password");
+      dispatch(userLogout());
       Alert.alert("로그아웃이 완료되었습니다.");
       navigation.navigate("SplashScreen");
       return true;

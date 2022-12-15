@@ -1,28 +1,24 @@
-import { GET_LOGIN, LOGIN_ERROR, LOGOUT } from "../types";
-import axios from "axios";
+import { GET_LOGIN, LOGIN_ERROR, LOGOUT } from "../actionTypes";
+import { AppDispatch } from "../stores";
+import { Users } from "../type/users";
 
-export const getUsers = () => async dispatch => {
+export const loginUser = (user: Users) => async (dispatch: AppDispatch) => {
   dispatch({
     type: GET_LOGIN,
-    payload: {id : 'dnckd9425' , pw : '1234'},
+    payload: { ...user },
   });
-  // try {
-  //   await axios.post("/api/user/login/check").then(res => {
-
-  //   });
-  // } catch (error) {
-  //   dispatch({
-  //     type: LOGIN_ERROR,
-  //     payload: error,
-  //   });
-  // }
 };
 
-export const userLogout = () => async dispatch => {
-  axios.post("/api/user/logout").then(res => {
-    dispatch({
-      type: LOGOUT,
-      payload: {},
-    });
+export const erorrLogin = () => async (dispatch: AppDispatch) => {
+  dispatch({
+    type: LOGIN_ERROR,
+    payload: {},
+  });
+};
+
+export const userLogout = () => async (dispatch: AppDispatch) => {
+  dispatch({
+    type: LOGOUT,
+    payload: {},
   });
 };

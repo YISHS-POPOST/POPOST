@@ -1,24 +1,8 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Req,
-  Res,
-  Response,
-  HttpException,
-} from "@nestjs/common";
+import { Controller, Post, Body, Res } from "@nestjs/common";
 import { UsersService } from "./users.service";
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
-import { Repository } from "typeorm";
 import { ConfigService } from "@nestjs/config";
 import HttpError from "asset/HttpError";
-import { ConnectableObservable } from "rxjs";
 
 @Controller("users")
 export class UsersController {
@@ -31,10 +15,11 @@ export class UsersController {
   async register(@Body() userData: any, @Res() res: any) {
     const findUserId = await this.UsersService.findUserId(userData.id);
 
-    if(findUserId !== null) throw new HttpError(404, "이미 가입한 아이디입니다.")
-    
+    if (findUserId !== null)
+      throw new HttpError(404, "이미 가입한 아이디입니다.");
+
     await this.UsersService.create(userData);
-    return res.status(201).send({ message : "회원가입에 성공하셨습니다." });
+    return res.status(201).send({ message: "회원가입에 성공하셨습니다." });
   }
 
   @Post("/login")
@@ -53,14 +38,16 @@ export class UsersController {
 
       // 유저 로그인을 완료 할 수 있을때
       case false: {
-        return res
-          .status(200)
-          .send({ message: "로그인이 완료되었습니다.", id: findUser.id });
+        const users = findUser;
+        return res.status(200).send({
+          message: "로그인이 완료되었습니다.",
+          id: findUser.id,
+          password: findUser.password,
+          users: users,
+        });
       }
     }
   }
-
-  
 
   // @Post()
   // create(@Body() createUserDto: CreateUserDto) {

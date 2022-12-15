@@ -3,12 +3,15 @@ import HomeWeather from "../components/home/HomeWeather";
 import HomeCommunity from "../components/home/HomeCommunity";
 import HomeMessenger from "../components/home/HomeMessenger";
 import HomeNote from "../components/home/HomeNote";
-
 import theme from "../theme";
 
 const HomeScreen = () => {
   return (
-    <ScrollView overScrollMode="never" showsVerticalScrollIndicator={false} style={[{backgroundColor : theme.colors.backgroundWhite}]}>
+    <ScrollView
+      overScrollMode="never"
+      showsVerticalScrollIndicator={false}
+      style={[{ backgroundColor: theme.colors.backgroundWhite }]}
+    >
       <SafeAreaView style={[theme.mainContainer, styles.bg]}>
         <HomeWeather />
         <HomeCommunity />
