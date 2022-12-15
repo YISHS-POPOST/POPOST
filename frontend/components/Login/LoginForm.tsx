@@ -8,6 +8,7 @@ import axios, { ResponseType } from "axios";
 import { UserType } from "../../types/UserInformationType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from "@env";
 
 interface LoginUser {
   id: string;
@@ -19,20 +20,21 @@ const LoginForm = ({ navigation }: ProfileScreenNavigationProp) => {
     id: "",
     password: "",
   });
+  console.log(API_URL);
 
   const targetInputChange = (key: string, val: string) => {
     setUser(prev => ({
       ...prev,
       [key]: val,
     }));
-  };
+  }; 
 
   const loginAction = async () => {
     const findUser: UserType | Error = await axios
       .post("http://10.0.2.2:3000/users/login", user)
       .then(res => {
-        AsyncStorage.setItem("user_id", res.data.id);
-        navigation.replace("DrawerNavigationRoutes");
+        // AsyncStorage.setItem("user_id", res.data.id);
+        // navigation.replace("DrawerNavigationRoutes");
       })
       .catch(err => err);
   };
