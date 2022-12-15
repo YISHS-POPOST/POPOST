@@ -15,7 +15,7 @@ export default class CatchException implements ExceptionFilter {
 
     let httpError = null;
     console.log(exception);
-
+    
     if (exception instanceof HttpException) {
       // status: XXX, message: 'XXX' 형식의 에러인지 판단합니다.
       httpError = {

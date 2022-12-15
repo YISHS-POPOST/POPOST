@@ -26,4 +26,3 @@ export class User {
   @Column()
   profile: string;
 }
-
