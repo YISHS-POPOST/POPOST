@@ -1,21 +1,49 @@
 import { View, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { useState } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import theme from '../../theme';
 
+interface CommunityType {
+    title: string;
+    content: string;
+    link: string;
+    user_id: string;
+}
+
 const CommunityWriteContents = () => {    
+    const [community, setCommunity] = useState<CommunityType>({
+        title: "",
+        content: "",
+        link: "",
+        user_id: "",
+    });
+
+    const targetInputChange = (key: string, val: string) => {
+        setCommunity(prev => ({
+            ...prev,
+            [key]: val,
+        }));
+    };
+
+    const asdf = () => {
+        const asdf123 = AsyncStorage.getItem('user_id');
+    }
+
     return (
-        <View>
+        <ScrollView>
             <View style={theme.mt2}>
-                <TextInput placeholder='제목 추가' style={[theme.fontWeightBold, theme.fontXl, styles.text]} placeholderTextColor={"#adadad"} multiline ={true} />
+                <TextInput placeholder='제목 추가' style={[theme.fontWeightBold, theme.fontXl, styles.text]} placeholderTextColor={"#adadad"} multiline={true} maxLength={1} onChangeText={(text) => targetInputChange("title", text)}/>
             </View>
             <View style={styles.span}></View>
             <View>
-                <TextInput placeholder='나누고 싶은 생각을 적어주세요.' style={[theme.fontWeightRegular, theme.fontBase, styles.contentsInput, styles.text]} placeholderTextColor={"#adadad"} multiline ={true} />
+                <TextInput placeholder='나누고 싶은 생각을 적어주세요.' style={[theme.fontWeightRegular, theme.fontBase, styles.contentsInput, styles.text]} placeholderTextColor={"#adadad"} multiline ={true} onChangeText={(text) => targetInputChange("content", text)} />
             </View>
             <View style={styles.span}></View>
             <View>
-                <TextInput placeholder='링크는 하나만 추가 가능합니다.' style={[theme.fontWeightRegular, theme.fontBase, styles.contentsInput, styles.text]} placeholderTextColor={"#adadad"} multiline ={true} />
+                <TextInput placeholder='링크는 하나만 추가 가능합니다.' style={[theme.fontWeightRegular, theme.fontBase, styles.linkInput, styles.text]} placeholderTextColor={"#adadad"} multiline ={true} onChangeText={(text) => targetInputChange("link", text)} />
             </View>
-        </View>
+        </ScrollView>
     );
 }
 
