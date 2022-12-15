@@ -17,13 +17,13 @@ export class User {
   @Column()
   phone: string;
 
-  // @Column('text', { default: true })
-  // introduce: string;
+  @Column('text')
+  introduce: string;
 
-  // @Column({ default: true })
-  // nickname: string;
+  @Column()
+  nickname: string;
 
-  // @Column({ default: true })
-  // profile: string;
+  @Column()
+  profile: string;
 }
 
