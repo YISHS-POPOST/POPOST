@@ -17,6 +17,7 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 import { ConfigService } from "@nestjs/config";
+import HttpError from "asset/HttpError";
 
 @Controller("users")
 export class UsersController {
@@ -33,13 +34,10 @@ export class UsersController {
 
   @Post("/login")
   async login(@Body() body: any) {
-    // const { id, password } = body;
-    const API_URL = this.configService.get<string>("API_URL");
-    console.log(API_URL);
-    // const findUser = await this.UsersService.findUser(id, password);
-    // const chatServerIP = this.configService.get<string>("CHAT_SERVER_IP");
-    // console.log(chatServerIP);
-
+    const { id, password } = body;
+    const findUser = await this.UsersService.findUser(id, password);
+    throw new HttpError(404,"아이디 혹은 비밀번호가 잘못되었습니다.");
+    
     // return findUser;
   }
 
