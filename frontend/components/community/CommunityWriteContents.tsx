@@ -1,8 +1,10 @@
 import { View, StyleSheet, TextInput, ScrollView } from 'react-native';
 import { useState } from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from 'react-redux';
 
 import theme from '../../theme';
+import { setWriteData } from '../../src/actions/communityAction';
 
 interface CommunityType {
     title: string;
@@ -11,7 +13,10 @@ interface CommunityType {
     user_id: string;
 }
 
-const CommunityWriteContents = () => {    
+const CommunityWriteContents = () => {
+    const dispatch = useDispatch();
+    const writeData = useSelector((state:any ) => state.writeData);
+
     const [community, setCommunity] = useState<CommunityType>({
         title: "",
         content: "",
@@ -24,16 +29,15 @@ const CommunityWriteContents = () => {
             ...prev,
             [key]: val,
         }));
+        dispatch(setWriteData(community));
     };
 
-    const asdf = () => {
-        const asdf123 = AsyncStorage.getItem('user_id');
-    }
+    console.log(writeData);
 
     return (
         <ScrollView>
             <View style={theme.mt2}>
-                <TextInput placeholder='제목 추가' style={[theme.fontWeightBold, theme.fontXl, styles.text]} placeholderTextColor={"#adadad"} multiline={true} maxLength={1} onChangeText={(text) => targetInputChange("title", text)}/>
+                <TextInput placeholder='제목 추가' style={[theme.fontWeightBold, theme.fontXl, styles.text]} placeholderTextColor={"#adadad"} multiline={true} onChangeText={(text) => targetInputChange("title", text)}/>
             </View>
             <View style={styles.span}></View>
             <View>
