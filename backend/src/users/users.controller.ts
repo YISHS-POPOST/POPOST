@@ -24,9 +24,8 @@ export class UsersController {
   ) {}
 
   @Post("/register")
-  @HttpCode(HttpStatus.CREATED)
-  async register(@Res() res: any, @Body() userData: CreateUserDto) {
-    const registerUser = this.UsersService.create(userData);
+  async register(@Body() userData: CreateUserDto) {
+    const registerUser = await this.UsersService.create(userData);
     return registerUser;
   }
 

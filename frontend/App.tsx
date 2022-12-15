@@ -168,10 +168,10 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Tap.Screen
-          name="Auth"
-          component={Auth}
-          options={{ headerShown: false }}
+        <Tap.Screen
+            name="Auth"
+            component={Auth}
+            options={{ headerShown: false }}
         />
         <Stack.Screen
           name="SplashScreen"

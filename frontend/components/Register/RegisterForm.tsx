@@ -2,8 +2,10 @@ import { View, StyleSheet, TextInput, Alert } from "react-native";
 import theme from "../../theme";
 import PressButton from "../PressButton";
 import Feather from 'react-native-vector-icons/Feather';
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
+
+import { ProfileScreenNavigationProp } from '../../types/NavigateType';
 
 interface RegisterUser {
     id:string;
@@ -29,22 +31,20 @@ const RegistarForm = () => {
         }));
     };
 
-    const registerAction = async () => {
+    const registerAction = async ({navigation}:ProfileScreenNavigationProp) => {
         if(!user.id || !user.password || !user.email || !user.name || !user.phone) {
-            return Alert.alert('회원가입', '모든 값은 필수입니다.');
+            return Alert.alert('회원가입', '모든 값은 필수입니다.', [{text: "확인"}]);
         }
 
-        const registerUser = await axios
+        await axios
             .post("http://10.0.2.2:3000/users/register", user)
             .then(response => {
-                console.log(response);
+                Alert.alert('회원가입', '성공적으로 회원가입하셨습니다.', [{text: "확인"}]);
             })
             .catch(err => {
                 const errMsg = err.response.data.message[0];
-                Alert.alert('회원가입', `${errMsg}`);
+                Alert.alert('회원가입', `${errMsg}`, [{text: "확인"}]);
             })
-        
-            console.log(registerUser);
     }
 
     return (

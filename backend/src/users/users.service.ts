@@ -17,7 +17,7 @@ export class UsersService {
   async create(userData: CreateUserDto) {
     const { id, password, email, name, phone } = userData;
 
-    const idCheck = await this.UsersRepository.findOne({where : {id}});
+    const idCheck = await this.UsersRepository.findOneBy({id});
 
     if(idCheck) {
       throw new ForbiddenException({
