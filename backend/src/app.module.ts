@@ -1,11 +1,12 @@
-import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { User } from './users/entities/user.entity';
-import { UsersModule } from './users/users.module';
+import { Module } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { User } from "./users/entities/user.entity";
+import { UsersModule } from "./users/users.module";
 import { ConfigModule } from "@nestjs/config";
-
+import CatchException from "asset/CatchException";
+import { APP_FILTER } from "@nestjs/core";
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -20,11 +21,14 @@ import { ConfigModule } from "@nestjs/config";
     }),
     UsersModule,
     ConfigModule.forRoot({
-      envFilePath : '.env',
-      isGlobal : true,
+      envFilePath: ".env",
+      isGlobal: true,
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService, 
+    { provide: APP_FILTER, useClass: CatchException }
+  ],
 })
 export class AppModule {}
