@@ -9,15 +9,20 @@ import {
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { User } from "./entities/user.entity";
+import { Repository } from "typeorm";
+import { ConfigService } from "@nestjs/config";
 
 @Controller("users")
 export class UsersController {
   constructor(
     private readonly UsersService: UsersService,
+    private configService: ConfigService
   ) {}
 
   @Post("/register")
-  async register(@Body() userData: CreateUserDto) {
+  async register(@Body() userData: any) {
     const registerUser = await this.UsersService.create(userData);
     if(registerUser === "fail") {
       return {
@@ -35,10 +40,15 @@ export class UsersController {
   }
 
   @Post("/login")
-  async login(@Body() body: any)  {
-    const {id , password} = body;
-    const findUser = await this.UsersService.findUser(id , password);
-    return findUser;
+  async login(@Body() body: any) {
+    // const { id, password } = body;
+    const API_URL = this.configService.get<string>("API_URL");
+    console.log(API_URL);
+    // const findUser = await this.UsersService.findUser(id, password);
+    // const chatServerIP = this.configService.get<string>("CHAT_SERVER_IP");
+    // console.log(chatServerIP);
+
+    // return findUser;
   }
 
   // @Post()

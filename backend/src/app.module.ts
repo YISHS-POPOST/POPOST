@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
+import { ConfigModule } from "@nestjs/config";
 
 @Module({
   imports: [
@@ -18,6 +19,10 @@ import { UsersModule } from './users/users.module';
       synchronize: false,
     }),
     UsersModule,
+    ConfigModule.forRoot({
+      envFilePath : '.env',
+      isGlobal : true,
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
