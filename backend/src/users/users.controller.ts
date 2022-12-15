@@ -50,13 +50,17 @@ export class UsersController {
       case true: {
         throw new HttpError(404, "아이디 혹은 비밀번호가 잘못되었습니다.");
       }
-      
+
       // 유저 로그인을 완료 할 수 있을때
       case false: {
-        return res.status(200).send({ message: "로그인이 완료되었습니다.", id: findUser.id });
+        return res
+          .status(200)
+          .send({ message: "로그인이 완료되었습니다.", id: findUser.id });
       }
     }
   }
+
+  
 
   // @Post()
   // create(@Body() createUserDto: CreateUserDto) {

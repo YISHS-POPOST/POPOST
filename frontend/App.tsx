@@ -18,10 +18,11 @@ import ProfileHeader from "./components/profile/ProfileHeader";
 import CommunityHeader from "./components/community/CommunityHeader";
 import MessengerChatScreen from "./screens/MessengerChatScreen";
 import MessengerChatHeader from "./components/messenger/MessengerChatHeader";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import CommunityWriteScreen from "./screens/CommunityWriteScreen";
 import CommunityWriteHeader from "./components/community/CommunityWriteHeader";
 import MessengerChatHeaderRight from "./components/messenger/MessengerChatHeaderRight";
+import { store } from "./src/stores";
+import { Provider } from "react-redux";
 
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -65,7 +66,7 @@ const Main = () => {
           height: 60,
         },
         headerStyle: theme.headerHeight,
-        tabBarShowLabel : false,
+        tabBarShowLabel: false,
       }}
     >
       <Tap.Screen
@@ -165,52 +166,53 @@ const Main = () => {
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        
-        <Stack.Screen
-          name="SplashScreen"
-          component={SplashScreen}
-          // Hiding header for Splash Screen
-          options={{ headerShown: false }}
-        />
-        <Tap.Screen
-          name="Auth"
-          component={Auth}
-          options={{ headerShown: false }}
-        />
-        <Tap.Screen
-          name="Main"
-          component={Main}
-          options={{ headerShown: false }}
-        />
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen
+            name="SplashScreen"
+            component={SplashScreen}
+            // Hiding header for Splash Screen
+            options={{ headerShown: false }}
+          />
+          <Tap.Screen
+            name="Auth"
+            component={Auth}
+            options={{ headerShown: false }}
+          />
+          <Tap.Screen
+            name="Main"
+            component={Main}
+            options={{ headerShown: false }}
+          />
 
-        <Stack.Screen
-          name="MessengerChat"
-          options={({ navigation, route }) => ({
-            headerShown: true,
-            headerTitle: () => MessengerChatHeader(navigation, route),
-            headerBackVisible: true,
-            headerRight: () => MessengerChatHeaderRight(navigation, route),
-            contentStyle: {
-              backgroundColor: theme.colors.backgroundWhite,
-            },
-            headerShadowVisible: false,
-          })}
-          component={MessengerChatScreen}
-        />
-        <Stack.Screen
-          name="CommunityWrite"
-          options={({ navigation }) => ({
-            headerShown: true,
-            headerTitle: () => CommunityWriteHeader(navigation),
-            headerBackVisible: true,
-            headerShadowVisible: false,
-          })}
-          component={CommunityWriteScreen}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen
+            name="MessengerChat"
+            options={({ navigation, route }) => ({
+              headerShown: true,
+              headerTitle: () => MessengerChatHeader(navigation, route),
+              headerBackVisible: true,
+              headerRight: () => MessengerChatHeaderRight(navigation, route),
+              contentStyle: {
+                backgroundColor: theme.colors.backgroundWhite,
+              },
+              headerShadowVisible: false,
+            })}
+            component={MessengerChatScreen}
+          />
+          <Stack.Screen
+            name="CommunityWrite"
+            options={({ navigation }) => ({
+              headerShown: true,
+              headerTitle: () => CommunityWriteHeader(navigation),
+              headerBackVisible: true,
+              headerShadowVisible: false,
+            })}
+            component={CommunityWriteScreen}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 };
 
