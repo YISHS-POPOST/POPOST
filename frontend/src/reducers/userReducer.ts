@@ -1,24 +1,20 @@
-import { GET_LOGIN, LOGIN_ERROR, LOGOUT } from "../types";
+import { GET_LOGIN, LOGIN_ERROR, LOGOUT } from "../actionTypes";
+import { Users } from "../type/users";
 
-const initialState = {
-  users: 1,
-};
+const initialState: Users | null = null;
 
 export default function (state = initialState, action: any) {
   switch (action.type) {
     case GET_LOGIN:
       return {
-        ...state,
-        users: action.payload,
+        ...action.payload,
       };
     case LOGIN_ERROR:
-      return {
-        users: null,
-      };
+      return null;
+
     case LOGOUT:
-      return {
-        users: null,
-      };
+      return null;
+      
     default:
       return state;
   }

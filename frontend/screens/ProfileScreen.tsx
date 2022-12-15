@@ -1,4 +1,4 @@
-import { SafeAreaView, StyleSheet, View, ScrollView } from "react-native";
+import { StyleSheet, View, ScrollView } from "react-native";
 import theme from "../theme";
 import ProfileItems from "../components/profile/ProfileItems";
 import ProfileInformation from "../components/profile/ProfileInformation";
@@ -8,7 +8,6 @@ import { ProfileScreenNavigationProp } from "../types/NavigateType";
 import ProfileLogout from "../components/profile/ProfileLogout";
 
 const ProfileScreen = ({ navigation }: ProfileScreenNavigationProp) => {
-  
   return (
     <View>
       <ScrollView

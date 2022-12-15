@@ -3,7 +3,9 @@ import theme from "../../theme";
 import { BlackText, RegularText } from "../Text";
 import PressButton from "../PressButton";
 
+
 const ProfileInformation = () => {
+  
   return (
     <View style={[theme.mainContainer, styles.container, theme.pt3, theme.pb3]}>
       <View style={[styles.imageView]}>

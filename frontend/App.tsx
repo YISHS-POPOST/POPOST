@@ -172,7 +172,6 @@ const App = () => {
           <Stack.Screen
             name="SplashScreen"
             component={SplashScreen}
-            // Hiding header for Splash Screen
             options={{ headerShown: false }}
           />
           <Tap.Screen

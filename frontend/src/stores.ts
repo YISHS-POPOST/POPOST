@@ -15,3 +15,5 @@ export const store = createStore(
   initalState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
+
+export type AppDispatch = typeof store.dispatch;
