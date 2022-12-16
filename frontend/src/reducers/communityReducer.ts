@@ -1,7 +1,7 @@
 import { WRITEDATA_CLEAR, SET_WRITEDATA } from '../actionTypes';
 import { CommunityType } from '../type/commuity';
 
-const initalState: CommunityType | null  = null;
+const initalState: CommunityType | null = null;
 
 export default function (state = initalState, action:any) {
     switch (action.type) {

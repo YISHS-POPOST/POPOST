@@ -12,7 +12,7 @@ export class CommunitiesController {
   @Post("/writing")
   async writeAdd(@Body() body: any) {
     const writeData = await this.communitiesService.writing(body);
-    return writeData;
+    // return writeData;
   }
 
   // @Post()
