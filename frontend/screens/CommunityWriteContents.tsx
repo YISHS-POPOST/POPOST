@@ -1,11 +1,10 @@
 import { View, StyleSheet, TextInput, ScrollView } from 'react-native';
 import { useState } from 'react';
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch, useSelector } from 'react-redux';
 
-import theme from '../../theme';
-import { setWriteData } from '../../src/actions/communityAction';
-import { AppDispatch } from '../../src/stores';
+import theme from '../theme';
+import { setWriteData } from '../src/actions/communityAction';
+import { AppDispatch } from '../src/stores';
 
 interface CommunityType {
     title: string;
