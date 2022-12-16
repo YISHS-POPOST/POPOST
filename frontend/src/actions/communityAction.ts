@@ -2,7 +2,6 @@ import { WRITEDATA_CLEAR, SET_WRITEDATA } from '../actionTypes';
 import { AppDispatch } from "../stores";
 import { CommunityType } from "../type/commuity";
 
-
 export const setWriteData = (community:CommunityType) => async (dispatch:AppDispatch) => {
     dispatch({
         type: SET_WRITEDATA,

@@ -2,23 +2,31 @@ import { View, Image, StyleSheet } from "react-native";
 import theme from "../../theme";
 import { BlackText, RegularText } from "../Text";
 import PressButton from "../PressButton";
-
+import { useSelector } from "react-redux";
+import { StateInterface } from "../../src/type/state";
 
 const ProfileInformation = () => {
-  
+  const users = useSelector((state: StateInterface) => state.users);
+  const navigation = useSelector((state : StateInterface) => state.navigation);
+
   return (
     <View style={[theme.mainContainer, styles.container, theme.pt3, theme.pb3]}>
       <View style={[styles.imageView]}>
         <Image
-          source={require("../../assets/image/profile/test_profile.jpg")}
+          source={
+            users.profile
+              ? // 백엔드 경로 설정 필요
+                require("../../assets/image/profile/test_profile.jpg")
+              : require("../../assets/image/profile/default.jpg")
+          }
           style={[styles.image]}
         />
       </View>
       <View style={[theme.mb3, theme.mt3]}>
-        <BlackText style={[styles.name]}>최시우스 주니오르</BlackText>
+        <BlackText style={[styles.name]}>{users.name}</BlackText>
+        <RegularText style={[styles.nickname, theme.fontXl]}>별명</RegularText>
         <RegularText style={[theme.fontBase, styles.informationText]}>
-          Creative director at @ui8.net Creative director at @ui8.net Creative
-          director at @ui8.net
+          {users.introduce ? users.introduce : ""}
         </RegularText>
       </View>
       <View
@@ -36,6 +44,9 @@ const ProfileInformation = () => {
             theme.alignItemsCenter,
             theme.justifyContentCenter,
           ]}
+          onPress={() => {
+            navigation.navigate("ProfileEdit");
+          }}
           textStyle={[styles.editText, theme.fontXl]}
         />
         <PressButton
@@ -90,6 +101,9 @@ const styles = StyleSheet.create({
   informationText: {
     color: "#999",
     letterSpacing: -1,
+  },
+  nickname: {
+    color: "#555",
   },
 });
 
