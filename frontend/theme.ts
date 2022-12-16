@@ -9,11 +9,16 @@ const colors = {
   backgroundWhite: "#F6F7FB",
 };
 
+const headerIconSize = 25;
+
 const verticalContainer = {
   base: 25,
 };
 
 const styles = StyleSheet.create({
+  sectionBorderRadius : {
+    borderRadius : 15,
+  },
   fontSmall: {
     fontSize: 14,
   },
@@ -40,6 +45,11 @@ const styles = StyleSheet.create({
     paddingLeft: verticalContainer.base,
     paddingRight: verticalContainer.base,
   },
+  mainContainer: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
   fontWeightBold: {
     fontFamily: "Pretendard-Bold",
   },
@@ -51,6 +61,21 @@ const styles = StyleSheet.create({
   },
   fontWeightThin: {
     fontFamily: "Pretendard-Thin",
+  },
+  m1: {
+    margin: 7,
+  },
+  m2: {
+    margin: 14,
+  },
+  m3: {
+    margin: 21,
+  },
+  m4: {
+    margin: 28,
+  },
+  m5: {
+    margin: 35,
   },
   mt1: {
     marginTop: 7,
@@ -111,6 +136,21 @@ const styles = StyleSheet.create({
   },
   mr5: {
     marginRight: 35,
+  },
+  p1: {
+    padding: 7,
+  },
+  p2: {
+    padding: 14,
+  },
+  p3: {
+    padding: 21,
+  },
+  p4: {
+    padding: 28,
+  },
+  p5: {
+    padding: 35,
   },
   pt1: {
     paddingTop: 7,
@@ -205,7 +245,13 @@ const styles = StyleSheet.create({
   positionAbsolute: {
     position: "absolute",
   },
+  headerHeight : {
+    height : 70,
+  },
 });
+
+
+
 
 const headerOptions: NativeStackNavigationOptions = {
   headerShown: true,
@@ -218,6 +264,7 @@ const headerOptions: NativeStackNavigationOptions = {
     backgroundColor : colors.backgroundWhite,
   },
   headerShadowVisible : false,
+  
 };
 
 const theme = {
@@ -225,6 +272,7 @@ const theme = {
   verticalContainer,
   ...styles,
   headerOptions,
+  headerIconSize,
 };
 
 export default theme;

@@ -1,1 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32.66 38.13"><defs><style>.cls-1{fill:#dce1f2;}.cls-2{fill:#fcf7f0;}.cls-3{fill:#565555;}</style></defs><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><path class="cls-1" d="M25.89.42a1.42,1.42,0,0,0-2,0l-1.5,1.5-8.86,8.85,6.32,6.32,1.72,1.72h.68l10-10a1.44,1.44,0,0,0,0-2Z"/><path class="cls-2" d="M19.83,17.09l-6.32-6.32L11.42,8.68,8.79,6.05a1.44,1.44,0,0,0-2,0L.42,12.41a1.42,1.42,0,0,0,0,2L3.79,17.8l1,1H21.55Z"/><path class="cls-3" d="M21.18,36.7l-1.31,1.09a1.43,1.43,0,0,1-2.07-.24l-6.38-8.62,2.09-2.09,7.76,7.75A1.44,1.44,0,0,1,21.18,36.7Z"/><path class="cls-1" d="M25.89,37.19a1.42,1.42,0,0,1-2,0l-1.5-1.5-8.86-8.85,6.32-6.32,1.72-1.72h.68l10,10a1.44,1.44,0,0,1,0,2Z"/><path class="cls-2" d="M19.83,20.52l-6.32,6.32-2.09,2.09L8.79,31.56a1.42,1.42,0,0,1-2,0L.42,25.2a1.42,1.42,0,0,1,0-2l3.37-3.37,1-1H21.55Z"/></g></g></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32.7 38.1" style="enable-background:new 0 0 32.7 38.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;}
+	.st1{fill:#565555;}
+	.st2{fill:#625FA6;}
+	.st3{fill:#E1A2B7;}
+	.st4{fill:url(#SVGID_1_);}
+	.st5{fill:#E7345F;}
+</style>
+<polygon class="st0" points="21.7,18.8 24.3,21.4 24.3,16.2 21.7,18.8 "/>
+<path class="st1" d="M20.8,36.6l-1.5,1.1c-0.6,0.5-1.5,0.3-1.9-0.3L9.8,26c-0.5-0.6-0.3-1.5,0.3-1.9l1-0.5c0.6-0.5,1.5-0.3,1.9,0.3
+	l8.1,10.9C21.5,35.3,21.4,36.2,20.8,36.6z"/>
+<polygon class="st0" points="39.2,21.9 41.8,24.5 41.8,19.3 39.2,21.9 "/>
+<g>
+	<polygon class="st0" points="21.5,18.9 24.1,21.5 24.1,16.3 21.5,18.9 	"/>
+	<path class="st2" d="M20.6,36.7l-1.5,1.1c-0.6,0.5-1.5,0.3-1.9-0.3L9.6,26.1c-0.5-0.6-0.3-1.5,0.3-1.9l1-0.5
+		c0.6-0.5,1.5-0.3,1.9,0.3l8.1,10.9C21.3,35.4,21.2,36.2,20.6,36.7z"/>
+	<path class="st3" d="M24.1,21.5l-2.6-2.6l0,0l2.6-2.6l7.5-7.5c0.5-0.5,0.5-1.4,0-2l-6.4-6.4c-0.3-0.3-0.7-0.4-1.1-0.4
+		c-0.3,0-0.6,0.1-0.9,0.4L5.9,17.8c-0.3,0.3-0.4,0.7-0.4,1c0,0,0,0.1,0,0.1c0,0.4,0.1,0.8,0.4,1.1l17.2,17.2c0.3,0.3,0.6,0.4,1,0.4
+		c0.4,0,0.7-0.1,1-0.4l6.4-6.4c0.5-0.5,0.5-1.4,0-2L24.1,21.5z"/>
+	<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="10.7554" y1="19.6895" x2="10.7554" y2="9.107">
+		<stop  offset="0" style="stop-color:#9F2742"/>
+		<stop  offset="3.904194e-02" style="stop-color:#AC2947"/>
+		<stop  offset="0.1235" style="stop-color:#C22D50"/>
+		<stop  offset="0.2232" style="stop-color:#D33057"/>
+		<stop  offset="0.3465" style="stop-color:#DE325C"/>
+		<stop  offset="0.5196" style="stop-color:#E5345E"/>
+		<stop  offset="1" style="stop-color:#E7345F"/>
+	</linearGradient>
+	<path class="st4" d="M13.2,10.6L8.8,6.2c-0.6-0.6-1.6-0.6-2.2,0l-6.2,6.2c-0.6,0.6-0.6,1.6,0,2.2l4.4,4.4h16.7L13.2,10.6z"/>
+	<path class="st5" d="M4.8,18.9L4.8,18.9l-4.3,4.3c-0.6,0.6-0.6,1.6,0,2.2l6.2,6.2c0.6,0.6,1.6,0.6,2.2,0l4.3-4.3l8.3-8.3l0,0H4.8z"
+		/>
+</g>
+</svg>

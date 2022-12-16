@@ -1,20 +1,25 @@
-import { View, StyleSheet, TextInput } from "react-native";
+import { View, StyleSheet, TextInput, Alert } from "react-native";
 import theme from "../../theme";
 import { BoldText, RegularText } from "../Text";
 import PressButton from "../PressButton";
 import Feather from "react-native-vector-icons/Feather";
 import { useState } from "react";
-import axios, { ResponseType } from "axios";
-import { UserType } from "../../types/UserInformationType";
+import axios from "axios";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from "@env";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../src/stores";
+import { loginUser } from "../../src/actions/userAction";
+import { Users as UserInterface } from "../../src/type/users";
+import { LoginUser , DataSetInterface } from "../../types/User";
 
-interface LoginUser {
-  id: string;
-  password: string;
-}
 
 const LoginForm = ({ navigation }: ProfileScreenNavigationProp) => {
+  // redux
+  const dispatch = useDispatch<AppDispatch>();
+
+  // login form push data
   const [user, setUser] = useState<LoginUser>({
     id: "",
     password: "",
@@ -27,16 +32,27 @@ const LoginForm = ({ navigation }: ProfileScreenNavigationProp) => {
     }));
   };
 
-  const loginAction = async () => {
-    const findUser: UserType | Error = await axios
-      .post("http://10.0.2.2:3000/users/login", user)
-      .then(res => {
-        AsyncStorage.setItem("user_id", res.data.id);
-        navigation.replace("DrawerNavigationRoutes");
-      })
-      .catch(err => err);
+  const loginSuccess = async (data: DataSetInterface) => {
+    Alert.alert("성공", "로그인이 완료되었습니다.");
+    await AsyncStorage.setItem("user_id", data.id);
+    await AsyncStorage.setItem("user_password", data.password);
+    dispatch(loginUser(data.users));
+    return navigation.replace("SplashScreen");
+  };
 
-    console.log(findUser);
+  const loginAction = async () => {
+    await axios
+      .post(API_URL + "/users/login", user)
+      .then(async res => {
+        const { status } = res;
+        if (status === 200) {
+          await loginSuccess(res.data);
+        }
+      })
+      .catch(err => {
+        const message: string = err.response.data.message;
+        return Alert.alert("오류", message);
+      });
   };
 
   return (

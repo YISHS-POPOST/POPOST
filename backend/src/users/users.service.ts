@@ -4,8 +4,8 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { HttpException } from "@nestjs/common/exceptions";
-import { HttpStatus } from "@nestjs/common/enums";
+import { ForbiddenException, HttpException } from "@nestjs/common/exceptions";
+import HttpError from "asset/HttpError";
 
 @Injectable()
 export class UsersService {
@@ -14,35 +14,28 @@ export class UsersService {
     private readonly UsersRepository: Repository<User>
   ) {}
 
+  async findUserId(id: string) {
+    return await this.UsersRepository.findOne({where : {id}});
+  }
+
   async create(userData: CreateUserDto) {
     const { id, password, email, name, phone } = userData;
+      
+      const user = new User();
+      user.id = id;
+      user.password = password;
+      user.email = email;
+      user.name = name;
+      user.phone = phone;
 
-    const idCheck = await this.UsersRepository.findOneBy({id});
-    
-    if(idCheck) {
-        console.log(idCheck);
-        "중복입니다."
-        const error = {error: "에러입니다."};
-        throw new HttpException(
-          { message: 'Input data validation falied',  error},
-          HttpStatus.BAD_REQUEST,
-        );
-    }
-  
-    const user = new User();
-    user.id = id;
-    user.password = password;
-    user.email = email;
-    user.name = name;
-    user.phone = phone;
-
-    return await this.UsersRepository.save(user);
-    
+      return await this.UsersRepository.save(user);
   }
 
   async findUser(id : string , password : string){
     return await this.UsersRepository.findOneBy({id , password});
   }
+
+  
 
   // create(createUserDto: CreateUserDto) {
   //   return 'This action adds a new user';
