@@ -15,6 +15,8 @@ export class CommunitiesService {
   async writing(writeData: CreateCommunityDto) {
     const {user_id, title, content, link} = writeData;
 
+    if(!user_id || !title || !content) return false; 
+
     const write = new Community();
     write.user_id = user_id;
     write.title = title;
@@ -22,6 +24,10 @@ export class CommunitiesService {
     write.link = link;
     
     return await this.CommunitiesRepository.save(write);
+  }
+
+  async getList() {
+    return this.CommunitiesRepository.find()
   }
 
   // findAll() {

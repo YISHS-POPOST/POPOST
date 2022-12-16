@@ -9,6 +9,7 @@ import { ConfigModule } from "@nestjs/config";
 import CatchException from "asset/CatchException";
 import { APP_FILTER } from "@nestjs/core";
 import { CommunitiesModule } from './communities/communities.module';
+import { FollowsModule } from './follows/follows.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -27,6 +28,7 @@ import { CommunitiesModule } from './communities/communities.module';
     }),
     UsersModule,
     CommunitiesModule,
+    FollowsModule,
   ],
   controllers: [AppController],
   providers: [

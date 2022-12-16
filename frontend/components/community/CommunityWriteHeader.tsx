@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
 import theme from '../../theme';
 import Entypo from "react-native-vector-icons/Entypo";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
@@ -17,14 +17,18 @@ const CommunityWriteHeader = (navigation: ProfileScreenNavigationProp) => {
     AsyncStorage.getItem("user_id", (err, res:any) => {
       data.user_id = res;
 
-      if(!data.title || !data.content || !data.user_id) return AlertView("커뮤니티", "모든 항목은 필수입니다.");
+      if(!data.title || !data.content || !data.user_id) 
+        return AlertView("커뮤니티", "링크를 제외한 모든 항목은 필수입니다.");
 
       axios.post(API_URL + "/communities/writing", data)
         .then(res => {
-          
+          const { status } = res; 
+          if(status === 201) 
+            Alert.alert('커뮤니티', `${res.data.message}`, [{text: "확인", onPress: () => navigation.navigate("community")}]);
         })
-        .catch(res => {
-          
+        .catch(err => {
+          const errMsg = err.responese.data.message;
+          Alert.alert("커뮤니티", `${errMsg}`, [{text: "확인"}]);
         })
     })
   }
