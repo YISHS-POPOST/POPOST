@@ -15,7 +15,7 @@ interface ListInterface extends ItemInterface {
 
 const CommunityPostItem = ({
     user_image,
-    user_name,
+    name,
     create_dt,
     title,
     contents,
@@ -24,6 +24,7 @@ const CommunityPostItem = ({
     view,
     navigation,
 }:ListInterface) => {
+
   const followsAction = () => {
     axios.post(API_URL + "");
   }
@@ -51,7 +52,7 @@ const CommunityPostItem = ({
               <BoldText
                 style={[styles.text, styles.textLineHeight, styles.black]}
               >
-                {user_name}
+                {name}
               </BoldText>
               <RegularText
                 style={[styles.text, styles.textLineHeight, styles.gray]}

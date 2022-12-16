@@ -27,10 +27,11 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
     // ];
 
     const renderItem = ({item}: renderItemType) => {
+        console.log(item);
         return (
             <CommunityPostItem 
                 user_image={item.user_image}
-                user_name={item.user_name}
+                name={item.user.name}
                 create_dt={item.create_dt}
                 title={item.title}
                 contents={item.contents}

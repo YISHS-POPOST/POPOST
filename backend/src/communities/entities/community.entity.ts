@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm/index';
+import { User } from 'src/users/entities/user.entity';
+import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm/index';
 
 @Entity({ name: "communities" })
 export class Community {
@@ -22,4 +23,8 @@ export class Community {
 
     @Column()
     view: number;
+
+    @OneToOne(() => User)
+    @JoinColumn({name: "user_id"})
+    user: User
 }
