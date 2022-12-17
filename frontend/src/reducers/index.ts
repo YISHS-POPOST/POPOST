@@ -5,6 +5,6 @@ import communityReducer from './communityReducer';
 
 export default combineReducers({
   users: userReducer,
-  community: communityReducer
+  community: communityReducer,
   navigation: navigationReducer,
 });
