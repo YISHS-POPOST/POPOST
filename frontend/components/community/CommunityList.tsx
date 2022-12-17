@@ -21,15 +21,12 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
         getList();
     }, [])
 
-
-    // const info: ItemInterface[] = [
-    //     list
-    // ];
+    console.log(list);
 
     const renderItem = ({item}: renderItemType) => {
-        console.log(item);
         return (
             <CommunityPostItem 
+                user_id={item.user_id}
                 user_image={item.user_image}
                 user_name={item.user.name}
                 user_nickname={item.user.nickname}
