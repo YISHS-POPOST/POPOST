@@ -8,12 +8,14 @@ import { ItemInterface } from "../../types/CommunityType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import axios from "axios";
 import { API_URL } from "@env";
+import FollowsAction from "./CommunityFollows";
 
 interface ListInterface extends ItemInterface {
     navigation: ProfileScreenNavigationProp;
 }
 
 const CommunityPostItem = ({
+  user_id,
   user_image,
   user_name,
   user_nickname,
@@ -25,10 +27,6 @@ const CommunityPostItem = ({
   view,
   navigation,
 }:ListInterface) => {
-
-  const followsAction = () => {
-    axios.post(API_URL + "");
-  }
 
   return (
     <View>
@@ -47,7 +45,7 @@ const CommunityPostItem = ({
               theme.alignItemsCenter,
             ]}
           >
-            <Image source={user_image} style={[styles.image]} />
+            {/* <Image source={user_image === null ? require(user_image) : require('../../assets/image.profile/defalte.jpg')  } style={[styles.image]} /> */}
             <View style={theme.ml2}>
               <BoldText
                 style={[styles.text, styles.textLineHeight, styles.black]}
@@ -62,12 +60,12 @@ const CommunityPostItem = ({
               <RegularText
                 style={[styles.text, styles.textLineHeight, styles.gray]}
               >
-                {create_dt}
+                {new Date(create_dt).toISOString().slice(0, 19).replace('T', ' ')}
               </RegularText>
             </View>
           </View>
           <View style={[theme.justifyContentCenter]}>
-            <TouchableOpacity activeOpacity={0.8} onPress={followsAction}
+            <TouchableOpacity activeOpacity={0.8} onPress={() => FollowsAction(user_id)}
               style={[
                 styles.button,
                 { backgroundColor: theme.colors.softBlue },
