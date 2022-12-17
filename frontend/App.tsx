@@ -7,7 +7,7 @@ import MapScreen from "./screens/MapScreen";
 import CommunityScreen from "./screens/CommunityScreen";
 import MessengerScreen from "./screens/MessengerScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, TabActions } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import theme from "./theme";
@@ -21,13 +21,24 @@ import MessengerChatHeader from "./components/messenger/MessengerChatHeader";
 import CommunityWriteScreen from "./screens/CommunityWriteScreen";
 import CommunityWriteHeader from "./components/community/CommunityWriteHeader";
 import MessengerChatHeaderRight from "./components/messenger/MessengerChatHeaderRight";
-import { store } from "./src/stores";
+import ProfileEditScreen from "./screens/ProfileEditScreen";
+import { AppDispatch, store } from "./src/stores";
 import { Provider } from "react-redux";
+import { ProfileScreenNavigationProp } from "./types/NavigateType";
+import { useDispatch, useSelector } from "react-redux";
+import { getNavigation } from "./src/actions/navigationAction";
+import { StateInterface } from "./src/type/state";
 
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const Auth = () => {
+const Auth = ({ navigation }: ProfileScreenNavigationProp) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const reduxNavigation = useSelector(
+    (state: StateInterface) => state.navigation
+  );
+  if (!reduxNavigation) dispatch(getNavigation(navigation));
+
   // Stack Navigator for Login and Sign up Screen
   return (
     <Stack.Navigator
@@ -55,7 +66,13 @@ const Auth = () => {
   );
 };
 
-const Main = () => {
+const Main = ({ navigation }: ProfileScreenNavigationProp) => {
+  const dispatch = useDispatch<AppDispatch>();
+  const reduxNavigation = useSelector(
+    (state: StateInterface) => state.navigation
+  );
+  if (!reduxNavigation) dispatch(getNavigation(navigation));
+
   return (
     <Tap.Navigator
       initialRouteName="MainScreen"
@@ -184,7 +201,6 @@ const App = () => {
             component={Main}
             options={{ headerShown: false }}
           />
-
           <Stack.Screen
             name="MessengerChat"
             options={({ navigation, route }) => ({
@@ -208,6 +224,11 @@ const App = () => {
               headerShadowVisible: false,
             })}
             component={CommunityWriteScreen}
+          />
+          <Stack.Screen
+            name="ProfileEdit"
+            component={ProfileEditScreen}
+            options={{ headerShown: true }}
           />
         </Stack.Navigator>
       </NavigationContainer>
