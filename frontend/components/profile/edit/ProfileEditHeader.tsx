@@ -6,7 +6,7 @@ import { StateInterface } from "../../../src/type/state";
 import { BoldText } from "../../Text";
 
 // 제목
-const ProfileEditHeader = () => {
+const ProfileEditHeader = (navigate?: string) => {
   const navigation = useSelector((state: StateInterface) => state.navigation);
   return (
     <View
@@ -19,7 +19,7 @@ const ProfileEditHeader = () => {
       <Pressable
         style={[styles.prevBtn]}
         onPress={() => {
-          navigation.pop();
+          navigate ? navigation.navigate(navigate) : navigation.pop();
         }}
       >
         <Entypo
