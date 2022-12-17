@@ -2,6 +2,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import theme from '../../theme';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
+import { useState } from 'react';
 
 const CommunityWriteBtn = ({navigation}: ProfileScreenNavigationProp) => {
     return (

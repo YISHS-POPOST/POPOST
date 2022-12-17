@@ -3,10 +3,10 @@ import { AppDispatch } from "../stores";
 import { CommunityType } from "../type/commuity";
 
 export const setWriteData = (community:CommunityType) => async (dispatch:AppDispatch) => {
-    dispatch({
-        type: SET_WRITEDATA,
-        payload: community,
-      });
+  dispatch({
+    type: SET_WRITEDATA,
+    payload: { ...community },
+  });
 }
 
 export const writeDataClear = () => async (dispatch:AppDispatch) => {

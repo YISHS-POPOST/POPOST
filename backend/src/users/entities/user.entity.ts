@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm/index';
+import { Community } from 'src/communities/entities/community.entity';
+import { Entity, Column, PrimaryColumn, OneToOne } from 'typeorm/index';
 
 @Entity({ name: "users" })
 export class User {
@@ -25,4 +26,7 @@ export class User {
 
   @Column()
   profile: string;
+
+  @OneToOne(() => Community, (community) => community)
+  community :Community
 }

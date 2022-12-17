@@ -217,9 +217,9 @@ const App = () => {
           />
           <Stack.Screen
             name="CommunityWrite"
-            options={({ navigation }) => ({
+            options={({ navigation}) => ({
               headerShown: true,
-              headerTitle: () => CommunityWriteHeader(navigation),
+              headerTitle: () => CommunityWriteHeader(navigation ),
               headerBackVisible: true,
               headerShadowVisible: false,
             })}
