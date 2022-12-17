@@ -14,21 +14,21 @@ interface ListInterface extends ItemInterface {
 }
 
 const CommunityPostItem = ({
-    user_image,
-    name,
-    create_dt,
-    title,
-    contents,
-    link,
-    comment,
-    view,
-    navigation,
+  user_image,
+  user_name,
+  user_nickname,
+  create_dt,
+  title,
+  content,
+  link,
+  comment,
+  view,
+  navigation,
 }:ListInterface) => {
 
   const followsAction = () => {
     axios.post(API_URL + "");
   }
-
 
   return (
     <View>
@@ -52,12 +52,12 @@ const CommunityPostItem = ({
               <BoldText
                 style={[styles.text, styles.textLineHeight, styles.black]}
               >
-                {name}
+                {user_name}
               </BoldText>
               <RegularText
                 style={[styles.text, styles.textLineHeight, styles.gray]}
               >
-                배민 프론트엔드 연구소 청소부
+                {user_nickname === null ? "별명이 설정되어 있지 않습니다." : user_nickname }
               </RegularText>
               <RegularText
                 style={[styles.text, styles.textLineHeight, styles.gray]}
@@ -96,7 +96,7 @@ const CommunityPostItem = ({
             {title}
           </BoldText>
           <RegularText style={[styles.text, styles.black, theme.fontBase]}>
-            {contents}
+            {content}
           </RegularText>
         </View>
         <View>

@@ -31,10 +31,11 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
         return (
             <CommunityPostItem 
                 user_image={item.user_image}
-                name={item.user.name}
+                user_name={item.user.name}
+                user_nickname={item.user.nickname}
                 create_dt={item.create_dt}
                 title={item.title}
-                contents={item.contents}
+                content={item.content}
                 link={item.link}
                 comment={item.comment}
                 view={item.view}
