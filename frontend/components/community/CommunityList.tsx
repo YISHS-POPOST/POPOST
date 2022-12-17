@@ -21,13 +21,13 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
         getList();
     }, [])
 
-    console.log(list);
 
     const renderItem = ({item}: renderItemType) => {
         return (
-            <CommunityPostItem 
+            <CommunityPostItem
+                id={item.id}
                 user_id={item.user_id}
-                user_image={item.user_image}
+                user_profile={item.user.profile}
                 user_name={item.user.name}
                 user_nickname={item.user.nickname}
                 create_dt={item.create_dt}

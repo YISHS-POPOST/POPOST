@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList, Image, TouchableOpacity } from "react-native";
+import { View, StyleSheet, Image, TouchableOpacity, Modal } from "react-native";
 import theme from "../../theme";
 import { BoldText, RegularText } from "../../components/Text";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -6,17 +6,19 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import CommunityLinkPreview from './CommunityLinkPreview';
 import { ItemInterface } from "../../types/CommunityType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
-import axios from "axios";
+import { useState } from "react";
 import { API_URL } from "@env";
 import FollowsAction from "./CommunityFollows";
+import CommunityCommentModal from "./CommunityCommentModal";
 
 interface ListInterface extends ItemInterface {
     navigation: ProfileScreenNavigationProp;
 }
 
 const CommunityPostItem = ({
+  id, 
   user_id,
-  user_image,
+  user_profile,
   user_name,
   user_nickname,
   create_dt,
@@ -27,7 +29,7 @@ const CommunityPostItem = ({
   view,
   navigation,
 }:ListInterface) => {
-
+  
   return (
     <View>
       <View style={[theme.mt2, styles.container]}>
@@ -45,7 +47,14 @@ const CommunityPostItem = ({
               theme.alignItemsCenter,
             ]}
           >
-            {/* <Image source={user_image === null ? require(user_image) : require('../../assets/image.profile/defalte.jpg')  } style={[styles.image]} /> */}
+            {
+              user_profile === null
+              ?
+              <Image source={require("../../assets/image/profile/default.jpg")} style={styles.image} />
+              :
+              <Image /* source={require("user_profile")} */ style={styles.image} />
+            }
+            
             <View style={theme.ml2}>
               <BoldText
                 style={[styles.text, styles.textLineHeight, styles.black]}
@@ -65,7 +74,8 @@ const CommunityPostItem = ({
             </View>
           </View>
           <View style={[theme.justifyContentCenter]}>
-            <TouchableOpacity activeOpacity={0.8} onPress={() => FollowsAction(user_id)}
+            {/* 프로필 뷰 기능으로 들어갈 예정. */}
+            {/* <TouchableOpacity activeOpacity={0.8} onPress={() => FollowsAction(user_id)}
               style={[
                 styles.button,
                 { backgroundColor: theme.colors.softBlue },
@@ -84,7 +94,7 @@ const CommunityPostItem = ({
               >
                 팔로우
               </BoldText>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
         </View>
         <View style={[theme.mt2, theme.mb2]}>
@@ -100,10 +110,11 @@ const CommunityPostItem = ({
         <View>
             {link === "" ? null : <CommunityLinkPreview siteUrl={link}/>}
         </View>
-        <View style={[theme.mt2, theme.alignItemsEnd]}>
+        {/* 조회수 기능 X */}
+        {/* <View style={[theme.mt2, theme.alignItemsEnd]}>
           <RegularText style={[styles.text, styles.gray]}>{`조회 ${view}`}</RegularText>
-        </View>
-        <View style={[theme.mb2, theme.flexDirectionRow]}>
+        </View> */}
+        <View style={[theme.mb2, theme.flexDirectionRow, theme.mt2]}>
           <View
             style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
           >
@@ -128,9 +139,11 @@ const CommunityPostItem = ({
               style={styles.icon}
               size={17}
             />
-            <RegularText style={[styles.icon, theme.fontSmall, theme.ml1]}>
-              {`${comment}`}
-            </RegularText>
+            <TouchableOpacity activeOpacity={1}>
+              <RegularText style={[styles.icon, theme.fontSmall, theme.ml1]}>
+                {`${comment}`}
+              </RegularText>
+            </TouchableOpacity>
           </View>
           {/* <View
             style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
@@ -146,6 +159,7 @@ const CommunityPostItem = ({
           </View> */}
         </View>
       </View>
+      <CommunityCommentModal id={id} />
     </View>
   );
 };
