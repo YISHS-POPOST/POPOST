@@ -1,8 +1,7 @@
 import { View, SafeAreaView, StyleSheet } from 'react-native';
-
 import CommunityWriteContents from '../components/community/CommunityWriteContents';
-
 import theme from '../theme';
+import { useState } from 'react';
 
 const CommunityWriteScreen = () => {
     return (

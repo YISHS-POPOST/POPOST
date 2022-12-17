@@ -6,10 +6,12 @@ import { ProfileScreenNavigationProp } from '../types/NavigateType';
 
 const CommunityScreen = ({navigation} : ProfileScreenNavigationProp) => {
     return (
-        <SafeAreaView>
-            <CommunityList />
+        <>
+            <SafeAreaView>
+                <CommunityList />
+            </SafeAreaView>
             <CommunityWriteBtn navigation={navigation} />
-        </SafeAreaView>
+        </>
     );
 }
 
