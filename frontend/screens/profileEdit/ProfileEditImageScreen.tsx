@@ -1,9 +1,9 @@
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import { BoldText, RegularText } from "../components/Text";
-import theme from "../theme";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { BoldText, RegularText } from "../../components/Text";
+import theme from "../../theme";
+import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
 
 const ProfileEditImageScreen = () => {
   return (
@@ -14,7 +14,7 @@ const ProfileEditImageScreen = () => {
         theme.alignItemsCenter,
       ]}
     >
-      <View style={[styles.container, theme.alignItemsCenter]}>
+      <View style={[styles.container, theme.alignItemsCenter , theme.justifyContentCenter]}>
         <View
           style={[
             styles.cameraView,
@@ -38,6 +38,7 @@ const ProfileEditImageScreen = () => {
             theme.alignItemsCenter,
             theme.justifyContentBetween,
             theme.flexDirectionRow,
+            theme.mt5
           ]}
         >
           <TouchableOpacity
@@ -75,30 +76,7 @@ const ProfileEditImageScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <SafeAreaView
-        style={[
-          theme.mb5,
-          styles.nextBtn,
-          theme.sectionBorderRadius,
-          theme.pt2,
-          theme.pb2,
-          theme.alignItemsCenter,
-          theme.justifyContentCenter,
-        ]}
-      >
-        <TouchableOpacity
-          style={[
-            styles.nextBtnContent,
-            theme.justifyContentCenter,
-            theme.alignItemsCenter,
-            theme.sectionBorderRadius,
-            theme.pt2,
-            theme.pb2,
-          ]}
-        >
-          <BoldText style={[styles.nextTitle, theme.fontXl]}>다음으로</BoldText>
-        </TouchableOpacity>
-      </SafeAreaView>
+        <ProfileEditNextButton navigate="ProfileEditName" />
     </View>
   );
 };
@@ -129,17 +107,7 @@ const styles = StyleSheet.create({
   pickBtn: {
     backgroundColor: theme.colors.purple,
   },
-  nextBtn: {
-    width: "100%",
-  },
-  nextBtnContent: {
-    width: "100%",
-    textAlign: "center",
-    backgroundColor: theme.colors.blue,
-  },
-  nextTitle: {
-    color : '#fff',
-  },
+  
 });
 
 export default ProfileEditImageScreen;
