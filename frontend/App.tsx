@@ -217,9 +217,9 @@ const App = () => {
           />
           <Stack.Screen
             name="CommunityWrite"
-            options={({ navigation}) => ({
+            options={({navigation}) => ({
               headerShown: true,
-              headerTitle: () => CommunityWriteHeader(navigation ),
+              headerTitle: () => CommunityWriteHeader(navigation),
               headerBackVisible: true,
               headerShadowVisible: false,
             })}
@@ -228,7 +228,7 @@ const App = () => {
           <Stack.Screen
             name="ProfileEdit"
             component={ProfileEditScreen}
-            options={{ headerShown: true }}
+            options={{ headerShown: false }}
           />
         </Stack.Navigator>
       </NavigationContainer>
