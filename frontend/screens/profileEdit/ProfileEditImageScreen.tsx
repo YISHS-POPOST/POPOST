@@ -4,8 +4,12 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 import { BoldText, RegularText } from "../../components/Text";
 import theme from "../../theme";
 import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
+import { useState } from "react";
+import ProfileEditCameraModal from "../../components/profile/edit/ProfileEditCameraModal";
 
 const ProfileEditImageScreen = () => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View
       style={[
@@ -14,7 +18,13 @@ const ProfileEditImageScreen = () => {
         theme.alignItemsCenter,
       ]}
     >
-      <View style={[styles.container, theme.alignItemsCenter , theme.justifyContentCenter]}>
+      <View
+        style={[
+          styles.container,
+          theme.alignItemsCenter,
+          theme.justifyContentCenter,
+        ]}
+      >
         <View
           style={[
             styles.cameraView,
@@ -38,7 +48,7 @@ const ProfileEditImageScreen = () => {
             theme.alignItemsCenter,
             theme.justifyContentBetween,
             theme.flexDirectionRow,
-            theme.mt5
+            theme.mt5,
           ]}
         >
           <TouchableOpacity
@@ -51,6 +61,9 @@ const ProfileEditImageScreen = () => {
               theme.flexDirectionRow,
               theme.justifyContentCenter,
             ]}
+            onPress={() => {
+              setModalVisible(true);
+            }}
           >
             <AntDesign name="camerao" color="#fff" size={30} />
             <BoldText style={[{ color: "#fff" }, theme.fontLg, theme.ml1]}>
@@ -76,7 +89,11 @@ const ProfileEditImageScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-        <ProfileEditNextButton navigate="ProfileEditName" />
+      <ProfileEditCameraModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+      />
+      <ProfileEditNextButton navigate="ProfileEditName" />
     </View>
   );
 };
@@ -107,7 +124,6 @@ const styles = StyleSheet.create({
   pickBtn: {
     backgroundColor: theme.colors.purple,
   },
-  
 });
 
 export default ProfileEditImageScreen;
