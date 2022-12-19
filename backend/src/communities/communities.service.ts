@@ -9,7 +9,7 @@ import { Community } from "./entities/community.entity";
 export class CommunitiesService {
   constructor(
     @InjectRepository(Community)
-    private readonly CommunitiesRepository: Repository<Community>
+    private readonly CommunitiesRepository: Repository<Community>,
   ){}
 
   async writing(writeData: CreateCommunityDto) {

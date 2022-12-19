@@ -11,6 +11,8 @@ import CatchException from "asset/CatchException";
 import { APP_FILTER } from "@nestjs/core";
 import { CommunitiesModule } from './communities/communities.module';
 import { FollowsModule } from './follows/follows.module';
+import { CommunityAppliesModule } from './community_applies/community_applies.module';
+import { CommunityApply } from "./community_applies/entities/community_apply.entity";
 
 @Module({
   imports: [
@@ -21,7 +23,7 @@ import { FollowsModule } from './follows/follows.module';
       username: "root",
       password: "1234",
       database: "popost",
-      entities: [User, Community, Follow],
+      entities: [User, Community, Follow, CommunityApply],
       synchronize: false,
     }),
     ConfigModule.forRoot({
@@ -31,6 +33,7 @@ import { FollowsModule } from './follows/follows.module';
     UsersModule,
     CommunitiesModule,
     FollowsModule,
+    CommunityAppliesModule,
   ],
   controllers: [AppController],
   providers: [

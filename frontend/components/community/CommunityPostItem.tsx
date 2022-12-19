@@ -9,7 +9,7 @@ import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import { useState } from "react";
 import { API_URL } from "@env";
 import FollowsAction from "./CommunityFollows";
-import CommunityCommentModal from "./CommunityCommentModal";
+import CommunityCommentModal from "./CommunityApplyModal";
 
 interface ListInterface extends ItemInterface {
     navigation: ProfileScreenNavigationProp;
@@ -29,6 +29,7 @@ const CommunityPostItem = ({
   view,
   navigation,
 }:ListInterface) => {
+  const [modalVisible, setModalVisible] = useState(false);
   
   return (
     <View>
@@ -139,7 +140,9 @@ const CommunityPostItem = ({
               style={styles.icon}
               size={17}
             />
-            <TouchableOpacity activeOpacity={1}>
+            <TouchableOpacity activeOpacity={1} onPress={() => {
+              setModalVisible(true);
+            }}>
               <RegularText style={[styles.icon, theme.fontSmall, theme.ml1]}>
                 {`${comment}`}
               </RegularText>
@@ -159,7 +162,11 @@ const CommunityPostItem = ({
           </View> */}
         </View>
       </View>
-      <CommunityCommentModal id={id} />
+      <CommunityCommentModal 
+        id={id} 
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible} 
+      />
     </View>
   );
 };
