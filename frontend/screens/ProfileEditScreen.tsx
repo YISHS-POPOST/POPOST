@@ -28,7 +28,9 @@ const ProfileEditScreen = () => {
       ...theme.container,
     },
   };
-
+  
+  // 카메라 , 사진 고르기 액션 필요
+  
   return (
     <Stack.Navigator>
       <Stack.Screen
