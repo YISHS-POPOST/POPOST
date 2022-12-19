@@ -1,14 +1,46 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import { StyleSheet, TouchableOpacity, View , Image } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { BoldText, RegularText } from "../../components/Text";
 import theme from "../../theme";
 import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
 import { useState } from "react";
-import ProfileEditCameraModal from "../../components/profile/edit/ProfileEditCameraModal";
+import {
+  launchCamera,
+  launchImageLibrary,
+} from "react-native-image-picker";
 
 const ProfileEditImageScreen = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [imageUri, setImageUri] = useState<string | null>(null);
+
+  const openCamera = async () => {
+    const result = await launchCamera({
+      mediaType: "photo",
+      cameraType: "back",
+      maxWidth: 500,
+      maxHeight: 500,
+      includeBase64: true,
+    });
+    if (!result.assets) return;
+    const { uri } = result.assets[0];
+    if (!uri) return;
+    setImageUri(uri);
+  };
+
+  const openLibrary = async () => {
+    const result = await launchImageLibrary({
+      mediaType: "photo",
+      maxWidth: 500,
+      maxHeight: 500,
+      includeBase64 : true,
+    });
+    if (!result.assets) return;
+    // reuslt.asset.uri = 주소 값
+    const { uri } = result.assets[0];
+    if (!uri) return;
+    setImageUri(uri);
+  };
+
 
   return (
     <View
@@ -31,9 +63,17 @@ const ProfileEditImageScreen = () => {
             theme.mt5,
             theme.justifyContentCenter,
             theme.alignItemsCenter,
+
           ]}
         >
-          <Feather name="user" color="#aaa" size={100} />
+          {imageUri ? (
+            <Image
+              source={{ uri: imageUri }}
+              style={[{ width: "100%", height: "100%" }]}
+            />
+          ) : (
+            <Feather name="user" color="#aaa" size={100} />
+          )}
         </View>
         <View style={[theme.mt2, theme.mb2, theme.alignItemsCenter]}>
           <RegularText style={[styles.text, theme.fontBase]}>
@@ -61,9 +101,7 @@ const ProfileEditImageScreen = () => {
               theme.flexDirectionRow,
               theme.justifyContentCenter,
             ]}
-            onPress={() => {
-              setModalVisible(true);
-            }}
+            onPress={openCamera}
           >
             <AntDesign name="camerao" color="#fff" size={30} />
             <BoldText style={[{ color: "#fff" }, theme.fontLg, theme.ml1]}>
@@ -81,6 +119,7 @@ const ProfileEditImageScreen = () => {
               theme.justifyContentCenter,
               theme.ml2,
             ]}
+            onPress={openLibrary}
           >
             <Feather name="image" color="#fff" size={30} />
             <BoldText style={[{ color: "#fff" }, theme.fontLg, theme.ml1]}>
@@ -89,10 +128,6 @@ const ProfileEditImageScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <ProfileEditCameraModal
-        setModalVisible={setModalVisible}
-        modalVisible={modalVisible}
-      />
       <ProfileEditNextButton navigate="ProfileEditName" />
     </View>
   );
@@ -106,6 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.backgroundWhite,
     borderWidth: 2,
     borderColor: "#ddd",
+    overflow : 'hidden'
   },
   text: {
     color: "#777",
