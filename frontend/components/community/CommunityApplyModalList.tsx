@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
+import { View, Image, TouchableOpacity, StyleSheet, FlatList } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Octicons from "react-native-vector-icons/Octicons";
 import { BoldText, RegularText } from "../Text";
@@ -6,10 +6,37 @@ import theme from "../../theme";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "@env";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
     id: number;
 };
+
+interface itemProps {
+    id: number;
+    user_id: string;
+    community_id: string;
+    content: string;
+}
+
+type renderItemType = {item: itemProps}
+
+const renderItem = ({ item }: renderItemType) => {
+    return (
+        <View style={[theme.flexDirectionRow, theme.mb3]}>
+            <View style={[theme.flexDirectionRow, theme.justifyContentBetween]}>
+                <Image source={require("../../assets/image/profile/default.jpg")} style={[styles.image, theme.mr2]} />
+                <View>
+                    <BoldText style={[styles.userText]}>{item.user_id}</BoldText>
+                    <RegularText style={styles.contentText}>{item.content}</RegularText>
+                </View>
+            </View>
+            <TouchableOpacity style={[theme.alignItemsEnd, {width: 20}]}>
+                <Ionicons name="close" size={15} color={"#000"} />
+            </TouchableOpacity>
+        </View>
+    );
+}
 
 const CommunityApplyModalList = (props: Props) => {
     const [applyList, setApplyList] = useState<any>([]);
@@ -29,25 +56,13 @@ const CommunityApplyModalList = (props: Props) => {
 
     console.log(applyList);
 
-    return applyList.length === 0 ? null : (
-        <ScrollView>
-            {
-                applyList.map((data: any, idx: number) => {
-                    <View style={[theme.flexDirectionRow, theme.mb3]} key={idx}>
-                        <View style={[theme.flexDirectionRow, theme.justifyContentBetween]}>
-                            <Image source={require("../../assets/image/profile/default.jpg")} style={[styles.image, theme.mr2]} />
-                            <View>
-                                <BoldText style={[styles.userText]}>{data.user_id}</BoldText>
-                                <RegularText style={styles.contentText}>{data.content}</RegularText>
-                            </View>
-                        </View>
-                        <TouchableOpacity style={[theme.alignItemsEnd, {width: 20}]}>
-                            <Ionicons name="close" size={20} color={"#000"} />
-                        </TouchableOpacity>
-                    </View>
-                })
-            }
-        </ScrollView>
+    return (
+        <SafeAreaView>
+            <FlatList 
+                data={applyList}
+                renderItem={renderItem}
+            />
+        </SafeAreaView>
     );
 }
 

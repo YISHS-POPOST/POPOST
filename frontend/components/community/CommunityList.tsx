@@ -5,24 +5,24 @@ import CommunityPostItem from '../../components/community/CommunityPostItem';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '@env';
+import { useIsFocused } from '@react-navigation/native';
 
 type renderItemType = {item : ItemInterface }
 
 const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
     const [list, setList] = useState();
 
+    const isFocused = useIsFocused();
+
     const getList = async () => {
         await axios.get(API_URL + "/communities").then(res => {
-            setList(res.data);
+            setList(res.data.reverse());
         })
     }
 
     useEffect(() => {
         getList();
-    }, [])
-
-    
-
+    }, [isFocused])
 
     const renderItem = ({item}: renderItemType) => {
         return (
