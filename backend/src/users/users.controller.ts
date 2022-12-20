@@ -55,7 +55,7 @@ export class UsersController {
   @UseInterceptors(FileInterceptor("image"))
   async update(@Body() body: any, @UploadedFile() file: Express.Multer.File) {
     const { name, email, phone, nickname, introduce } = JSON.parse(body.data);
-    
+    console.log(file);
   }
 
   // @Post()
