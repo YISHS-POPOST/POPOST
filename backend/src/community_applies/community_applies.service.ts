@@ -31,7 +31,7 @@ export class CommunityAppliesService {
 
     if(!id) return false;
 
-    return await this.Community_appliesRepository.;
+    return await this.Community_appliesRepository.find({where : {community_id : id}});
   }
 
   // create(createCommunityApplyDto: CreateCommunityApplyDto) {

@@ -35,9 +35,7 @@ const CommunityCommentModal = (props: Props) => {
                         </TouchableOpacity>
                     </View>
                     <View style={styles.commentList}>
-                        <ScrollView>
-                            <CommunityApplyModalList id={id} />
-                        </ScrollView>
+                        <CommunityApplyModalList id={id} />
                     </View>
                     <CommunityApplyModalInput id={id} />
                 </View>

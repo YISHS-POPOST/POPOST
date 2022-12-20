@@ -132,6 +132,9 @@ const CommunityPostItem = ({
               공유
             </BoldText>
           </View>
+          <TouchableOpacity activeOpacity={1} onPress={() => {
+              setModalVisible(true);
+            }}>
           <View
             style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
           >
@@ -140,14 +143,12 @@ const CommunityPostItem = ({
               style={styles.icon}
               size={17}
             />
-            <TouchableOpacity activeOpacity={1} onPress={() => {
-              setModalVisible(true);
-            }}>
+            
               <RegularText style={[styles.icon, theme.fontSmall, theme.ml1]}>
-                {`${comment}`}
+                {`${comment.length}`}
               </RegularText>
-            </TouchableOpacity>
           </View>
+          </TouchableOpacity>
           {/* <View
             style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
           >

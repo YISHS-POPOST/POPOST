@@ -21,6 +21,8 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
         getList();
     }, [])
 
+    
+
 
     const renderItem = ({item}: renderItemType) => {
         return (
@@ -34,7 +36,7 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
                 title={item.title}
                 content={item.content}
                 link={item.link}
-                comment={item.comment}
+                comment={item.communityApply}
                 view={item.view}
                 navigation={navigation}
             />

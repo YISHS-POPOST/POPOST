@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm/index';
+import { Community } from 'src/communities/entities/community.entity';
+import { Entity, Column, PrimaryColumn, OneToMany, JoinColumn, ManyToOne } from 'typeorm/index';
 
 @Entity({ name: "community_applies" })
 export class CommunityApply {
@@ -13,4 +14,8 @@ export class CommunityApply {
 
     @Column('text')
     content: string;
+
+    @ManyToOne(() => Community, (community) => community.communityApply)
+    @JoinColumn({ name: 'community_id' })
+    community: Community
 }

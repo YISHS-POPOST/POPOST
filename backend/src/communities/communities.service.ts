@@ -27,7 +27,7 @@ export class CommunitiesService {
   }
 
   async getList() {
-    return this.CommunitiesRepository.find({relations: ['user']})
+    return this.CommunitiesRepository.find({relations: ['user', 'communityApply']})
   }
 
   // findAll() {

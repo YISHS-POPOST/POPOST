@@ -11,6 +11,6 @@ export interface ItemInterface {
     title: string;
     content: string;
     link:string;
-    comment:number;
+    comment: number;
     view:number;
 }
