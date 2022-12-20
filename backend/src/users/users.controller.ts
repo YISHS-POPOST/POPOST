@@ -1,8 +1,11 @@
-import { Controller, Post, Body, Res } from "@nestjs/common";
+import { Controller, Post, Body, Res, UseInterceptors } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { User } from "./entities/user.entity";
 import { ConfigService } from "@nestjs/config";
 import HttpError from "asset/HttpError";
+import { FileInterceptor } from "@nestjs/platform-express";
+import { UploadedFile } from "@nestjs/common/decorators";
+import { FilesInterceptor } from "@nestjs/platform-express/multer";
 
 @Controller("users")
 export class UsersController {
@@ -35,7 +38,6 @@ export class UsersController {
       case true: {
         throw new HttpError(404, "아이디 혹은 비밀번호가 잘못되었습니다.");
       }
-
       // 유저 로그인을 완료 할 수 있을때
       case false: {
         const users = findUser;
@@ -47,6 +49,13 @@ export class UsersController {
         });
       }
     }
+  }
+
+  @Post("/update")
+  @UseInterceptors(FileInterceptor("image"))
+  async update(@Body() body: any, @UploadedFile() file: Express.Multer.File) {
+    const { name, email, phone, nickname, introduce } = JSON.parse(body.data);
+    
   }
 
   // @Post()

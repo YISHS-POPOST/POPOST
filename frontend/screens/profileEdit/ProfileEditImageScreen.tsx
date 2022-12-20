@@ -1,30 +1,37 @@
-import { StyleSheet, TouchableOpacity, View , Image } from "react-native";
+import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { BoldText, RegularText } from "../../components/Text";
 import theme from "../../theme";
 import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
 import { useState } from "react";
-import {
-  launchCamera,
-  launchImageLibrary,
-} from "react-native-image-picker";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import ImagePicker, {
+  Image as ImageType,
+} from "react-native-image-crop-picker";
+import { useSelector, useDispatch } from "react-redux";
+import { StateInterface } from "../../src/type/state";
+import { AppDispatch } from "../../src/stores";
+import { nextPage } from "../../assets/fnc/profileEditNextPage";
 
 const ProfileEditImageScreen = () => {
-  const [imageUri, setImageUri] = useState<string | null>(null);
-
+  const [imageUri, setImageUri] = useState<ImageType | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const profile = useSelector((state: StateInterface) => state.profile);
+  
   const openCamera = async () => {
     const result = await launchCamera({
       mediaType: "photo",
       cameraType: "back",
       maxWidth: 500,
       maxHeight: 500,
-      includeBase64: true,
     });
-    if (!result.assets) return;
+    if (!result.assets) return setImageUri(null);
     const { uri } = result.assets[0];
-    if (!uri) return;
-    setImageUri(uri);
+    if (!uri) return setImageUri(null);
+    const cropImage = await imageCrop(uri);
+    if (!cropImage.path) return setImageUri(null);
+    setImageUri(cropImage);
   };
 
   const openLibrary = async () => {
@@ -32,15 +39,25 @@ const ProfileEditImageScreen = () => {
       mediaType: "photo",
       maxWidth: 500,
       maxHeight: 500,
-      includeBase64 : true,
     });
     if (!result.assets) return;
-    // reuslt.asset.uri = 주소 값
     const { uri } = result.assets[0];
-    if (!uri) return;
-    setImageUri(uri);
+    if (!uri) return setImageUri(null);
+    const cropImage = await imageCrop(uri);
+    if (!cropImage.path) return setImageUri(null);
+    setImageUri(cropImage);
   };
-
+  
+  const imageCrop = async (uri: string) => {
+    const cropImage = await ImagePicker.openCropper({
+      path: uri,
+      width: 300,
+      height: 300,
+      mediaType: "photo",
+      cropperToolbarTitle: "이미지 자르기",
+    });
+    return cropImage;
+  };
 
   return (
     <View
@@ -63,12 +80,11 @@ const ProfileEditImageScreen = () => {
             theme.mt5,
             theme.justifyContentCenter,
             theme.alignItemsCenter,
-
           ]}
         >
           {imageUri ? (
             <Image
-              source={{ uri: imageUri }}
+              source={{ uri: imageUri.path }}
               style={[{ width: "100%", height: "100%" }]}
             />
           ) : (
@@ -128,7 +144,12 @@ const ProfileEditImageScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <ProfileEditNextButton navigate="ProfileEditName" />
+      <ProfileEditNextButton
+        navigate="ProfileEditName"
+        onPress={() => {
+          nextPage("image", imageUri, dispatch, profile);
+        }}
+      />
     </View>
   );
 };
@@ -141,7 +162,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.backgroundWhite,
     borderWidth: 2,
     borderColor: "#ddd",
-    overflow : 'hidden'
+    overflow: "hidden",
   },
   text: {
     color: "#777",

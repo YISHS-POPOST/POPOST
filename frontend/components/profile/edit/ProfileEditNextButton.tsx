@@ -1,5 +1,5 @@
 import theme from "../../../theme";
-import { StyleSheet, TouchableOpacity , SafeAreaView } from "react-native";
+import { StyleSheet, TouchableOpacity, SafeAreaView } from "react-native";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../../src/type/state";
 import Entypo from "react-native-vector-icons/Entypo";
@@ -7,11 +7,12 @@ import { BoldText } from "../../Text";
 
 interface props {
   navigate: string;
+  onPress?: () => Promise<void> | void;
 }
 
-const ProfileEditNextButton = ({ navigate }: props) => {
+const ProfileEditNextButton = ({ navigate, onPress }: props) => {
   const navigation = useSelector((state: StateInterface) => state.navigation);
-
+  
   return (
     <SafeAreaView
       style={[
@@ -35,7 +36,8 @@ const ProfileEditNextButton = ({ navigate }: props) => {
           theme.pb2,
           theme.flexDirectionRow,
         ]}
-        onPress={() => {
+        onPress={async () => {
+          if(onPress) await onPress();
           navigation.navigate(navigate);
         }}
       >

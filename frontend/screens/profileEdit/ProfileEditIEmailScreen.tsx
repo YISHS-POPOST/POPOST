@@ -1,15 +1,24 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import theme from "../../theme";
 import { BoldText } from "../../components/Text";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
 import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useEffect, useState } from "react";
+import { AppDispatch } from "../../src/stores";
+import { nextPage } from "../../assets/fnc/profileEditNextPage";
+
 // 이름 , 소개 , 별명
 // 이메일 , 전화번호 변경 인증은 추후 배포 후 생각.
 
 const ProfileEditInfoScreen = () => {
-  const users = useSelector((state: StateInterface) => state.users);
+  const [email, setEmail] = useState<string>();
+  const profile = useSelector((state: StateInterface) => state.profile);
+  const dispatch = useDispatch<AppDispatch>();
+  
+  useEffect(() => {
+    setEmail(profile.email);
+  }, []);
   
   return (
     <View style={[styles.container]}>
@@ -40,11 +49,19 @@ const ProfileEditInfoScreen = () => {
           ]}
           maxLength={30}
           placeholder="이메일 입력 ex)example1234@example.com"
+          onChangeText={text => {
+            setEmail(text);
+          }}
         >
-          {users.email}
+          {email}
         </TextInput>
       </View>
-      <ProfileEditNextButton navigate="ProfileEditNickname" />
+      <ProfileEditNextButton
+        navigate="ProfileEditNickname"
+        onPress={() => {
+          nextPage("email", email, dispatch, profile);
+        }}
+      />
     </View>
   );
 };

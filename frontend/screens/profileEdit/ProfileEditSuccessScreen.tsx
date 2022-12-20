@@ -5,16 +5,51 @@ import { BoldText } from "../../components/Text";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
-
+import axios from "axios";
+import { API_URL } from "@env";
 const ProfileEditSuccessScreen = () => {
   const navigation = useSelector((state: StateInterface) => state.navigation);
+  const profile = useSelector((state: StateInterface) => state.profile);
 
   const prevAction = () => {
     navigation.navigate("ProfileEditIntroduce");
   };
 
-  const successAction = () => {
-    navigation.navigate("profile");
+  const successAction = async () => {
+    const formData = new FormData();
+
+    if (profile.image) {
+      const imageSplit = profile.image.path.split("/");
+      const imageName = imageSplit[imageSplit.length - 1];
+      const imageFile = {
+        uri: profile.image.path,
+        type: profile.image.mime,
+        name: imageName,
+      };
+      formData.append("image", imageFile);
+    } else {
+      formData.append("image", null);
+    }
+
+    const profileData = {
+      name: profile.name,
+      phone: profile.phone,
+      email: profile.email,
+      nickname: profile.nickname,
+      introduce: profile.introduce,
+    };
+
+    formData.append("data", JSON.stringify(profileData));
+    
+    await axios
+      .post(API_URL + "/users/update", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then(res => {
+        console.log(res);
+      })
+      .catch(err => console.log(err));
+    // navigation.navigate("profile");
   };
 
   return (
