@@ -1,4 +1,10 @@
-import { StyleSheet, TouchableOpacity, View, Image } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+  PermissionsAndroid,
+} from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { BoldText, RegularText } from "../../components/Text";
@@ -18,8 +24,37 @@ const ProfileEditImageScreen = () => {
   const [imageUri, setImageUri] = useState<ImageType | null>(null);
   const dispatch = useDispatch<AppDispatch>();
   const profile = useSelector((state: StateInterface) => state.profile);
-  
+
+  const showPicker = async () => {
+    const grantedCamera = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+      {
+        title: "App Camera Permission",
+        message: "App needs access to your camera",
+        buttonNeutral: "Ask Me Later",
+        buttonNegative: "Cancel",
+        buttonPositive: "OK",
+      }
+    );
+    const grantedStorage = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      {
+        title: "App Camera Permission",
+        message: "App needs access to your camera",
+        buttonNeutral: "Ask Me Later",
+        buttonNegative: "Cancel",
+        buttonPositive: "OK",
+      }
+    );
+    if (
+      grantedCamera === PermissionsAndroid.RESULTS.GRANTED &&
+      grantedStorage === PermissionsAndroid.RESULTS.GRANTED
+    )
+      return false;
+  };
+
   const openCamera = async () => {
+    await showPicker();
     const result = await launchCamera({
       mediaType: "photo",
       cameraType: "back",
@@ -35,6 +70,7 @@ const ProfileEditImageScreen = () => {
   };
 
   const openLibrary = async () => {
+    await showPicker();
     const result = await launchImageLibrary({
       mediaType: "photo",
       maxWidth: 500,
@@ -47,7 +83,7 @@ const ProfileEditImageScreen = () => {
     if (!cropImage.path) return setImageUri(null);
     setImageUri(cropImage);
   };
-  
+
   const imageCrop = async (uri: string) => {
     const cropImage = await ImagePicker.openCropper({
       path: uri,

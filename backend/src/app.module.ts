@@ -11,7 +11,6 @@ import CatchException from "asset/CatchException";
 import { APP_FILTER } from "@nestjs/core";
 import { CommunitiesModule } from "./communities/communities.module";
 import { FollowsModule } from "./follows/follows.module";
-import { MulterModule } from "@nestjs/platform-express/multer";
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -31,7 +30,6 @@ import { MulterModule } from "@nestjs/platform-express/multer";
     UsersModule,
     CommunitiesModule,
     FollowsModule,
-    MulterModule.register({ dest: "./upload" }),
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_FILTER, useClass: CatchException }],

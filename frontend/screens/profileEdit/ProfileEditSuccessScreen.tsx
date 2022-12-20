@@ -10,6 +10,7 @@ import { API_URL } from "@env";
 const ProfileEditSuccessScreen = () => {
   const navigation = useSelector((state: StateInterface) => state.navigation);
   const profile = useSelector((state: StateInterface) => state.profile);
+  const users = useSelector((state: StateInterface) => state.users);
 
   const prevAction = () => {
     navigation.navigate("ProfileEditIntroduce");
@@ -37,17 +38,16 @@ const ProfileEditSuccessScreen = () => {
       email: profile.email,
       nickname: profile.nickname,
       introduce: profile.introduce,
+      userId: users.id,
     };
 
     formData.append("data", JSON.stringify(profileData));
-    
+
     await axios
       .post(API_URL + "/users/update", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
-      .then(res => {
-        console.log(res);
-      })
+      .then(res => {})
       .catch(err => console.log(err));
     // navigation.navigate("profile");
   };

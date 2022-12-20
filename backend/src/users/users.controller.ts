@@ -5,7 +5,9 @@ import { ConfigService } from "@nestjs/config";
 import HttpError from "asset/HttpError";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { UploadedFile } from "@nestjs/common/decorators";
-import { FilesInterceptor } from "@nestjs/platform-express/multer";
+import { diskStorage } from "multer";
+import { extname } from "path";
+import * as fs from "fs";
 
 @Controller("users")
 export class UsersController {
@@ -51,11 +53,36 @@ export class UsersController {
     }
   }
 
+  // use multer image save code
   @Post("/update")
-  @UseInterceptors(FileInterceptor("image"))
+  @UseInterceptors(
+    FileInterceptor("image", {
+      storage: diskStorage({
+        destination: "./upload",
+        filename: (req, file, callBack) => {
+          const uniqueSuffix =
+            Date.now() + "-" + Math.round(Math.random() * 1e9);
+          const ext = extname(file.originalname);
+          const filename = `${uniqueSuffix}${ext}`;
+          callBack(null, filename);
+        },
+      }),
+    })
+  )
   async update(@Body() body: any, @UploadedFile() file: Express.Multer.File) {
-    const { name, email, phone, nickname, introduce } = JSON.parse(body.data);
-    console.log(file);
+    const { name, email, phone, nickname, introduce, userId } = JSON.parse(
+      body.data
+    );
+    await this.UsersService.updateUser(userId, {
+      name,
+      email,
+      phone,
+      nickname,
+      introduce,
+      profile: !file ? null : file.filename,
+    });
+    const user = await this.UsersService.findUserId(userId);
+    if (file && user.profile) fs.unlinkSync("./upload/" + user.profile);
   }
 
   // @Post()
