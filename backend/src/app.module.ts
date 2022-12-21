@@ -10,6 +10,7 @@ import { ConfigModule } from "@nestjs/config";
 import CatchException from "asset/CatchException";
 import { APP_FILTER } from "@nestjs/core";
 import { CommunitiesModule } from './communities/communities.module';
+import { FilesModule } from './files/files.module';
 import { FollowsModule } from './follows/follows.module';
 import { CommunityAppliesModule } from './community_applies/community_applies.module';
 import { CommunityApply } from "./community_applies/entities/community_apply.entity";
@@ -32,6 +33,7 @@ import { CommunityApply } from "./community_applies/entities/community_apply.ent
     UsersModule,
     CommunitiesModule,
     FollowsModule,
+    FilesModule,
     CommunityAppliesModule,
   ],
   controllers: [AppController],

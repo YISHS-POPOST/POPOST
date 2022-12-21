@@ -4,10 +4,13 @@ import { BlackText, RegularText } from "../Text";
 import PressButton from "../PressButton";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
+import { API_URL } from "@env";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 const ProfileInformation = () => {
   const users = useSelector((state: StateInterface) => state.users);
-  const navigation = useSelector((state : StateInterface) => state.navigation);
+  const navigation = useSelector((state: StateInterface) => state.navigation);
 
   return (
     <View style={[theme.mainContainer, styles.container, theme.pt3, theme.pb3]}>
@@ -16,15 +19,17 @@ const ProfileInformation = () => {
           source={
             users.profile
               ? // 백엔드 경로 설정 필요
-                require("../../assets/image/profile/test_profile.jpg")
-              : require("../../assets/image/profile/default.jpg")
+                {uri : API_URL + "/files/profile/" + users.profile}
+              : require("../../assets/image/profile/test_profile.jpg")
           }
           style={[styles.image]}
         />
       </View>
       <View style={[theme.mb3, theme.mt3]}>
         <BlackText style={[styles.name]}>{users.name}</BlackText>
-        <RegularText style={[styles.nickname, theme.fontXl]}>별명</RegularText>
+        <RegularText style={[styles.nickname, theme.fontXl]}>
+          {users.nickname ? users.nickname : "별명을 정해주세요!"}
+        </RegularText>
         <RegularText style={[theme.fontBase, styles.informationText]}>
           {users.introduce ? users.introduce : ""}
         </RegularText>
