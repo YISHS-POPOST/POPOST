@@ -9,13 +9,13 @@ import { Community } from "./entities/community.entity";
 export class CommunitiesService {
   constructor(
     @InjectRepository(Community)
-    private readonly CommunitiesRepository: Repository<Community>
+    private readonly CommunitiesRepository: Repository<Community>,
   ){}
 
   async writing(writeData: CreateCommunityDto) {
     const {user_id, title, content, link} = writeData;
 
-    if(!user_id || !title || !content) return false; 
+    if( !user_id || !title || !content ) return false; 
 
     const write = new Community();
     write.user_id = user_id;
@@ -27,7 +27,7 @@ export class CommunitiesService {
   }
 
   async getList() {
-    return this.CommunitiesRepository.find({relations: ['user']})
+    return this.CommunitiesRepository.find({relations: ['user', 'communityApply']})
   }
 
   // findAll() {

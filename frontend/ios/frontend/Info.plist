@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSCameraUsageDescription</key>
+<string>카메라를 사용합니다.</string>
+
+<key>NSPhotoLibraryUsageDescription</key>
+<string>사진을 저장합니다.</string>
+
+<key> NSPhotoLibraryUsageDescription</key>.
+<string> Your message to the user when the photo library is accessed for the first time</string>.
+
+<key> NSMicrophoneUsageDescription</key>.
+<string> Your message to the user when the microphone is accessed for the first time</string>.
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>

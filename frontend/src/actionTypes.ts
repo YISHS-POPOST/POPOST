@@ -10,3 +10,7 @@ export const BREAK_NAVIGATION = "BREAK_NAVIGATION";
 // community
 export const SET_WRITEDATA = "SET_WRITEDATA";
 export const WRITEDATA_CLEAR = "WRITEDATA_CLEAR";
+
+// profile edit
+export const SET_PROFILE = "SET_PROFILE";
+export const BREAK_PROFILE = "BREAK_PROFILE";
