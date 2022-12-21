@@ -7,7 +7,7 @@ import { UpdateCommunityDto } from './dto/update-community.dto';
 @Controller('communities')
 export class CommunitiesController {
   constructor(
-    private readonly communitiesService: CommunitiesService
+    private readonly communitiesService: CommunitiesService,
   ) {}
 
     //  status type

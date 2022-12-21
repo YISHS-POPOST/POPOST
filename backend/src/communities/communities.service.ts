@@ -9,7 +9,7 @@ import { Community } from "./entities/community.entity";
 export class CommunitiesService {
   constructor(
     @InjectRepository(Community)
-    private readonly CommunitiesRepository: Repository<Community>
+    private readonly CommunitiesRepository: Repository<Community>,
   ){}
 
   async writing(writeData: CreateCommunityDto) {
@@ -27,7 +27,7 @@ export class CommunitiesService {
   }
 
   async getList() {
-    return this.CommunitiesRepository.find({relations: ['user']})
+    return this.CommunitiesRepository.find({relations: ['user', 'communityApply']})
   }
 
   // findAll() {
