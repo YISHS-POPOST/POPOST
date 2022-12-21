@@ -69,10 +69,16 @@ export class UsersController {
       }),
     })
   )
-  async update(@Body() body: any, @UploadedFile() file: Express.Multer.File) {
+  async update(
+    @Body() body: any,
+    @UploadedFile() file: Express.Multer.File,
+    @Res() res
+  ) {
     const { name, email, phone, nickname, introduce, userId } = JSON.parse(
       body.data
     );
+    const user = await this.UsersService.findUserId(userId);
+    if (file && user.profile) fs.unlinkSync("./upload/" + user.profile);
     await this.UsersService.updateUser(userId, {
       name,
       email,
@@ -80,9 +86,10 @@ export class UsersController {
       nickname,
       introduce,
       profile: !file ? null : file.filename,
+    }).catch(err => {
+      throw new HttpError(500, "Server Error");
     });
-    const user = await this.UsersService.findUserId(userId);
-    if (file && user.profile) fs.unlinkSync("./upload/" + user.profile);
+    return res.status(200).send({ message: "프로필 편집이 완료되었습니다." });
   }
 
   // @Post()

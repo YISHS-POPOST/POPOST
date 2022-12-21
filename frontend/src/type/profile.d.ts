@@ -1,6 +1,6 @@
 import { Image } from "react-native-image-crop-picker";
 export interface Profile {
-  image: Image | null;
+  image: null | Image;
   name: string;
   phone: string;
   email: string;

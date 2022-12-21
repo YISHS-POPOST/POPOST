@@ -37,7 +37,7 @@ const ProfileEditScreen = () => {
       dispatch(setProfile(setProfileItem));
     }
   }, []);
-
+  
   const options: NativeStackNavigationOptions = {
     headerBackVisible: false,
     headerTitleStyle: {
