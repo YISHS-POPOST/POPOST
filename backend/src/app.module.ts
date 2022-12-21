@@ -11,6 +11,8 @@ import CatchException from "asset/CatchException";
 import { APP_FILTER } from "@nestjs/core";
 import { CommunitiesModule } from "./communities/communities.module";
 import { FollowsModule } from "./follows/follows.module";
+import { FilesModule } from './files/files.module';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -30,6 +32,7 @@ import { FollowsModule } from "./follows/follows.module";
     UsersModule,
     CommunitiesModule,
     FollowsModule,
+    FilesModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_FILTER, useClass: CatchException }],

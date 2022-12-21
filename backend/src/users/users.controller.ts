@@ -85,7 +85,7 @@ export class UsersController {
       phone,
       nickname,
       introduce,
-      profile: !file ? null : file.filename,
+      profile: !file ? user.profile : file.filename,
     }).catch(err => {
       throw new HttpError(500, "Server Error");
     });
