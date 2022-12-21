@@ -4,14 +4,24 @@ import { BoldText } from "../../components/Text";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
 import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../src/stores";
+import { Profile } from "../../src/type/profile";
+import { useState, useEffect } from "react";
+import { nextPage } from "../../assets/fnc/profileEditNextPage";
 // 이름 , 소개 , 별명
 // 이메일 , 전화번호 변경 인증은 추후 배포 후 생각.
 
-const ProfileEditNameScreen
- = () => {
+const ProfileEditNameScreen = () => {
+  const [userName, setUserName] = useState<string>();
+  const dispatch = useDispatch<AppDispatch>();
   const users = useSelector((state: StateInterface) => state.users);
+  const profile = useSelector((state: StateInterface) => state.profile);
 
+  useEffect(() => {
+    setUserName(users.name);
+  }, []);
+  
   return (
     <View style={[styles.container]}>
       <View
@@ -41,11 +51,19 @@ const ProfileEditNameScreen
           ]}
           maxLength={30}
           placeholder="이름입력"
+          onChangeText={text => {
+            setUserName(text);
+          }}
         >
-          {users.name}
+          {userName}
         </TextInput>
       </View>
-      <ProfileEditNextButton navigate="ProfileEditPhone" />
+      <ProfileEditNextButton
+        navigate="ProfileEditPhone"
+        onPress={() => {
+          nextPage("name", userName, dispatch, profile);
+        }}
+      />
     </View>
   );
 };
@@ -68,5 +86,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProfileEditNameScreen
-;
+export default ProfileEditNameScreen;

@@ -1,14 +1,23 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import theme from "../../theme";
 import { BoldText } from "../../components/Text";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { StateInterface } from "../../src/type/state";
 import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
+import { useEffect, useState } from "react";
+import { nextPage } from "../../assets/fnc/profileEditNextPage";
+import { AppDispatch } from "../../src/stores";
+
 // 이름 , 소개 , 별명
 // 이메일 , 전화번호 변경 인증은 추후 배포 후 생각.
-
 const ProfileEditPhoneScreen = () => {
-  const users = useSelector((state: StateInterface) => state.users);
+  const profile = useSelector((state: StateInterface) => state.profile);
+  const dispatch = useDispatch<AppDispatch>();
+  const [phoneNumber, setPhoneNumber] = useState<string>();
+
+  useEffect(() => {
+    setPhoneNumber(profile.phone);
+  }, []);
 
   return (
     <View style={[styles.container]}>
@@ -37,13 +46,22 @@ const ProfileEditPhoneScreen = () => {
             theme.fontWeightBold,
             theme.fontXxl,
           ]}
-          maxLength={30}
+          maxLength={11}
           placeholder="전화번호변경"
-        >
-          {users.phone}
-        </TextInput>
+          onChangeText={text => {
+            const result = text.replace(/[^0-9]/g, "");
+            setPhoneNumber(result);
+          }}
+          keyboardType="number-pad"
+          value={phoneNumber}
+        />
       </View>
-      <ProfileEditNextButton navigate="ProfileEditEmail" />
+      <ProfileEditNextButton
+        navigate="ProfileEditEmail"
+        onPress={() => {
+          nextPage("phone", phoneNumber, dispatch, profile);
+        }}
+      />
     </View>
   );
 };

@@ -1,16 +1,23 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import theme from "../../theme";
 import { BoldText } from "../../components/Text";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
 import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { useEffect, useState } from "react";
+import { AppDispatch } from "../../src/stores";
+import { nextPage } from "../../assets/fnc/profileEditNextPage";
 // 이름 , 소개 , 별명
 // 이메일 , 전화번호 변경 인증은 추후 배포 후 생각.
 
 const ProfileEditIntroduceScreen = () => {
-  const users = useSelector((state: StateInterface) => state.users);
-
+  const [introduce, setIntroduce] = useState<string | null>();
+  const profile = useSelector((state: StateInterface) => state.profile);
+  const dispatch = useDispatch<AppDispatch>();
+    
+  useEffect(() => {
+    setIntroduce(profile.introduce);
+  }, []);
   return (
     <View style={[styles.container]}>
       <View
@@ -22,7 +29,7 @@ const ProfileEditIntroduceScreen = () => {
         ]}
       >
         <View>
-          {!users.introduce ? (
+          {!profile.introduce ? (
             <>
               <BoldText style={[styles.titleText, theme.fontTitleSize]}>
                 회원님의 소개를
@@ -55,11 +62,19 @@ const ProfileEditIntroduceScreen = () => {
           multiline={true}
           maxLength={500}
           placeholder="소개입력 (최대 500자)"
+          onChangeText={text => {
+            setIntroduce(text);
+          }}
         >
-          {users.introduce}
+          {profile.introduce}
         </TextInput>
       </View>
-      <ProfileEditNextButton navigate="ProfileEditSuccess" />
+      <ProfileEditNextButton
+        navigate="ProfileEditSuccess"
+        onPress={() => {
+          nextPage("introduce", introduce, dispatch, profile);
+        }}
+      />
     </View>
   );
 };

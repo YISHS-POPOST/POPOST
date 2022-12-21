@@ -3,7 +3,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { User } from "./users/entities/user.entity";
-import { Community } from './communities/entities/community.entity'
+import { Community } from "./communities/entities/community.entity";
 import { Follow } from "./follows/entities/follow.entity";
 import { UsersModule } from "./users/users.module";
 import { ConfigModule } from "@nestjs/config";
@@ -13,7 +13,6 @@ import { CommunitiesModule } from './communities/communities.module';
 import { FollowsModule } from './follows/follows.module';
 import { CommunityAppliesModule } from './community_applies/community_applies.module';
 import { CommunityApply } from "./community_applies/entities/community_apply.entity";
-
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -36,9 +35,6 @@ import { CommunityApply } from "./community_applies/entities/community_apply.ent
     CommunityAppliesModule,
   ],
   controllers: [AppController],
-  providers: [
-    AppService, 
-    { provide: APP_FILTER, useClass: CatchException }
-  ],
+  providers: [AppService, { provide: APP_FILTER, useClass: CatchException }],
 })
 export class AppModule {}

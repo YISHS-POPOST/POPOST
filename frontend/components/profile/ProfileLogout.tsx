@@ -9,7 +9,7 @@ import { AppDispatch } from "../../src/stores";
 
 const ProfileLogout = ({ navigation }: ProfileScreenNavigationProp) => {
   const dispatch = useDispatch<AppDispatch>();
-
+  
   const logout = async () => {
     try {
       await AsyncStorage.removeItem("user_id");
