@@ -37,7 +37,7 @@ const CommunityWriteContents = () => {
             </View>
             <View style={styles.span}></View>
             <View>
-                <TextInput placeholder='나누고 싶은 생각을 적어주세요.' style={[theme.fontWeightRegular, theme.fontBase, styles.contentsInput, styles.text]} placeholderTextColor={"#adadad"} multiline ={true} onChangeText={(text) => targetInputChange("content", text)} />
+                <TextInput placeholder='나누고 싶은 생각을 적어주세요.' style={[theme.fontWeightRegular, theme.fontBase, styles.contentsInput, styles.text]} placeholderTextColor={"#adadad"} multiline = {true} onChangeText={(text) => targetInputChange("content", text)} />
             </View>
             <View style={styles.span}></View>
             <View>
