@@ -1,15 +1,22 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import theme from "../../theme";
 import { BoldText } from "../../components/Text";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { StateInterface } from "../../src/type/state";
 import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { nextPage } from "../../assets/fnc/profileEditNextPage";
+import { useState, useEffect } from "react";
+import { AppDispatch } from "../../src/stores";
 // 이름 , 소개 , 별명
 // 이메일 , 전화번호 변경 인증은 추후 배포 후 생각.
 
 const ProfileEditNicknameScreen = () => {
-  const users = useSelector((state: StateInterface) => state.users);
+  const [nickname, setNickname] = useState<string | null>();
+  const profile = useSelector((state: StateInterface) => state.profile);
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    setNickname(profile.nickname);
+  }, []);
 
   return (
     <View style={[styles.container]}>
@@ -22,7 +29,7 @@ const ProfileEditNicknameScreen = () => {
         ]}
       >
         <View>
-          {!users.nickname ? (
+          {!profile.nickname ? (
             <>
               <BoldText style={[styles.titleText, theme.fontTitleSize]}>
                 회원님의 별명을
@@ -53,11 +60,19 @@ const ProfileEditNicknameScreen = () => {
           ]}
           maxLength={30}
           placeholder="별명입력"
+          onChangeText={text => {
+            setNickname(text);
+          }}
         >
-          {users.nickname}
+          {nickname}
         </TextInput>
       </View>
-      <ProfileEditNextButton navigate="ProfileEditIntroduce" />
+      <ProfileEditNextButton
+        navigate="ProfileEditIntroduce"
+        onPress={() => {
+          nextPage("nickname", nickname, dispatch, profile);
+        }}
+      />
     </View>
   );
 };

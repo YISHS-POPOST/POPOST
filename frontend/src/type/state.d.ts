@@ -2,9 +2,11 @@
 import { CommunityType } from "./commuity";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import { Users } from "./users";
+import { Profile } from "./profile";
 
 export interface StateInterface {
   users: Users;
   community : CommunityType;
   navigation: ProfileScreenNavigationProp | null;
+  profile : Profile;
 }

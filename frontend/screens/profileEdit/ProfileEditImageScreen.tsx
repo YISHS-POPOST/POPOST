@@ -1,14 +1,99 @@
-import { StyleSheet, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+  PermissionsAndroid,
+} from "react-native";
 import Feather from "react-native-vector-icons/Feather";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { BoldText, RegularText } from "../../components/Text";
 import theme from "../../theme";
 import ProfileEditNextButton from "../../components/profile/edit/ProfileEditNextButton";
 import { useState } from "react";
-import ProfileEditCameraModal from "../../components/profile/edit/ProfileEditCameraModal";
+import { launchCamera, launchImageLibrary } from "react-native-image-picker";
+import ImagePicker, {
+  Image as ImageType,
+} from "react-native-image-crop-picker";
+import { useSelector, useDispatch } from "react-redux";
+import { StateInterface } from "../../src/type/state";
+import { AppDispatch } from "../../src/stores";
+import { nextPage } from "../../assets/fnc/profileEditNextPage";
 
 const ProfileEditImageScreen = () => {
-  const [modalVisible, setModalVisible] = useState(false);
+  const [imageUri, setImageUri] = useState<ImageType | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const profile = useSelector((state: StateInterface) => state.profile);
+
+  const showPicker = async () => {
+    const grantedCamera = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.CAMERA,
+      {
+        title: "App Camera Permission",
+        message: "App needs access to your camera",
+        buttonNeutral: "Ask Me Later",
+        buttonNegative: "Cancel",
+        buttonPositive: "OK",
+      }
+    );
+    const grantedStorage = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      {
+        title: "App Camera Permission",
+        message: "App needs access to your camera",
+        buttonNeutral: "Ask Me Later",
+        buttonNegative: "Cancel",
+        buttonPositive: "OK",
+      }
+    );
+    if (
+      grantedCamera === PermissionsAndroid.RESULTS.GRANTED &&
+      grantedStorage === PermissionsAndroid.RESULTS.GRANTED
+    )
+      return false;
+  };
+
+  const openCamera = async () => {
+    await showPicker();
+    const result = await launchCamera({
+      mediaType: "photo",
+      cameraType: "back",
+      maxWidth: 500,
+      maxHeight: 500,
+    });
+    if (!result.assets) return setImageUri(null);
+    const { uri } = result.assets[0];
+    if (!uri) return setImageUri(null);
+    const cropImage = await imageCrop(uri);
+    if (!cropImage.path) return setImageUri(null);
+    setImageUri(cropImage);
+  };
+
+  const openLibrary = async () => {
+    await showPicker();
+    const result = await launchImageLibrary({
+      mediaType: "photo",
+      maxWidth: 500,
+      maxHeight: 500,
+    });
+    if (!result.assets) return;
+    const { uri } = result.assets[0];
+    if (!uri) return setImageUri(null);
+    const cropImage = await imageCrop(uri);
+    if (!cropImage.path) return setImageUri(null);
+    setImageUri(cropImage);
+  };
+
+  const imageCrop = async (uri: string) => {
+    const cropImage = await ImagePicker.openCropper({
+      path: uri,
+      width: 300,
+      height: 300,
+      mediaType: "photo",
+      cropperToolbarTitle: "이미지 자르기",
+    });
+    return cropImage;
+  };
 
   return (
     <View
@@ -33,7 +118,14 @@ const ProfileEditImageScreen = () => {
             theme.alignItemsCenter,
           ]}
         >
-          <Feather name="user" color="#aaa" size={100} />
+          {imageUri ? (
+            <Image
+              source={{ uri: imageUri.path }}
+              style={[{ width: "100%", height: "100%" }]}
+            />
+          ) : (
+            <Feather name="user" color="#aaa" size={100} />
+          )}
         </View>
         <View style={[theme.mt2, theme.mb2, theme.alignItemsCenter]}>
           <RegularText style={[styles.text, theme.fontBase]}>
@@ -61,9 +153,7 @@ const ProfileEditImageScreen = () => {
               theme.flexDirectionRow,
               theme.justifyContentCenter,
             ]}
-            onPress={() => {
-              setModalVisible(true);
-            }}
+            onPress={openCamera}
           >
             <AntDesign name="camerao" color="#fff" size={30} />
             <BoldText style={[{ color: "#fff" }, theme.fontLg, theme.ml1]}>
@@ -81,6 +171,7 @@ const ProfileEditImageScreen = () => {
               theme.justifyContentCenter,
               theme.ml2,
             ]}
+            onPress={openLibrary}
           >
             <Feather name="image" color="#fff" size={30} />
             <BoldText style={[{ color: "#fff" }, theme.fontLg, theme.ml1]}>
@@ -89,11 +180,12 @@ const ProfileEditImageScreen = () => {
           </TouchableOpacity>
         </View>
       </View>
-      <ProfileEditCameraModal
-        setModalVisible={setModalVisible}
-        modalVisible={modalVisible}
+      <ProfileEditNextButton
+        navigate="ProfileEditName"
+        onPress={() => {
+          nextPage("image", imageUri, dispatch, profile);
+        }}
       />
-      <ProfileEditNextButton navigate="ProfileEditName" />
     </View>
   );
 };
@@ -106,6 +198,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.backgroundWhite,
     borderWidth: 2,
     borderColor: "#ddd",
+    overflow: "hidden",
   },
   text: {
     color: "#777",
