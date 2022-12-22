@@ -3,7 +3,7 @@ import theme from "../../theme";
 import { BoldText, RegularText } from "../../components/Text";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import CommunityLinkPreview from './CommunityLinkPreview';
+import CommunityLinkPreview from "./CommunityLinkPreview";
 import { ItemInterface } from "../../types/CommunityType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import { useState } from "react";
@@ -12,11 +12,11 @@ import FollowsAction from "./CommunityFollows";
 import CommunityCommentModal from "./CommunityApplyModal";
 
 interface ListInterface extends ItemInterface {
-    navigation: ProfileScreenNavigationProp;
+  navigation: ProfileScreenNavigationProp;
 }
 
 const CommunityPostItem = ({
-  id, 
+  id,
   user_id,
   user_profile,
   user_name,
@@ -28,9 +28,9 @@ const CommunityPostItem = ({
   comment,
   view,
   navigation,
-}:ListInterface) => {
+}: ListInterface) => {
   const [modalVisible, setModalVisible] = useState(false);
-  
+  console.log(API_URL + "/files/profile/" + user_profile);
   return (
     <View>
       <View style={[theme.mt2, styles.container]}>
@@ -48,14 +48,18 @@ const CommunityPostItem = ({
               theme.alignItemsCenter,
             ]}
           >
-            {
-              user_profile === null
-              ?
-              <Image source={require("../../assets/image/profile/default.jpg")} style={styles.image} />
-              :
-              <Image /* source={require("user_profile")} */ style={styles.image} />
-            }
-            
+            {user_profile === null ? (
+              <Image
+                source={require("../../assets/image/profile/default.jpg")}
+                style={styles.image}
+              />
+            ) : (
+              <Image
+                source={{ uri: API_URL + "/files/profile/" + user_profile }}
+                style={styles.image}
+              />
+            )}
+
             <View style={theme.ml2}>
               <BoldText
                 style={[styles.text, styles.textLineHeight, styles.black]}
@@ -65,18 +69,23 @@ const CommunityPostItem = ({
               <RegularText
                 style={[styles.text, styles.textLineHeight, styles.gray]}
               >
-                {user_nickname === null ? "별명이 설정되어 있지 않습니다." : user_nickname }
+                {user_nickname === null
+                  ? "별명이 설정되어 있지 않습니다."
+                  : user_nickname}
               </RegularText>
               <RegularText
                 style={[styles.text, styles.textLineHeight, styles.gray]}
               >
-                {new Date(create_dt).toISOString().slice(0, 19).replace('T', ' ')}
+                {new Date(create_dt)
+                  .toISOString()
+                  .slice(0, 19)
+                  .replace("T", " ")}
               </RegularText>
             </View>
           </View>
           <View style={[theme.justifyContentCenter]}>
             {/* 프로필 뷰 기능으로 들어갈 예정. */}
-            {/* <TouchableOpacity activeOpacity={0.8} onPress={() => FollowsAction(user_id)}
+            <TouchableOpacity activeOpacity={0.8} onPress={() => FollowsAction(user_id)}
               style={[
                 styles.button,
                 { backgroundColor: theme.colors.softBlue },
@@ -95,7 +104,7 @@ const CommunityPostItem = ({
               >
                 팔로우
               </BoldText>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </View>
         </View>
         <View style={[theme.mt2, theme.mb2]}>
@@ -109,7 +118,7 @@ const CommunityPostItem = ({
           </RegularText>
         </View>
         <View>
-            {link === "" ? null : <CommunityLinkPreview siteUrl={link}/>}
+          {link === "" ? null : <CommunityLinkPreview siteUrl={link} />}
         </View>
         {/* 조회수 기능 X */}
         {/* <View style={[theme.mt2, theme.alignItemsEnd]}>
@@ -132,22 +141,29 @@ const CommunityPostItem = ({
               공유
             </BoldText>
           </View>
-          <TouchableOpacity activeOpacity={1} onPress={() => {
+          <TouchableOpacity
+            activeOpacity={1}
+            onPress={() => {
               setModalVisible(true);
-            }}>
-          <View
-            style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
+            }}
           >
-            <MaterialCommunityIcons
-              name="comment-outline"
-              style={styles.icon}
-              size={17}
-            />
-            
+            <View
+              style={[
+                theme.flexDirectionRow,
+                theme.alignItemsCenter,
+                theme.mr3,
+              ]}
+            >
+              <MaterialCommunityIcons
+                name="comment-outline"
+                style={styles.icon}
+                size={17}
+              />
+
               <RegularText style={[styles.icon, theme.fontSmall, theme.ml1]}>
                 {`${comment.length}`}
               </RegularText>
-          </View>
+            </View>
           </TouchableOpacity>
           {/* <View
             style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
@@ -163,10 +179,10 @@ const CommunityPostItem = ({
           </View> */}
         </View>
       </View>
-      <CommunityCommentModal 
-        id={id} 
+      <CommunityCommentModal
+        id={id}
         setModalVisible={setModalVisible}
-        modalVisible={modalVisible} 
+        modalVisible={modalVisible}
       />
     </View>
   );

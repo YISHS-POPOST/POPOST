@@ -19,7 +19,7 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
             setList(res.data.reverse());
         })
     }
-
+    
     useEffect(() => {
         getList();
     }, [isFocused])
