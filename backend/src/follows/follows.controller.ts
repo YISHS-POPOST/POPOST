@@ -19,7 +19,6 @@ export class FollowsController {
     throw new HttpError(404, "나 자신은 내 인생에 영원한 팔로워입니다.");
 
     const followCheck = await this.followsService.followCheck(body);
-    console.log(followCheck);
 
     switch (followCheck) {
       case false:
@@ -31,7 +30,7 @@ export class FollowsController {
       break;
     }
   }
-
+  
   // @Post()
   // create(@Body() createFollowDto: CreateFollowDto) {
   //   return this.followsService.create(createFollowDto);
