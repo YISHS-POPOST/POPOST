@@ -30,7 +30,6 @@ const CommunityPostItem = ({
   navigation,
 }: ListInterface) => {
   const [modalVisible, setModalVisible] = useState(false);
-  console.log(API_URL + "/files/profile/" + user_profile);
   return (
     <View>
       <View style={[theme.mt2, styles.container]}>
@@ -55,7 +54,7 @@ const CommunityPostItem = ({
               />
             ) : (
               <Image
-                source={{ uri: API_URL + "/files/profile/" + user_profile }}
+              source={{ uri: API_URL + "/files/profile/" + user_profile }}
                 style={styles.image}
               />
             )}
