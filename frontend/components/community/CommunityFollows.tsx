@@ -22,7 +22,9 @@ const FollowsAction = (follow_id: string) => {
                         break;
                 }
             })
-            .catch(err => console.log(err.response))
+            .catch(err => {
+                Alert.alert('커뮤니티', err.response.data.message, [{text: "확인"}]);
+            })
     })
 }
 

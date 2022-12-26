@@ -28,7 +28,9 @@ import { ProfileScreenNavigationProp } from "./types/NavigateType";
 import { useDispatch, useSelector } from "react-redux";
 import { getNavigation } from "./src/actions/navigationAction";
 import { StateInterface } from "./src/type/state";
+import { enableLatestRenderer } from 'react-native-maps';
 
+enableLatestRenderer();
 const Tap = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 

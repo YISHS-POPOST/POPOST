@@ -1,8 +1,11 @@
-import {SafeAreaView} from 'react-native';
+import { SafeAreaView } from 'react-native';
+import MapMainContents from '../components/map/MapMainContents';
 
 const MapScreen = () => {
     return (
-        <SafeAreaView></SafeAreaView>
+        <SafeAreaView style={{flex: 1}}>
+            <MapMainContents />
+        </SafeAreaView>
     );
 }
 
