@@ -22,7 +22,7 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
         "will already know about the date type definition as Date is an internal TypeScript object referenced by the DateConstructor interface.",
     },
   ];
-
+  
   const renderItem = ({ item }: renderItemType) => {
     return (
       <MessengerListItem

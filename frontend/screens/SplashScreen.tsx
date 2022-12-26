@@ -10,10 +10,11 @@ import { DataSetInterface } from "../types/User";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../src/stores";
 import { loginUser, erorrLogin } from "../src/actions/userAction";
+import { io } from "socket.io-client";
 
 const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   const dispatch = useDispatch<AppDispatch>();
-  
+
   const loginAction = async (data: LoginUser) => {
     await axios
       .post(API_URL + "/users/login", data)
@@ -31,8 +32,11 @@ const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   };
 
   const loginSuccess = async (data: DataSetInterface) => {
-    dispatch(loginUser(data.users));
-    return navigation.replace("Main");
+    const socket = io("http://localhost/allServer");
+    console.log(socket);
+    socket.emit("test", { msg: "testMessage" });
+    // dispatch(loginUser(data.users));
+    // return navigation.replace("Main");
   };
 
   //State for ActivityIndicator animation

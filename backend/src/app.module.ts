@@ -14,6 +14,8 @@ import { FilesModule } from './files/files.module';
 import { FollowsModule } from './follows/follows.module';
 import { CommunityAppliesModule } from './community_applies/community_applies.module';
 import { CommunityApply } from "./community_applies/entities/community_apply.entity";
+import { EventsModule } from './events/events.module';
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -35,6 +37,7 @@ import { CommunityApply } from "./community_applies/entities/community_apply.ent
     FollowsModule,
     FilesModule,
     CommunityAppliesModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_FILTER, useClass: CatchException }],
