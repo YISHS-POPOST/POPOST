@@ -51,6 +51,7 @@ const ProfileInformation = () => {
           ]}
           onPress={() => {
             navigation.navigate("ProfileEdit");
+            console.log('dd');
           }}
           textStyle={[styles.editText, theme.fontXl]}
         />

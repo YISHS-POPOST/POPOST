@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../src/stores";
 import { loginUser, erorrLogin } from "../src/actions/userAction";
 import { io } from "socket.io-client";
+import { setSocket } from "../src/actions/socketAction";
 
 const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -32,11 +33,13 @@ const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   };
 
   const loginSuccess = async (data: DataSetInterface) => {
-    const socket = io("http://localhost/allServer");
-    console.log(socket);
-    socket.emit("test", { msg: "testMessage" });
-    // dispatch(loginUser(data.users));
-    // return navigation.replace("Main");
+    const socket = io("ws://10.0.2.2/messenger", {
+      transports: ["websocket"],
+      port: 80,
+    });
+    dispatch(loginUser(data.users));
+    dispatch(setSocket(socket));
+    return navigation.replace("Main");
   };
 
   //State for ActivityIndicator animation

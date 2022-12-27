@@ -12,7 +12,7 @@ import { Logger } from "@nestjs/common";
 
 @WebSocketGateway(80, {
   transports: ["websocket"],
-  namespace: "allServer",
+  namespace: "messenger",
 })
 export class EventsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
@@ -22,27 +22,22 @@ export class EventsGateway
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger("AppGateway");
 
-  @SubscribeMessage("events")
-  handleEvent(@MessageBody() data: string): string {
-    return data;
-  }
-
   @SubscribeMessage("test")
   testEvent(@MessageBody() data: string): string {
-    console.log(data);
+    this.server.emit("test", { msg: "testServer" });
     return data;
   }
 
+  // 서버 초기화중 작동
   afterInit(server: Server) {
-    this.logger.log("Init");
-    console.log(server);
   }
 
+  // 유저와 서버의 연결이 끊겼을때
   handleDisconnect(client: any) {
-    this.logger.log(`Client Disconnected : ${client.id}`);
+    console.log('disconnect');
   }
 
+  // socket io 커넥트 완료되었을때
   handleConnection(client: any, ...args: any[]) {
-    this.logger.log(`Client Connected : ${client.id}`);
   }
 }

@@ -6,10 +6,26 @@ import MessengerHeader from "./MessengerHeader";
 import theme from "../../theme";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import MessengerTab from "./MessengerTab";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { API_URL } from "@env";
+import { useSelector } from "react-redux";
+import { StateInterface } from "../../src/type/state";
+
 type renderItemType = { item: ItemInterface };
 
 const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
-  const date = new Date();
+  const [list , setList ] = useState<any[]>([]);
+  const users = useSelector((state : StateInterface) => state.users);
+  
+  const loadList = async () => {
+    console.log(users);
+    // await axios.post(API_URL+'/follow/get' ,   )
+  }
+
+  useEffect(() => {
+    loadList();
+  },[]);
 
   const info: ItemInterface[] = [
     {
