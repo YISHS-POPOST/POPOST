@@ -1,8 +1,9 @@
-import { StyleSheet } from "react-native";
-import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
+import { StyleSheet, Dimensions } from "react-native";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import { Platform, PermissionsAndroid } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Geolocation from "react-native-geolocation-service";
+import { createIconSetFromFontello } from "react-native-vector-icons";
 
 interface Location {
     latitude: number;
@@ -23,12 +24,12 @@ const MapMainContents = () => {
             console.log(e);
         }
     };
-    locationFindRequest();
 
     useEffect(() => {
+        locationFindRequest();
         Geolocation.getCurrentPosition(
-            (position) => {
-                const { latitude, longitude } = position.coords;
+            (pos) => {
+                const { latitude, longitude } = pos.coords;
                 setLocation({
                     latitude,
                     longitude,
@@ -36,7 +37,7 @@ const MapMainContents = () => {
             },
             (error) => {
                 console.log(error.code, error.message);
-            },
+            }
             // 백그라운드 사용자 위치 추적
             // {
             //     enableHighAccuracy: true,
@@ -46,27 +47,33 @@ const MapMainContents = () => {
         );
     }, []);
 
-    
-
     return !location ? null : (
         <MapView
             style={styles.display}
-            provider={PROVIDER_GOOGLE}
+            showsUserLocation={true}
+            showsMyLocationButton={false}
             initialRegion={{
                 latitude: location.latitude,
                 longitude: location.longitude,
-                latitudeDelta: 1,
-                longitudeDelta: 1,
+                latitudeDelta: 0.0043,
+                longitudeDelta: 0.0034,
+            }}
+        >
+        <Marker
+            coordinate={{
+                latitude: location.latitude + 0.0006,
+                longitude: location.longitude + 0.0006,
             }}
         />
+        </MapView>
     );
 };
 
 const styles = StyleSheet.create({
     display: {
         flex: 1,
-        width: "100%",
-        height: "100%",
+        width: Dimensions.get("window").width,
+        height: Dimensions.get("window").height,
     },
 });
 

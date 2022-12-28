@@ -146,7 +146,7 @@ android {
         versionCode 1
         versionName "1.0"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
-        manifestPlaceholders = [googleMapApiKey:googleMapApiKey] 
+        manifestPlaceholders = [googleMapApiKey:googleMapApiKey]
 
         if (isNewArchitectureEnabled()) {
             // We configure the CMake build only if you decide to opt-in for the New Architecture.

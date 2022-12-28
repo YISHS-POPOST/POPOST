@@ -44,7 +44,7 @@ const CommunityLinkPreview = ({siteUrl}: prop)  => {
                 }
               </RegularText>
             </View>
-            <View>
+            <View style={[styles.image]}>
                 <Image source={{uri : `${metaData.image}`}} style={[styles.image]} />
             </View>
         </View>
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     image: {
       borderBottomRightRadius: 6,
       borderTopRightRadius: 6,
-      width: 130,
+      width: 110,
       height: 100,
     },
     text: {
