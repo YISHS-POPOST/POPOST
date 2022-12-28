@@ -5,8 +5,6 @@ import PressButton from "../PressButton";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
 import { API_URL } from "@env";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
 const ProfileInformation = () => {
   const users = useSelector((state: StateInterface) => state.users);

@@ -11,34 +11,66 @@ import axios from "axios";
 import { API_URL } from "@env";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
+import { UserType } from "../../types/User";
 
 type renderItemType = { item: ItemInterface };
+type tabType = "message" | "following";
+
+interface ListUserInterface extends UserType {
+  profile: string;
+}
+
+interface listType {
+  id: number;
+  follow_id: string;
+  follower_id: string;
+  user: ListUserInterface;
+}
 
 const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
-  const [list , setList ] = useState<any[]>([]);
-  const users = useSelector((state : StateInterface) => state.users);
-  
-  const loadList = async () => {
-    console.log(users);
-    // await axios.post(API_URL+'/follow/get' ,   )
-  }
+  const [list, setList] = useState<listType[]>([]);
+  const [tab, setTab] = useState<tabType>("message");
+  const users = useSelector((state: StateInterface) => state.users);
 
+  // first : list view
+  // 유저 아이디 , 탭 타입
+  const loadList = async () => {
+    const postVal = {
+      userId: users.id,
+      tab,
+    };
+    await axios.post(API_URL + "/follows/follow/get", postVal).then(res => {
+      setList(res.data.data);
+    });
+  };
+  
   useEffect(() => {
     loadList();
-  },[]);
+  }, [tab]);
 
-  const info: ItemInterface[] = [
-    {
-      image: require("../../assets/image/profile/3d_profile1.jpg"),
-      state: true,
-      name: "최우창",
+  const info = list.map(item => {
+    return {
+      image: item.user.profile,
+      state: false,
+      name: item.user.name,
       check: false,
       time: new Date(2022, 0, 12),
-      content:
-        "will already know about the date type definition as Date is an internal TypeScript object referenced by the DateConstructor interface.",
-    },
-  ];
-  
+      content: "",
+    };
+  });
+
+  // const info: ItemInterface[] = [
+  //   {
+  //     image: require("../../assets/image/profile/3d_profile1.jpg"),
+  //     state: true,
+  //     name: "최우창",
+  //     check: false,
+  //     time: new Date(2022, 0, 12),
+  //     content:
+  //       "will already know about the date type definition as Date is an internal TypeScript object referenced by the DateConstructor interface.",
+  //   },
+  // ];
+
   const renderItem = ({ item }: renderItemType) => {
     return (
       <MessengerListItem
@@ -62,7 +94,7 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
           <View style={[theme.mainContainer]}>
             <MessengerHeader />
             <MessengerSearch />
-            <MessengerTab />
+            <MessengerTab setTab={setTab} tab={tab} />
           </View>
         );
       }}

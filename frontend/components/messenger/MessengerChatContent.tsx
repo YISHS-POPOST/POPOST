@@ -15,7 +15,7 @@ type renderItemType = { item: ChatContent };
 
 const MessengerChatContent = ({ image, name }: ChatPropsType) => {
   const flatListRef = useRef<FlatList>(null);
-
+  
   const data: ChatContent[] = [
     {
       time: new Date(),

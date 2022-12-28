@@ -2,7 +2,7 @@ import { StackNavigationProp } from "@react-navigation/stack";
 import { ImageSourcePropType } from "react-native";
 
 export interface ItemInterface {
-  image: ImageSourcePropType;
+  image: string;
   state: boolean;
   name: string;
   check: boolean;

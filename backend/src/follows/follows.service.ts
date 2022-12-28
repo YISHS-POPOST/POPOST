@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import HttpError from 'asset/HttpError';
-import { Repository } from 'typeorm';
-import { CreateFollowDto } from './dto/create-follow.dto';
-import { UpdateFollowDto } from './dto/update-follow.dto';
-import { Follow } from './entities/follow.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import HttpError from "asset/HttpError";
+import { Repository } from "typeorm";
+import { CreateFollowDto } from "./dto/create-follow.dto";
+import { UpdateFollowDto } from "./dto/update-follow.dto";
+import { Follow } from "./entities/follow.entity";
 
 @Injectable()
 export class FollowsService {
@@ -15,7 +15,7 @@ export class FollowsService {
 
   async create(followData: CreateFollowDto) {
     const { follow_id, follower_id } = followData;
-    
+
     const follow = new Follow();
     follow.follow_id = follow_id;
     follow.follower_id = follower_id;
@@ -25,13 +25,26 @@ export class FollowsService {
 
   async followCheck(followData: Follow) {
     const { follow_id, follower_id } = followData;
-    const check = await this.FollowRepository.findOneBy({follow_id, follower_id});
+    const check = await this.FollowRepository.findOneBy({
+      follow_id,
+      follower_id,
+    });
 
-    if(check) {
-      await this.FollowRepository.delete(check.id);  
+    if (check) {
+      await this.FollowRepository.delete(check.id);
       return false;
-    }else{ 
+    } else {
       return true;
     }
+  }
+
+  async followGet(id: string) {
+    const followId = await this.FollowRepository.find({
+      relations: ["user"],
+      where: {
+        follower_id: id,
+      },
+    });
+    return followId;
   }
 }

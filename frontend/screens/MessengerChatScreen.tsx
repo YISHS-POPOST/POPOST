@@ -6,7 +6,7 @@ import theme from "../theme";
 
 const MessengerChatScreen = ({ route }: any) => {
   const {image , name , state} = route.params;
-
+  
   return (
     <View style={[theme.flexDirectionColumn, styles.container]}>
       <MessengerChatContent image={image} name={name} />

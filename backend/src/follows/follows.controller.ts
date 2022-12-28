@@ -47,7 +47,11 @@ export class FollowsController {
   // 내가 팔로우한 사람을 볼때
   @Post("/follow/get")
   async getFollow(@Body() body: any, @Res() res: any) {
-    console.log(body);
+    // 탭에 따라 타입 나누기
+    const followerId = await this.followsService.followGet(body.userId);
+    return res
+      .status(201)
+      .send({ message: "성공적으로 조회되었습니다", data: followerId });
   }
 
   // @Post()

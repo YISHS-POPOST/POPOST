@@ -4,6 +4,7 @@ import { BoldText, RegularText } from "../Text";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemInterface } from "../../types/MessengerType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
+import { API_URL } from "@env";
 
 interface ListInterface extends ItemInterface {
   navigation: ProfileScreenNavigationProp;
@@ -55,7 +56,17 @@ const MessengerListItem = ({
             theme.alignItemsCenter,
           ]}
         >
-          <Image source={image} style={[styles.image]} />
+          {!image ? (
+            <Image
+              source={require("../../assets/image/profile/default.jpg")}
+              style={[styles.image]}
+            />
+          ) : (
+            <Image
+              source={{ uri: API_URL + "/files/profile/" + image }}
+              style={[styles.image]}
+            />
+          )}
         </View>
         <View
           style={[
