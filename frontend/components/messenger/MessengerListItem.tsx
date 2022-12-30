@@ -8,6 +8,7 @@ import { API_URL } from "@env";
 
 interface ListInterface extends ItemInterface {
   navigation: ProfileScreenNavigationProp;
+  userId : string;
 }
 
 // 사진 , 상태 , 이름 , 확인 , 시간 , 마지막 메신저
@@ -20,6 +21,7 @@ const MessengerListItem = ({
   time,
   content,
   navigation,
+  userId,
 }: ListInterface) => {
   const nowDate = new Date();
   const timeTxt =
@@ -45,7 +47,7 @@ const MessengerListItem = ({
         theme.container,
       ]}
       onPress={() => {
-        navigation.navigate("MessengerChat", { image, name, state });
+        navigation.navigate("MessengerChat", { image, name, state , userId });
       }}
     >
       <View style={[theme.positionRelative, styles.imgContainer]}>

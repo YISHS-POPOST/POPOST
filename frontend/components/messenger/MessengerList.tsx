@@ -11,15 +11,10 @@ import axios from "axios";
 import { API_URL } from "@env";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
-import { UserType } from "../../types/User";
+import { ListUserInterface } from "../../types/MessengerType";
 
 type renderItemType = { item: ItemInterface };
 type tabType = "message" | "following";
-
-interface ListUserInterface extends UserType {
-  profile: string;
-}
-
 interface listType {
   id: number;
   follow_id: string;
@@ -43,7 +38,7 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
       setList(res.data.data);
     });
   };
-  
+
   useEffect(() => {
     loadList();
   }, [tab]);
@@ -56,9 +51,9 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
       check: false,
       time: new Date(2022, 0, 12),
       content: "",
+      userId: item.user.id,
     };
   });
-
   // const info: ItemInterface[] = [
   //   {
   //     image: require("../../assets/image/profile/3d_profile1.jpg"),
@@ -81,6 +76,7 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
         time={item.time}
         content={item.content}
         navigation={navigation}
+        userId={item.userId}
       />
     );
   };

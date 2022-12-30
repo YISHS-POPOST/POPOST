@@ -4,6 +4,7 @@ import theme from "../../theme";
 import { ItemInterface } from "../../types/MessengerType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import { BoldText, RegularText } from "../Text";
+import { API_URL } from "@env";
 
 const MessengerChatHeader = (
   navigation: ProfileScreenNavigationProp,
@@ -41,7 +42,7 @@ const MessengerChatHeader = (
               style={[styles.image]}
             />
           ) : (
-            <Image source={{ uri: image }} style={[styles.image]} />
+            <Image source={{ uri: API_URL + "/files/profile/"+ image }} style={[styles.image]} />
           )}
         </View>
         <View style={[theme.ml2]}>

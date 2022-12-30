@@ -15,6 +15,9 @@ import { FollowsModule } from './follows/follows.module';
 import { CommunityAppliesModule } from './community_applies/community_applies.module';
 import { CommunityApply } from "./community_applies/entities/community_apply.entity";
 import { EventsModule } from './events/events.module';
+import { MessagesModule } from './messages/messages.module';
+import { MessageRoomsModule } from './message_rooms/message_rooms.module';
+import { MessageRoom } from "./message_rooms/entities/message_room.entity";
 
 @Module({
   imports: [
@@ -25,7 +28,7 @@ import { EventsModule } from './events/events.module';
       username: "root",
       password: "1234",
       database: "popost",
-      entities: [User, Community, Follow, CommunityApply],
+      entities: [User, Community, Follow, CommunityApply , MessageRoom],
       synchronize: false,
     }),
     ConfigModule.forRoot({
@@ -38,6 +41,8 @@ import { EventsModule } from './events/events.module';
     FilesModule,
     CommunityAppliesModule,
     EventsModule,
+    MessagesModule,
+    MessageRoomsModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_FILTER, useClass: CatchException }],

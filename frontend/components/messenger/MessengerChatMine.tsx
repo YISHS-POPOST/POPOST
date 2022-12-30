@@ -7,12 +7,11 @@ const deviceWidth = Dimensions.get("window").width;
 
 interface Props {
   time: Date;
-  content: string[];
+  content: string;
 }
 
 const MessengerChatMine = ({ time, content }: Props) => {
   const nowDate = new Date();
-
   const timeTxt =
     time.getDate() === nowDate.getDate() &&
     time.getMonth() === nowDate.getMonth()
@@ -34,12 +33,10 @@ const MessengerChatMine = ({ time, content }: Props) => {
           theme.alignItemsCenter,
         ]}
       >
-        <RegularText style={{ color: "#666" }}>{timeTxt}</RegularText>
+        {/* <RegularText style={{ color: "#666" }}>{timeTxt}</RegularText> */}
       </View>
       <View style={[theme.ml2]}>
-        {content.map((item , idx) => (
           <BoldText
-            key={idx}
             style={[
               styles.text,
               theme.fontBase,
@@ -48,9 +45,8 @@ const MessengerChatMine = ({ time, content }: Props) => {
               styles.container,
             ]}
           >
-            {item}
+            {content}
           </BoldText>
-        ))}
       </View>
     </View>
   );

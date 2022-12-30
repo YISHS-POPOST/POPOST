@@ -28,7 +28,7 @@ export class UsersService {
     user.email = email;
     user.name = name;
     user.phone = phone;
-
+    
     return await this.UsersRepository.save(user);
   }
 
