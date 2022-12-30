@@ -1,19 +1,26 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
-import theme from "../../../theme";
+import Entypo from "react-native-vector-icons/Entypo";
+import theme from "../../../theme"; 
 import { Dispatch, SetStateAction } from "react";
 
-interface Props {
+interface ViewProps {
     view: boolean;
     setView: Dispatch<SetStateAction<boolean>>;
 }
 
-type stateProps = {
-    views: Props;
+interface ModalProps  {
+    modalVisible: boolean;
+    setModalVisible: Dispatch<SetStateAction<boolean>>;
+}
+
+type Props = {
+    views: ViewProps;
+    modal: ModalProps;
 };
 
-const MapLoactionBtn = ({ views }: stateProps) => {
+const MapPostAddBtn = ({ views, modal }: Props) => {
     const { view, setView } = views;
+    const { modalVisible, setModalVisible } = modal;
 
     return (
         <TouchableOpacity
@@ -22,8 +29,9 @@ const MapLoactionBtn = ({ views }: stateProps) => {
                 styles.button, 
                 !view ? null : styles.actionButton
             ]}
+            onPress={() => setModalVisible(true)}
         >
-            <MaterialIcons name="my-location" size={23} color={"#fff"} />
+            <Entypo name="plus" size={23} color={"#fff"} />
         </TouchableOpacity>
     );
 };
@@ -31,7 +39,7 @@ const MapLoactionBtn = ({ views }: stateProps) => {
 const styles = StyleSheet.create({
     actionButton: {
         opacity: 1,
-        bottom: 55 * 1 + 5,
+        bottom: 55 * 2 + 5 * 2,
     },
     button: {
         backgroundColor: theme.colors.blue,
@@ -42,8 +50,9 @@ const styles = StyleSheet.create({
         height: 55,
         bottom: 0,
         opacity: 0,
-        transition: ".4s",
+        position: "absolute",
+        transition: ".8s",
     },
 });
 
-export default MapLoactionBtn;
+export default MapPostAddBtn;
