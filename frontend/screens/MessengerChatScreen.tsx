@@ -30,7 +30,7 @@ const MessengerChatScreen = ({ route }: any) => {
   return (
     <View style={[theme.flexDirectionColumn, styles.container]}>
       {!room ? (
-        <MessengerChatStart userId={userId} />
+        <MessengerChatStart userId={userId} checkChatRoom={checkChatRoom} />
       ) : (
         <>
           <MessengerChatContent image={image} name={name} />

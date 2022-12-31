@@ -10,12 +10,13 @@ import { StateInterface } from "../../src/type/state";
 
 interface Prop {
   userId: string;
+  checkChatRoom : () => Promise<void>;
 }
 
 const MessengerChatStart = (props: Prop) => {
-  const { userId } = props;
+  const { userId , checkChatRoom } = props;
   const users = useSelector((state: StateInterface) => state.users);
-
+  
   // 유저 아이디 , 내 아이디
   const startChat = async () => {
     const postInfo = {
@@ -24,10 +25,11 @@ const MessengerChatStart = (props: Prop) => {
     };
     await axios
       .post(API_URL + "/message-rooms", postInfo)
-      .then(res => {
+      .then(async (res) => {
         const { status, data } = res;
         if (status === 200) {
           Alert.alert("완료", "채팅방이 생성되었습니다. 채팅을 시작하세요!");
+          await checkChatRoom();
         }
       })
       .catch(err =>

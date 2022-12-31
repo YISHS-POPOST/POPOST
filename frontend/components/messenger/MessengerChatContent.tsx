@@ -4,6 +4,7 @@ import theme from "../../theme";
 import MessengerChatOther from "./MessengerChatOther";
 import { ChatPropsType } from "../../types/MessengerType";
 import MessengerChatMine from "./MessengerChatMine";
+import { useState } from "react";
 
 interface ChatContent {
   time: Date;
@@ -15,15 +16,17 @@ type renderItemType = { item: ChatContent };
 
 const MessengerChatContent = ({ image, name }: ChatPropsType) => {
   const flatListRef = useRef<FlatList>(null);
-  const data: ChatContent[] = [
-    {
-      time: new Date(2022, 10, 1),
-      content:
-        "params의 기초값을 설정해 매개변수를 따로 지정하지 않은 경우 사용하도록 한다.",
-      mine: true,
-    },
-  ];
+  const [data, setData] = useState<ChatContent[]>([]);
   
+  // const data: ChatContent[] = [
+  // {
+  //   time: new Date(2022, 10, 1),
+  //   content:
+  //     "params의 기초값을 설정해 매개변수를 따로 지정하지 않은 경우 사용하도록 한다.",
+  //   mine: true,
+  // },
+  // ];
+
   const renderItem = ({ item }: renderItemType) => {
     const { content, time, mine } = item;
     return mine ? (
