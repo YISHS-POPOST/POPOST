@@ -1,10 +1,12 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { FlatList } from "react-native";
 import theme from "../../theme";
 import MessengerChatOther from "./MessengerChatOther";
 import { ChatPropsType } from "../../types/MessengerType";
 import MessengerChatMine from "./MessengerChatMine";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { StateInterface } from "../../src/type/state";
 
 interface ChatContent {
   time: Date;
@@ -17,16 +19,25 @@ type renderItemType = { item: ChatContent };
 const MessengerChatContent = ({ image, name }: ChatPropsType) => {
   const flatListRef = useRef<FlatList>(null);
   const [data, setData] = useState<ChatContent[]>([]);
-  
-  // const data: ChatContent[] = [
-  // {
-  //   time: new Date(2022, 10, 1),
-  //   content:
-  //     "params의 기초값을 설정해 매개변수를 따로 지정하지 않은 경우 사용하도록 한다.",
-  //   mine: true,
-  // },
-  // ];
+  const socket = useSelector((state: StateInterface) => state.socket);
+  const users = useSelector((state: StateInterface) => state.users);
 
+  useEffect(() => {
+    socket.on("get message", (messageData: any) => {
+      const contentPayload: ChatContent = {
+        time: new Date(),
+        content: messageData.content,
+        mine: messageData.userId === users.id ? true : false,
+      };
+      setData(old => [...old, contentPayload]);
+      scrollDown();
+    });
+  }, []);
+
+  const scrollDown = () => {
+    flatListRef.current?.scrollToEnd({ animated: true });
+  };  
+  
   const renderItem = ({ item }: renderItemType) => {
     const { content, time, mine } = item;
     return mine ? (
@@ -48,7 +59,7 @@ const MessengerChatContent = ({ image, name }: ChatPropsType) => {
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
       ref={flatListRef}
-      onLayout={() => flatListRef.current?.scrollToEnd({ animated: true })}
+      onLayout={scrollDown}
     />
   );
 };

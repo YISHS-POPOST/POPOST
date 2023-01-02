@@ -13,6 +13,12 @@ import { CreateFollowDto } from "./dto/create-follow.dto";
 import { UpdateFollowDto } from "./dto/update-follow.dto";
 import HttpError from "asset/HttpError";
 
+
+interface FollowBody {
+  userId: string;
+  tab: "follow" | "message";
+}
+
 @Controller("follows")
 export class FollowsController {
   constructor(private readonly followsService: FollowsService) {}
@@ -46,8 +52,8 @@ export class FollowsController {
 
   // 내가 팔로우한 사람을 볼때
   @Post("/follow/get")
-  async getFollow(@Body() body: any, @Res() res: any) {
-    // 탭에 따라 타입 나누기
+  async getFollow(@Body() body: FollowBody, @Res() res: any) {
+    const { tab } = body;
     const followerId = await this.followsService.followGet(body.userId);
     return res
       .status(201)

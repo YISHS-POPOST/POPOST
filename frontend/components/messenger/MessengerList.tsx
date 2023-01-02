@@ -34,9 +34,12 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
       userId: users.id,
       tab,
     };
+    
     await axios.post(API_URL + "/follows/follow/get", postVal).then(res => {
       setList(res.data.data);
     });
+    
+    
   };
 
   useEffect(() => {
@@ -54,6 +57,7 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
       userId: item.user.id,
     };
   });
+
   // const info: ItemInterface[] = [
   //   {
   //     image: require("../../assets/image/profile/3d_profile1.jpg"),

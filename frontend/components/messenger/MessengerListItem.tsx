@@ -34,7 +34,7 @@ const MessengerListItem = ({
         time.getMonth() === nowDate.getMonth()
       ? "Yesterday"
       : `${time.getMonth() + 1}월 ${time.getDate()}일`;
-
+        
   return (
     <TouchableOpacity
       style={[
@@ -70,12 +70,6 @@ const MessengerListItem = ({
             />
           )}
         </View>
-        <View
-          style={[
-            styles.state,
-            { backgroundColor: state ? "#1AB104" : "#777" },
-          ]}
-        ></View>
       </View>
       <View
         style={[

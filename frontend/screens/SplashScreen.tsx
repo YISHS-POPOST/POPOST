@@ -7,11 +7,12 @@ import { API_URL } from "@env";
 import axios from "axios";
 import { LoginUser } from "../types/User";
 import { DataSetInterface } from "../types/User";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../src/stores";
 import { loginUser, erorrLogin } from "../src/actions/userAction";
 import { io } from "socket.io-client";
 import { setSocket } from "../src/actions/socketAction";
+import { StateInterface } from "../src/type/state";
 
 const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,7 +34,7 @@ const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   };
 
   const loginSuccess = async (data: DataSetInterface) => {
-    const socket = io("ws://10.0.2.2/messenger", {
+    const socket = await io("ws://10.0.2.2/messenger", {
       transports: ["websocket"],
       port: 80,
     });

@@ -1,16 +1,18 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import HttpError from "asset/HttpError";
 import { Repository } from "typeorm";
 import { CreateFollowDto } from "./dto/create-follow.dto";
-import { UpdateFollowDto } from "./dto/update-follow.dto";
 import { Follow } from "./entities/follow.entity";
+import { MessageRoom } from "src/message_rooms/entities/message_room.entity";
 
 @Injectable()
 export class FollowsService {
   constructor(
     @InjectRepository(Follow)
-    private readonly FollowRepository: Repository<Follow>
+    private readonly FollowRepository: Repository<Follow>,
+    
+    @InjectRepository(MessageRoom)
+    private readonly MessageRooomRepository: Repository<MessageRoom>
   ) {}
 
   async create(followData: CreateFollowDto) {
@@ -39,11 +41,14 @@ export class FollowsService {
   }
 
   async followGet(id: string) {
-    const followId = await this.FollowRepository.find({
+    // const followId = await this.FollowRepository.find({
+    //   relations: ["user"],
+    //   where: {
+    //     follower_id: id,
+    //   },
+    // })
+    const followId = await this.MessageRooomRepository.find({
       relations: ["user"],
-      where: {
-        follower_id: id,
-      },
     });
     return followId;
   }

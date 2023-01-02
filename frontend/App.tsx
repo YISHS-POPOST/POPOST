@@ -164,7 +164,9 @@ const Main = ({ navigation }: ProfileScreenNavigationProp) => {
                     headerStyle: {
                         ...theme.headerHeight,
                     },
+                    
                 }}
+                
             />
             <Tap.Screen
                 name="profile"

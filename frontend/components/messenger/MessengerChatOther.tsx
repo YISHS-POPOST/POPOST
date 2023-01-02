@@ -27,17 +27,7 @@ const MessengerChatOther = ({ image, name, time, content }: Props) => {
 
   return (
     <View style={[{ flex: 1 }]}>
-      <View
-        style={[
-          theme.justifyContentCenter,
-          theme.pt1,
-          styles.time,
-          theme.alignItemsCenter,
-        ]}
-      >
-        <RegularText style={{ color: "#666" }}>{timeTxt}</RegularText>
-      </View>
-      <View style={[styles.container, theme.flexDirectionRow, theme.mb1]}>
+      <View style={[styles.container, theme.flexDirectionRow, theme.mb1 ]}>
         <View style={[styles.profileContainer, theme.alignItemsCenter]}>
           <View style={[styles.profile]}>
             {!image ? (
@@ -53,15 +43,20 @@ const MessengerChatOther = ({ image, name, time, content }: Props) => {
             )}
           </View>
         </View>
-        <View style={[styles.contentContainer, theme.ml2]}>
+        <View style={[styles.contentContainer, theme.ml2 ]}>
           <RegularText
             style={[theme.mb1, theme.mt1, styles.name, theme.fontBase]}
           >
             {name}
           </RegularText>
-          <BoldText style={[styles.text, theme.fontBase, theme.p2, theme.mb1]}>
-            {content}
-          </BoldText>
+          <View style={[theme.alignItemsEnd, theme.flexDirectionRow]}>
+            <BoldText
+              style={[styles.text, theme.fontBase, theme.p2, theme.mb1]}
+            >
+              {content}
+            </BoldText>
+            <RegularText style={[{ color: "#666" } , theme.ml2]}>{timeTxt}</RegularText>
+          </View>
         </View>
       </View>
     </View>
@@ -89,7 +84,9 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.purple,
     borderWidth: 3,
   },
-  contentContainer: {},
+  contentContainer: {
+    maxWidth: deviceWidth - 200,
+  },
   name: {
     color: "#333",
   },
