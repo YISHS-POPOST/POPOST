@@ -14,3 +14,7 @@ export const WRITEDATA_CLEAR = "WRITEDATA_CLEAR";
 // profile edit
 export const SET_PROFILE = "SET_PROFILE";
 export const BREAK_PROFILE = "BREAK_PROFILE";
+
+// socket
+export const SET_SOCKET = "SET_SOCKET";
+export const BREAK_SOCKET = "BREAK_SOCKET";

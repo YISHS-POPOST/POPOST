@@ -1,13 +1,18 @@
 import { View, StyleSheet, Pressable } from "react-native";
 import theme from "../../theme";
 import { BoldText } from "../Text";
-import { useState } from "react";
+import React, { useState } from "react";
 
 type tabType = "message" | "following";
 
-const MessengerTab = () => {
-  const [tab, setTab] = useState<tabType>("message");
+interface Prop {
+  setTab: React.Dispatch<React.SetStateAction<tabType>>;
+  tab: tabType;
+}
 
+const MessengerTab = (props: Prop) => {
+  const { tab, setTab } = props;
+  
   return (
     <View
       style={[

@@ -10,10 +10,12 @@ import { DataSetInterface } from "../types/User";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../src/stores";
 import { loginUser, erorrLogin } from "../src/actions/userAction";
+import { io } from "socket.io-client";
+import { setSocket } from "../src/actions/socketAction";
 
 const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   const dispatch = useDispatch<AppDispatch>();
-  
+
   const loginAction = async (data: LoginUser) => {
     await axios
       .post(API_URL + "/users/login", data)
@@ -31,7 +33,12 @@ const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   };
 
   const loginSuccess = async (data: DataSetInterface) => {
+    const socket = io("ws://10.0.2.2/messenger", {
+      transports: ["websocket"],
+      port: 80,
+    });
     dispatch(loginUser(data.users));
+    dispatch(setSocket(socket));
     return navigation.replace("Main");
   };
 

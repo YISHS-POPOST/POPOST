@@ -3,10 +3,12 @@ import { CommunityType } from "./commuity";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import { Users } from "./users";
 import { Profile } from "./profile";
+import { SocketType } from "./socket";
 
 export interface StateInterface {
   users: Users;
-  community : CommunityType;
+  community: CommunityType;
   navigation: ProfileScreenNavigationProp | null;
-  profile : Profile;
+  profile: Profile;
+  socket: SocketType;
 }

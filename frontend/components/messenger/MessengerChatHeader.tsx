@@ -4,6 +4,7 @@ import theme from "../../theme";
 import { ItemInterface } from "../../types/MessengerType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import { BoldText, RegularText } from "../Text";
+import { API_URL } from "@env";
 
 const MessengerChatHeader = (
   navigation: ProfileScreenNavigationProp,
@@ -18,7 +19,6 @@ const MessengerChatHeader = (
         theme.alignItemsCenter,
         theme.flexDirectionRow,
         styles.container,
-
       ]}
     >
       <View style={[theme.flexDirectionRow, theme.alignItemsCenter]}>
@@ -36,7 +36,14 @@ const MessengerChatHeader = (
             theme.ml2,
           ]}
         >
-          <Image source={image} style={[styles.image]} />
+          {!image ? (
+            <Image
+              source={require("../../assets/image/profile/default.jpg")}
+              style={[styles.image]}
+            />
+          ) : (
+            <Image source={{ uri: API_URL + "/files/profile/"+ image }} style={[styles.image]} />
+          )}
         </View>
         <View style={[theme.ml2]}>
           <BoldText style={[theme.fontXl, styles.name]}>{name}</BoldText>
@@ -63,8 +70,8 @@ const MessengerChatHeader = (
 const styles = StyleSheet.create({
   container: {
     height: 70,
-    width : '100%',
-    paddingLeft : 0
+    width: "100%",
+    paddingLeft: 0,
   },
   imageContainer: {
     width: 50,
@@ -82,9 +89,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
     borderRadius: 100,
   },
-  name : {
-    color : '#333'
-  }
+  name: {
+    color: "#333",
+  },
 });
 
 export default MessengerChatHeader;
