@@ -25,8 +25,21 @@ export class CommunityAppliesController {
     if(!ApplyList)
       throw new HttpError(404, "누락된 값이 있습니다.");
 
-      console.log(ApplyList);
       res.status(201).send(ApplyList);
+  }
+
+  @Post("/delete/comment")
+  async deleteComment(@Body() body: any, @Res() res: any) {
+    if(!body.target_id || !body.user_id) 
+      throw new HttpError(404, "누락된 값이 있습니다.");
+
+    const checkUserId = await this.communityAppliesService.checkUserId(body);
+
+    if(checkUserId.user_id !== body.user_id)
+      throw new HttpError(404, "자신의 댓글만 삭제 가능합니다.");
+    
+    await this.communityAppliesService.targetDelateComment(body.target_id);
+    res.status(201).send({message: "성공적으로 댓글을 삭제하였습니다."});
   }
 
   // @Post()

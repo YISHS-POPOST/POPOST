@@ -1,41 +1,71 @@
-import { View, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import {
+    View,
+    TextInput,
+    TouchableOpacity,
+    StyleSheet,
+    Alert,
+} from "react-native";
 import Octicons from "react-native-vector-icons/Octicons";
 import theme from "../../theme";
 import React, { useState } from "react";
 import axios from "axios";
 import { API_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AlertView from "../AlertView";
 
 interface Props {
     id: number;
-};
+}
 
 const CommunityApplyModalInput = (props: Props) => {
     const [content, setContent] = useState("");
-    const {id} = props;
+    const { id } = props;
 
     const postApply = async () => {
         AsyncStorage.getItem("user_id", (err, res) => {
-            const user_id = res;    
-            axios.post(API_URL + "/community-applies/applyAdd", {content, id, user_id})
-            .then(res => {
-                Alert.alert("댓글", res.data.message, [{text: "확인"}])
-            })
-            .catch(err => console.log(err))
-        })
-        
-    }
+            const user_id = res;
+            axios
+                .post(API_URL + "/community-applies/applyAdd", {
+                    content,
+                    id,
+                    user_id,
+                })
+                .then((res) => {
+                    Alert.alert("댓글", res.data.message, [{ text: "확인" }]);
+                })
+                .catch((err) => console.log(err));
+        });
+    };
 
     return (
-        <View style={[theme.flexDirectionRow, theme.justifyContentBetween, theme.alignItemsCenter]}>
-            <TextInput placeholder="댓글 추가..." style={styles.input} placeholderTextColor={"#5c5c5c"} onChangeText={(text) => setContent(text)} />
-            <TouchableOpacity activeOpacity={0.7} style={[theme.justifyContentCenter, theme.alignItemsCenter, theme.mr1]} onPress={() => postApply()}>
+        <View
+            style={[
+                theme.flexDirectionRow,
+                theme.justifyContentBetween,
+                theme.alignItemsCenter,
+            ]}
+        >
+            <TextInput
+                placeholder="댓글 추가..."
+                style={styles.input}
+                placeholderTextColor={"#5c5c5c"}
+                onChangeText={(text) => {
+                    setContent(text);
+                }}
+            />
+            <TouchableOpacity
+                activeOpacity={0.7}
+                style={[
+                    theme.justifyContentCenter,
+                    theme.alignItemsCenter,
+                    theme.mr1,
+                ]}
+                onPress={() => postApply()}
+            >
                 <Octicons name="paper-airplane" size={20} color={"#cccccc"} />
             </TouchableOpacity>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     input: {

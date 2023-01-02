@@ -25,7 +25,8 @@ const CommunityLinkPreview = ({siteUrl}: prop)  => {
             image: `${data.images[0]}`,
             site: `${siteUrl}`,
           });
-      });
+      })
+      .catch(err => setMetaData(false));
     }, []);
 
     return !metaData ? null : (
@@ -43,8 +44,8 @@ const CommunityLinkPreview = ({siteUrl}: prop)  => {
                 }
               </RegularText>
             </View>
-            <View>
-              <Image source={{uri : `${metaData.image}`}} style={[styles.image]}/>
+            <View style={[styles.image]}>
+                <Image source={{uri : `${metaData.image}`}} style={[styles.image]} />
             </View>
         </View>
       </TouchableOpacity>
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     image: {
       borderBottomRightRadius: 6,
       borderTopRightRadius: 6,
-      width: 130,
+      width: 110,
       height: 100,
     },
     text: {
