@@ -1,14 +1,31 @@
 import { StyleSheet, Dimensions, SafeAreaView } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import MapView, {
+    PROVIDER_GOOGLE,
+    Marker,
+    Callout,
+    Circle,
+} from "react-native-maps";
 import { Platform, PermissionsAndroid } from "react-native";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef, Fragment } from "react";
 import Geolocation from "react-native-geolocation-service";
 import { Dispatch, SetStateAction } from "react";
 import MapPostAddModal from "./MapPostAddModal";
+import axios from "axios";
+import { API_URL } from "@env";
+import standardMode from "../map/customMapStyle/standardMode.json";
 
 interface Location {
     latitude: number;
     longitude: number;
+}
+
+interface MarkerList {
+    id: number;
+    latitude: string;
+    longitude: string;
+    user_id: string;
+    content: string;
+    created_at: string;
 }
 
 interface ModalType {
@@ -18,11 +35,19 @@ interface ModalType {
 
 type Props = {
     modal: ModalType;
-}
+};
 
-const MapMainContents = ({modal} : Props) => {
+const MapMainContents = ({ modal }: Props) => {
     const [location, setLocation] = useState<Location | undefined>(undefined);
-    const {modalVisible, setModalVisible} = modal;
+    const [markerList, setMarkerList] = useState<MarkerList[]>();
+    const { modalVisible, setModalVisible } = modal;
+
+    // 마커리스트
+    const getNoteList = useCallback(() => {
+        axios.get(API_URL + "/notes").then((res) => {
+            setMarkerList(res.data);
+        });
+    }, []);
 
     const locationFindRequest = async () => {
         try {
@@ -37,8 +62,11 @@ const MapMainContents = ({modal} : Props) => {
     };
 
     useEffect(() => {
-        locationFindRequest();
+        getNoteList();
+    }, []);
 
+    useEffect(() => {
+        locationFindRequest();
         Geolocation.getCurrentPosition(
             (pos) => {
                 const { latitude, longitude } = pos.coords;
@@ -62,6 +90,8 @@ const MapMainContents = ({modal} : Props) => {
     return !location ? null : (
         <SafeAreaView style={styles.container}>
             <MapView
+                toolbarEnabled={false}
+                customMapStyle={standardMode}
                 style={styles.display}
                 showsUserLocation={true}
                 showsMyLocationButton={false}
@@ -69,36 +99,46 @@ const MapMainContents = ({modal} : Props) => {
                 initialRegion={{
                     latitude: location.latitude,
                     longitude: location.longitude,
-                    latitudeDelta: 0.0043,
-                    longitudeDelta: 0.0034,
+                    latitudeDelta: 0.00301,
+                    longitudeDelta: 0.00103,
                 }}
             >
-            {/* 마커 모음 -> 마커 최적화 */}
-            <Marker
-                coordinate={{
-                    latitude: location.latitude + 0.0006,
-                    longitude: location.longitude + 0.0006,
-                }}
-                tracksViewChanges={false}
-                icon={require('../../assets/image/post/post2.png')}
-            />
-            <Marker
-                coordinate={{
-                    latitude: location.latitude - 0.0003,
-                    longitude: location.longitude - 0.0003,
-                }}
-                tracksViewChanges={false}
-                icon={require('../../assets/image/post/post2_watched.png')}
-            />
+                {markerList &&
+                    markerList.map((data) => (
+                        <Fragment key={data.id}>
+                            <Marker
+                                coordinate={{
+                                    latitude: Number(data.latitude) - 0.00004,
+                                    longitude: Number(data.longitude) + 0.00001,
+                                }}
+                                tracksViewChanges={false}
+                                icon={require("../../assets/image/post/post7.png")}
+                            ></Marker>
+                            <Circle
+                                center={{
+                                    latitude: Number(data.latitude),
+                                    longitude: Number(data.longitude),
+                                }}
+                                radius={20}
+                                strokeWidth={1}
+                                strokeColor="#d1d1d1"
+                                fillColor="#e4e2e2"
+                            />
+                        </Fragment>
+                    ))}
             </MapView>
-            <MapPostAddModal modal={{modalVisible, setModalVisible}} location={location} />
+            <MapPostAddModal
+                modal={{modalVisible, setModalVisible}}
+                location={location}
+                getNoteList={getNoteList}
+            />
         </SafeAreaView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex:1
+        flex: 1,
     },
     display: {
         flex: 1,

@@ -18,6 +18,8 @@ import { EventsModule } from './events/events.module';
 import { MessagesModule } from './messages/messages.module';
 import { MessageRoomsModule } from './message_rooms/message_rooms.module';
 import { MessageRoom } from "./message_rooms/entities/message_room.entity";
+import { NotesModule } from './notes/notes.module';
+import { Note } from "./notes/entities/note.entity";
 
 @Module({
   imports: [
@@ -28,7 +30,7 @@ import { MessageRoom } from "./message_rooms/entities/message_room.entity";
       username: "root",
       password: "1234",
       database: "popost",
-      entities: [User, Community, Follow, CommunityApply , MessageRoom],
+      entities: [User, Community, Follow, CommunityApply , MessageRoom, Note],
       synchronize: false,
     }),
     ConfigModule.forRoot({
@@ -43,6 +45,7 @@ import { MessageRoom } from "./message_rooms/entities/message_room.entity";
     EventsModule,
     MessagesModule,
     MessageRoomsModule,
+    NotesModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_FILTER, useClass: CatchException }],
