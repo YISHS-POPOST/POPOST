@@ -20,6 +20,7 @@ import { MessageRoomsModule } from './message_rooms/message_rooms.module';
 import { MessageRoom } from "./message_rooms/entities/message_room.entity";
 import { NotesModule } from './notes/notes.module';
 import { Note } from "./notes/entities/note.entity";
+import { Message } from "./messages/entities/message.entity";
 
 @Module({
   imports: [
@@ -30,9 +31,17 @@ import { Note } from "./notes/entities/note.entity";
       username: "root",
       password: "1234",
       database: "popost",
-      entities: [User, Community, Follow, CommunityApply , MessageRoom, Note],
+      entities: [
+        User,
+        Community,
+        Follow,
+        CommunityApply,
+        MessageRoom,
+        Note,
+        Message,
+      ],
       synchronize: false,
-      timezone: 'Z',
+      timezone: "Z",
     }),
     ConfigModule.forRoot({
       envFilePath: ".env",

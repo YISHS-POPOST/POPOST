@@ -10,4 +10,5 @@ import { MessageRoom } from 'src/message_rooms/entities/message_room.entity';
   controllers: [FollowsController],
   providers: [FollowsService]
 })
+
 export class FollowsModule {}

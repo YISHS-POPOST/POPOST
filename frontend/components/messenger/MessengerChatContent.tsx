@@ -7,6 +7,8 @@ import MessengerChatMine from "./MessengerChatMine";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
+import axios from "axios";
+import { API_URL } from "@env";
 
 interface ChatContent {
   time: Date;
@@ -19,13 +21,14 @@ type renderItemType = { item: ChatContent };
 const MessengerChatContent = ({ image, name }: ChatPropsType) => {
   const flatListRef = useRef<FlatList>(null);
   const [data, setData] = useState<ChatContent[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const socket = useSelector((state: StateInterface) => state.socket);
   const users = useSelector((state: StateInterface) => state.users);
-
+  
   useEffect(() => {
     socket.on("get message", (messageData: any) => {
       const contentPayload: ChatContent = {
-        time: new Date(),
+        time: new Date(messageData.timeSet),
         content: messageData.content,
         mine: messageData.userId === users.id ? true : false,
       };
@@ -36,8 +39,8 @@ const MessengerChatContent = ({ image, name }: ChatPropsType) => {
 
   const scrollDown = () => {
     flatListRef.current?.scrollToEnd({ animated: true });
-  };  
-  
+  };
+
   const renderItem = ({ item }: renderItemType) => {
     const { content, time, mine } = item;
     return mine ? (
