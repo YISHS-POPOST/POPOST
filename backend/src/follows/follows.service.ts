@@ -10,7 +10,7 @@ export class FollowsService {
   constructor(
     @InjectRepository(Follow)
     private readonly FollowRepository: Repository<Follow>,
-    
+
     @InjectRepository(MessageRoom)
     private readonly MessageRooomRepository: Repository<MessageRoom>
   ) {}
@@ -24,7 +24,7 @@ export class FollowsService {
 
     return await this.FollowRepository.save(follow);
   }
-
+  
   async followCheck(followData: Follow) {
     const { follow_id, follower_id } = followData;
     const check = await this.FollowRepository.findOneBy({
@@ -40,16 +40,32 @@ export class FollowsService {
     }
   }
 
-  async followGet(id: string) {
-    // const followId = await this.FollowRepository.find({
-    //   relations: ["user"],
-    //   where: {
-    //     follower_id: id,
-    //   },
-    // })
-    const followId = await this.MessageRooomRepository.find({
-      relations: ["user"],
-    });
-    return followId;
+  async followGet(id: string, tab: string) {
+    if (tab === "following") {
+      const followId = await this.FollowRepository.find({
+        relations: ["user"],
+        where: {
+          follower_id: id,
+        },
+      });
+      return followId;
+    } else {
+      const inviteUser = await this.MessageRooomRepository.find({
+        relations: ["inviteUser"],
+        where: {
+          create_user: id,
+        },
+      });
+
+      const createUser = await this.MessageRooomRepository.find({
+        relations: ["createUser"],
+        where: {
+          invite_user: id,
+        },
+      });
+
+      const followId = [...inviteUser, ...createUser];
+      return followId;
+    }
   }
 }

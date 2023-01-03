@@ -1,16 +1,10 @@
 import {
   Controller,
-  Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
   Res,
 } from "@nestjs/common";
 import { FollowsService } from "./follows.service";
-import { CreateFollowDto } from "./dto/create-follow.dto";
-import { UpdateFollowDto } from "./dto/update-follow.dto";
 import HttpError from "asset/HttpError";
 
 
@@ -54,34 +48,9 @@ export class FollowsController {
   @Post("/follow/get")
   async getFollow(@Body() body: FollowBody, @Res() res: any) {
     const { tab } = body;
-    const followerId = await this.followsService.followGet(body.userId);
+    const followerId = await this.followsService.followGet(body.userId , tab);
     return res
       .status(201)
       .send({ message: "성공적으로 조회되었습니다", data: followerId });
   }
-
-  // @Post()
-  // create(@Body() createFollowDto: CreateFollowDto) {
-  //   return this.followsService.create(createFollowDto);
-  // }
-
-  // @Get()
-  // findAll() {
-  //   return this.followsService.findAll();
-  // }
-
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.followsService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateFollowDto: UpdateFollowDto) {
-  //   return this.followsService.update(+id, updateFollowDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.followsService.remove(+id);
-  // }
 }

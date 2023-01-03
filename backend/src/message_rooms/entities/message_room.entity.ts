@@ -5,7 +5,6 @@ import {
   PrimaryColumn,
   OneToOne,
   JoinColumn,
-  JoinTable,
 } from "typeorm/index";
 
 @Entity({ name: "message_rooms" })
@@ -20,6 +19,10 @@ export class MessageRoom {
   invite_user: string;
 
   @OneToOne(() => User)
-  @JoinColumn({name : 'create_user'})
-  user: User;
+  @JoinColumn({ name: "invite_user" })
+  inviteUser: User;
+
+  @OneToOne(() => User)
+  @JoinColumn({ name: "create_user" })
+  createUser: User;
 }
