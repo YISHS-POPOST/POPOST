@@ -48,6 +48,7 @@ export class MessageRoomsController {
   // 채팅방 1개 여부 확인
   @Post("/room")
   async findOne(@Body() users: [string, string], @Res() res: any) {
+    
     const findRoom = await this.messageRoomsService.findOne(users);
     return res
       .status(200)

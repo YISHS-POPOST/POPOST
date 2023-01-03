@@ -3,10 +3,10 @@ import { AppDispatch } from "../stores";
 import { SocketType } from "../type/socket";
 
 export const setSocket =
-  (community: SocketType) => async (dispatch: AppDispatch) => {
+  (socket: SocketType) => async (dispatch: AppDispatch) => {
     dispatch({
       type: SET_SOCKET,
-      payload: { ...community },
+      payload: socket,
     });
   };
 

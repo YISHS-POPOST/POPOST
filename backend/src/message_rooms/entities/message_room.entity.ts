@@ -1,4 +1,11 @@
-import { Entity, Column, PrimaryColumn } from "typeorm/index";
+import { User } from "src/users/entities/user.entity";
+import {
+  Entity,
+  Column,
+  PrimaryColumn,
+  OneToOne,
+  JoinColumn,
+} from "typeorm/index";
 
 @Entity({ name: "message_rooms" })
 export class MessageRoom {
@@ -10,4 +17,12 @@ export class MessageRoom {
 
   @Column()
   invite_user: string;
+
+  @OneToOne(() => User)
+  @JoinColumn({ name: "invite_user" })
+  inviteUser: User;
+
+  @OneToOne(() => User)
+  @JoinColumn({ name: "create_user" })
+  createUser: User;
 }

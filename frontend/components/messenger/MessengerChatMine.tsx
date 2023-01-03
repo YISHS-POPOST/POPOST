@@ -22,31 +22,30 @@ const MessengerChatMine = ({ time, content }: Props) => {
         time.getMonth() === nowDate.getMonth()
       ? "Yesterday"
       : `${time.getMonth() + 1}월 ${time.getDate()}일`;
-
+        
   return (
     <View style={[{ flex: 1 }]}>
       <View
         style={[
           theme.justifyContentCenter,
-          theme.pt1,
+          theme.pt2,
           styles.time,
           theme.alignItemsCenter,
         ]}
-      >
-        {/* <RegularText style={{ color: "#666" }}>{timeTxt}</RegularText> */}
-      </View>
-      <View style={[theme.ml2]}>
-          <BoldText
-            style={[
-              styles.text,
-              theme.fontBase,
-              theme.p2,
-              theme.mb1,
-              styles.container,
-            ]}
-          >
-            {content}
-          </BoldText>
+      ></View>
+      <View style={[theme.ml2, theme.flexDirectionRow, theme.alignItemsEnd , theme.mb2 , theme.justifyContentEnd]}>
+        <RegularText style={[{ color: "#666" } , theme.mr1]}>{timeTxt}</RegularText>
+        <BoldText
+          style={[
+            styles.text,
+            theme.fontBase,
+            theme.p2,
+            theme.mb1,
+            styles.container,
+          ]}
+        >
+          {content}
+        </BoldText>
       </View>
     </View>
   );

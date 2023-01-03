@@ -3,13 +3,13 @@ import { ImageSourcePropType } from "react-native";
 import { UserType } from "./User";
 
 export interface ItemInterface {
-  image: string;
+  image: string  | null;
   state: boolean;
   name: string;
   check: boolean;
   time: Date;
   content: string;
-  userId : string;
+  userId : string | null;
 }
 
 export interface ChatInterface {

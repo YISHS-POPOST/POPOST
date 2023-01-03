@@ -19,7 +19,9 @@ interface listType {
   id: number;
   follow_id: string;
   follower_id: string;
-  user: ListUserInterface;
+  user?: ListUserInterface;
+  createUser?: ListUserInterface;
+  inviteUser?: ListUserInterface;
 }
 
 const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
@@ -34,6 +36,7 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
       userId: users.id,
       tab,
     };
+
     await axios.post(API_URL + "/follows/follow/get", postVal).then(res => {
       setList(res.data.data);
     });
@@ -45,26 +48,33 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
 
   const info = list.map(item => {
     return {
-      image: item.user.profile,
+      image: item.user
+        ? item.user.profile
+        : item.createUser
+        ? item.createUser.profile
+        : item.inviteUser
+        ? item.inviteUser.profile
+        : null,
       state: false,
-      name: item.user.name,
+      name: item.user
+        ? item.user.name
+        : item.createUser
+        ? item.createUser.name
+        : item.inviteUser
+        ? item.inviteUser.name
+        : "",
       check: false,
       time: new Date(2022, 0, 12),
       content: "",
-      userId: item.user.id,
+      userId: item.user
+        ? item.user.id
+        : item.createUser
+        ? item.createUser.id
+        : item.inviteUser
+        ? item.inviteUser.id
+        : null,
     };
   });
-  // const info: ItemInterface[] = [
-  //   {
-  //     image: require("../../assets/image/profile/3d_profile1.jpg"),
-  //     state: true,
-  //     name: "최우창",
-  //     check: false,
-  //     time: new Date(2022, 0, 12),
-  //     content:
-  //       "will already know about the date type definition as Date is an internal TypeScript object referenced by the DateConstructor interface.",
-  //   },
-  // ];
 
   const renderItem = ({ item }: renderItemType) => {
     return (

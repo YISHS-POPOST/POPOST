@@ -1,16 +1,18 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import HttpError from "asset/HttpError";
 import { Repository } from "typeorm";
 import { CreateFollowDto } from "./dto/create-follow.dto";
-import { UpdateFollowDto } from "./dto/update-follow.dto";
 import { Follow } from "./entities/follow.entity";
+import { MessageRoom } from "src/message_rooms/entities/message_room.entity";
 
 @Injectable()
 export class FollowsService {
   constructor(
     @InjectRepository(Follow)
-    private readonly FollowRepository: Repository<Follow>
+    private readonly FollowRepository: Repository<Follow>,
+
+    @InjectRepository(MessageRoom)
+    private readonly MessageRooomRepository: Repository<MessageRoom>
   ) {}
 
   async create(followData: CreateFollowDto) {
@@ -22,7 +24,7 @@ export class FollowsService {
 
     return await this.FollowRepository.save(follow);
   }
-
+  
   async followCheck(followData: Follow) {
     const { follow_id, follower_id } = followData;
     const check = await this.FollowRepository.findOneBy({
@@ -38,13 +40,32 @@ export class FollowsService {
     }
   }
 
-  async followGet(id: string) {
-    const followId = await this.FollowRepository.find({
-      relations: ["user"],
-      where: {
-        follower_id: id,
-      },
-    });
-    return followId;
+  async followGet(id: string, tab: string) {
+    if (tab === "following") {
+      const followId = await this.FollowRepository.find({
+        relations: ["user"],
+        where: {
+          follower_id: id,
+        },
+      });
+      return followId;
+    } else {
+      const inviteUser = await this.MessageRooomRepository.find({
+        relations: ["inviteUser"],
+        where: {
+          create_user: id,
+        },
+      });
+
+      const createUser = await this.MessageRooomRepository.find({
+        relations: ["createUser"],
+        where: {
+          invite_user: id,
+        },
+      });
+
+      const followId = [...inviteUser, ...createUser];
+      return followId;
+    }
   }
 }

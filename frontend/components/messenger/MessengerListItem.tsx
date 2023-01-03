@@ -8,7 +8,7 @@ import { API_URL } from "@env";
 
 interface ListInterface extends ItemInterface {
   navigation: ProfileScreenNavigationProp;
-  userId : string;
+  userId : string | null;
 }
 
 // 사진 , 상태 , 이름 , 확인 , 시간 , 마지막 메신저
@@ -34,7 +34,7 @@ const MessengerListItem = ({
         time.getMonth() === nowDate.getMonth()
       ? "Yesterday"
       : `${time.getMonth() + 1}월 ${time.getDate()}일`;
-
+        
   return (
     <TouchableOpacity
       style={[
@@ -70,12 +70,6 @@ const MessengerListItem = ({
             />
           )}
         </View>
-        <View
-          style={[
-            styles.state,
-            { backgroundColor: state ? "#1AB104" : "#777" },
-          ]}
-        ></View>
       </View>
       <View
         style={[

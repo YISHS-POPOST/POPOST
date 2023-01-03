@@ -13,19 +13,35 @@ const MessengerChatScreen = ({ route }: any) => {
   const [room, setRoom] = useState<number | null>(null);
   const { image, name, state, userId } = route.params;
   const users = useSelector((state: StateInterface) => state.users);
+  const socket = useSelector((state: StateInterface) => state.socket);
 
   const checkChatRoom = async () => {
     const postItem = [users.id, userId];
-    await axios.post(API_URL + "/message-rooms/room", postItem).then(res => {
-      const { room } = res.data;
-      if (room) setRoom(room.id);
-      else setRoom(null);
-    });
+    await axios
+      .post(API_URL + "/message-rooms/room", postItem)
+      .then(async res => {
+        const roomData = res.data.room;
+        if (roomData.id) {
+          setRoom(roomData.id);
+        } else {
+          setRoom(null);
+        }
+      });
   };
 
+  const joinRoom = async () => {
+    socket.emit("join", room);
+  };
+  
   useEffect(() => {
     checkChatRoom();
   }, []);
+
+  useEffect(() => {
+    if (room) {
+      joinRoom();
+    }
+  }, [room]);
 
   return (
     <View style={[theme.flexDirectionColumn, styles.container]}>
@@ -34,7 +50,7 @@ const MessengerChatScreen = ({ route }: any) => {
       ) : (
         <>
           <MessengerChatContent image={image} name={name} />
-          <MessengerChatBottom />
+          <MessengerChatBottom room={room} />
         </>
       )}
     </View>
