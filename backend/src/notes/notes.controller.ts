@@ -24,6 +24,16 @@ export class NotesController {
     return res.status(201).send({message: "쪽지를 성공적으로 생성하였습니다."});
   }
 
+  @Post("/find")
+  async noteFindAction(@Body() id: any, @Res() res: any) {
+    const findNoteData = await this.notesService.findNoteData(id);
+    
+    if(findNoteData === false) throw new HttpError(404, "누락 된 값이 있습니다.");
+    if(findNoteData === null) throw new HttpError(404, "존재하지 않는 값입니다.");
+    
+    return res.status(200).send(findNoteData);
+  }
+
   // @Post()
   // create(@Body() createNoteDto: CreateNoteDto) {
   //   return this.notesService.create(createNoteDto);

@@ -1,26 +1,122 @@
 import { View, StyleSheet, Animated } from "react-native";
 import theme from "../../theme";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { BoldText, RegularText } from "../Text";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import { Dispatch, SetStateAction } from "react";
+import axios from "axios";
+import { API_URL } from "@env";
 
-const MapMarkerView = () => {
-    // const animation = useRef(new Animated.Value(1)).current;
+interface MarkerViewType {
+    markerView: boolean;
+    setMarkerView: Dispatch<SetStateAction<boolean>>;
+}
 
-    return (
-        <View style={[theme.p5, styles.container]}>
-            <View style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.justifyContentBetween, theme.mb2]}>
-                <BoldText style={[styles.text, theme.fontXxxl, styles.textBlack]}>배아무개</BoldText>
-                <Ionicons name="close" size={20} color={"#000"} />
+interface MarkerIdType {
+    markerId: number;
+    setMarkerId: Dispatch<SetStateAction<number>>;
+}
+
+type Props = {
+    markerViewProps: MarkerViewType;
+    markerIdProps: MarkerIdType;
+};
+
+const MapMarkerView = ({ markerViewProps, markerIdProps }: Props) => {
+    const { markerView, setMarkerView } = markerViewProps;
+    const { markerId, setMarkerId } = markerIdProps;
+    const [ markerData, setMarkerData ] = useState();
+
+    const getNoteFindAction = async () => {
+        if (markerView === false && markerId == 0) return;
+
+        await axios.post(API_URL + "/notes/find", {markerId}).then(async (res) => {
+            if(res.status === 200) {
+                setMarkerData(res.data);
+            }
+        })
+        .catch(err => console.log(err.response));
+    };
+
+    
+    useEffect(() => {
+        getNoteFindAction();
+    }, [markerId, markerView])
+
+    return !markerData ? null : (
+        <View
+            style={[
+                theme.p5,
+                styles.container,
+                { bottom: !markerView ? -200 : 0 },
+            ]}
+        >
+            <View
+                style={[
+                    theme.flexDirectionRow,
+                    theme.alignItemsCenter,
+                    theme.justifyContentBetween,
+                    theme.mb2,
+                ]}
+            >
+                <View
+                    style={[
+                        theme.flexDirectionRow,
+                        theme.alignItemsEnd,
+                        theme.justifyContentBetween,
+                    ]}
+                >
+                    <BoldText
+                        style={[
+                            styles.text,
+                            theme.fontXxxl,
+                            styles.textBlack,
+                            theme.mr1,
+                        ]}
+                    >
+                        {markerData.user.name}
+                    </BoldText>
+                    <RegularText
+                        style={[
+                            styles.text,
+                            styles.nickName,
+                            { fontSize: 12 },
+                            { marginBottom: 3 },
+                        ]}
+                    >
+                        {
+                            markerData.user.nickname !== null ? markerData.user.nickname : "별명이 설정되어 있지 않습니다."
+                        }
+                    </RegularText>
+                </View>
+                <Ionicons name="close" size={20} color={"#000"} onPress={() => {
+                    setMarkerView(false)
+                    setMarkerId(0)
+                    }} />
             </View>
-            <RegularText style={[theme.fontBase, styles.textBlack]}>현미밥 북어콩나물국 야채계란찜 돈육사천자장볶음 에그타르트 배추김치 쌈장 추 쁘띠자두음료</RegularText>
+            <RegularText style={[theme.fontSmall, styles.textBlack, theme.mb3]}>
+                {markerData.content}
+            </RegularText>
+            <View style={[theme.alignItemsEnd]}>
+                <RegularText
+                    style={[styles.text, styles.datetime, { fontSize: 12 }]}
+                >
+                    {
+                        "생성일 | " + 
+                        new Date(markerData.created_at)
+                        .toISOString()
+                        .slice(0, 19)
+                        .replace("T", " ")
+                    }
+                </RegularText>
+            </View>
         </View>
     );
-}
+};
 
 const styles = StyleSheet.create({
     container: {
-        bottom: 0,
+        bottom: -200,
         position: "absolute",
         zIndex: 101,
         width: "100%",
@@ -40,8 +136,14 @@ const styles = StyleSheet.create({
     textBlack: {
         color: "#000",
     },
+    nickName: {
+        color: "#999999",
+    },
     text: {
-        letterSpacing: -.5,
+        letterSpacing: -0.5,
+    },
+    datetime: {
+        color: "#888888",
     },
 });
 

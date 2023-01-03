@@ -33,14 +33,26 @@ interface ModalType {
     setModalVisible: Dispatch<SetStateAction<boolean>>;
 }
 
+interface MarkerViewType {
+    setMarkerView: Dispatch<SetStateAction<boolean>>;
+}
+
+interface MarkerIdType {
+    setMarkerId: Dispatch<SetStateAction<number>>;
+}
+
 type Props = {
     modal: ModalType;
+    markerViewProps: MarkerViewType;
+    markerIdProps: MarkerIdType;
 };
 
-const MapMainContents = ({ modal }: Props) => {
+const MapMainContents = ({ modal, markerViewProps, markerIdProps }: Props) => {
     const [location, setLocation] = useState<Location | undefined>(undefined);
     const [markerList, setMarkerList] = useState<MarkerList[]>();
-    const { modalVisible, setModalVisible } = modal;
+    const {modalVisible, setModalVisible} = modal;
+    const {setMarkerView} = markerViewProps;
+    const {setMarkerId} = markerIdProps;
 
     // 마커리스트
     const getNoteList = useCallback(() => {
@@ -113,7 +125,10 @@ const MapMainContents = ({ modal }: Props) => {
                             }}
                             tracksViewChanges={false}
                             icon={require("../../assets/image/post/post7.png")}
-                            onPress={() => null}
+                            onPress={() => {
+                                setMarkerView(true);
+                                setMarkerId(data.id);
+                            }}
                         >
                         </Marker>
                         <Circle
