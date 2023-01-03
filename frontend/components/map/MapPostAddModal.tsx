@@ -1,11 +1,20 @@
-import { SafeAreaView, Modal, View, TouchableOpacity, StyleSheet, TextInput } from "react-native";
+import {
+    SafeAreaView,
+    Modal,
+    View,
+    TouchableOpacity,
+    StyleSheet,
+    TextInput,
+    Alert,
+} from "react-native";
 import theme from "../../theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { BoldText } from "../Text";
 import { Dispatch, SetStateAction, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { axios } from "axios";
+import axios from "axios";
 import { API_URL } from "@env";
+import AlertView from "../AlertView";
 
 interface ModalType {
     modalVisible: boolean;
@@ -20,48 +29,106 @@ interface LocationType {
 type Props = {
     modal: ModalType;
     location: LocationType;
-}
+    getNoteList: any;
+};
 
-const MapPostAddModal = ({modal, location}: Props) => {
-    const {modalVisible, setModalVisible} = modal;
-    const [postContent, setPostContent] = useState<string>();
+const MapPostAddModal = ({ modal, location, getNoteList }: Props) => {
+    const { modalVisible, setModalVisible } = modal;
+    const [content, setContent] = useState<string>();
 
     const postAddAction = () => {
+        if(!content)
+            return AlertView('쪽지', '빈 값은 생성이 불가능합니다.');
+
         AsyncStorage.getItem("user_id", (err, res) => {
             const user_id = res;
-            axios.post(API_URL + "/post", {user_id, ...location, postContent}).then()
-        })
-    }
+            axios
+                .post(API_URL + "/notes/add", { user_id, ...location, content })
+                .then((res: any) => {
+                    if(res.status === 201)
+                        Alert.alert('쪽지', res.data.message, [{text: "확인", onPress: () => setModalVisible(false)}]);
+                        return getNoteList();
+                })
+                .catch(err => {
+                    return AlertView('쪽지', err.response.data.message);
+                })
+        });
+    };
 
     return (
         <SafeAreaView>
-            <Modal 
+            <Modal
                 animationType="fade"
                 transparent={true}
                 visible={modalVisible}
             >
-            <View style={styles.modalBackground}>
-                <View style={[styles.modalContents]}>
-                    <View style={[theme.flexDirectionRow, theme.justifyContentBetween, theme.alignItemsCenter, theme.mb2]}>
-                        <BoldText style={[styles.title, theme.fontLg]}>쪽지 생성하기</BoldText>
-                        <TouchableOpacity style={[theme.alignItemsEnd]} onPress={() => setModalVisible(false)}>
-                            <Ionicons name="close" size={25} color={"#000"} />
+                <View style={styles.modalBackground}>
+                    <View style={[styles.modalContents]}>
+                        <View
+                            style={[
+                                theme.flexDirectionRow,
+                                theme.justifyContentBetween,
+                                theme.alignItemsCenter,
+                                theme.mb2,
+                            ]}
+                        >
+                            <BoldText style={[styles.title, theme.fontLg]}>
+                                쪽지 생성하기
+                            </BoldText>
+                            <TouchableOpacity
+                                style={[theme.alignItemsEnd]}
+                                onPress={() => setModalVisible(false)}
+                            >
+                                <Ionicons
+                                    name="close"
+                                    size={25}
+                                    color={"#000"}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        <View
+                            style={[
+                                theme.justifyContentBetween,
+                                theme.flexDirectionRow,
+                                theme.alignItemsCenter,
+                                theme.mb2,
+                            ]}
+                        >
+                            <TextInput
+                                value={`위도 | ${location.latitude}`}
+                                editable={false}
+                                style={[styles.locationInput]}
+                            />
+                            <TextInput
+                                value={`경도 | ${location.longitude}`}
+                                editable={false}
+                                style={[styles.locationInput]}
+                            />
+                        </View>
+                        <TextInput
+                            placeholder="쪽지 내용..."
+                            placeholderTextColor={"#5c5c5c"}
+                            style={[styles.input, theme.mb2]}
+                            multiline={true}
+                            maxLength={300}
+                            onChangeText={(text) => setContent(text)}
+                        />
+                        <TouchableOpacity
+                            style={[
+                                styles.addbtn,
+                                theme.justifyContentCenter,
+                                theme.alignItemsCenter,
+                            ]}
+                            onPress={postAddAction}
+                        >
+                            <BoldText style={styles.text}>생성하기</BoldText>
                         </TouchableOpacity>
                     </View>
-                    <View style={[theme.justifyContentBetween, theme.flexDirectionRow, theme.alignItemsCenter, theme.mb2]}>
-                        <TextInput value={`위도 | ${location.latitude}`} editable={false} style={[styles.locationInput]}/>
-                        <TextInput value={`경도 | ${location.longitude}`} editable={false} style={[styles.locationInput]}/>
-                    </View>
-                    <TextInput placeholder="쪽지 내용..." placeholderTextColor={"#5c5c5c"} style={[styles.input, theme.mb2]} multiline={true} maxLength={300} onChangeText={(text) => setPostContent(text)} />
-                    <TouchableOpacity style={[styles.addbtn, theme.justifyContentCenter, theme.alignItemsCenter]} onPress={postAddAction}>
-                        <BoldText style={styles.text}>생성하기</BoldText>
-                    </TouchableOpacity>
                 </View>
-            </View>
             </Modal>
         </SafeAreaView>
     );
-}
+};
 
 const styles = StyleSheet.create({
     locationInput: {
@@ -72,7 +139,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
     },
     text: {
-        letterSpacing: -.5,
+        letterSpacing: -0.5,
         color: "#fff",
     },
     addbtn: {
@@ -98,14 +165,14 @@ const styles = StyleSheet.create({
     },
     modalBackground: {
         flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0,0,0, .4)',
-    }, 
+        flexDirection: "row",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: "rgba(0,0,0, .4)",
+    },
     modalContents: {
         flex: 0.75,
-        backgroundColor : '#ffffff',
+        backgroundColor: "#ffffff",
         padding: 14,
         borderRadius: 6,
     },
@@ -114,6 +181,6 @@ const styles = StyleSheet.create({
         height: 200,
         margin: 20,
     },
-})
+});
 
 export default MapPostAddModal;

@@ -1,6 +1,6 @@
 import { TouchableOpacity, StyleSheet } from "react-native";
 import Entypo from "react-native-vector-icons/Entypo";
-import theme from "../../../theme"; 
+import theme from "../../../theme";
 import { Dispatch, SetStateAction } from "react";
 
 interface ViewProps {
@@ -8,7 +8,7 @@ interface ViewProps {
     setView: Dispatch<SetStateAction<boolean>>;
 }
 
-interface ModalProps  {
+interface ModalProps {
     modalVisible: boolean;
     setModalVisible: Dispatch<SetStateAction<boolean>>;
 }
@@ -25,10 +25,7 @@ const MapPostAddBtn = ({ views, modal }: Props) => {
     return (
         <TouchableOpacity
             activeOpacity={0.95}
-            style={[
-                styles.button, 
-                !view ? null : styles.actionButton
-            ]}
+            style={[styles.button, !view ? null : styles.actionButton]}
             onPress={() => setModalVisible(true)}
         >
             <Entypo name="plus" size={23} color={"#fff"} />
