@@ -34,6 +34,16 @@ export class CommunityAppliesService {
     return await this.Community_appliesRepository.find({where : {community_id : id}});
   }
 
+  async checkUserId(checkData: any) {
+    const { target_id, user_id } = checkData;
+
+    return await this.Community_appliesRepository.findOne({where : {id: target_id}})
+  }
+
+  async targetDelateComment(target_id: number) {
+    return await this.Community_appliesRepository.delete(target_id);
+  }
+
   // create(createCommunityApplyDto: CreateCommunityApplyDto) {
   //   return 'This action adds a new communityApply';
   // }

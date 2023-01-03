@@ -4,13 +4,22 @@ import theme from "../../theme";
 import { ItemInterface } from "../../types/MessengerType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import { BoldText, RegularText } from "../Text";
+import { API_URL } from "@env";
+import { useSelector } from "react-redux";
+import { StateInterface } from "../../src/type/state";
 
 const MessengerChatHeader = (
   navigation: ProfileScreenNavigationProp,
   route: any
 ) => {
-  const { image, name, state }: ItemInterface = route.params;
+  const { image, name }: ItemInterface = route.params;
+  const socket = useSelector((state: StateInterface) => state.socket);
 
+  const prevEvent = async () => {
+    socket.emit("exit");
+    return navigation.pop();
+  };
+  
   return (
     <View
       style={[
@@ -18,13 +27,12 @@ const MessengerChatHeader = (
         theme.alignItemsCenter,
         theme.flexDirectionRow,
         styles.container,
-
       ]}
     >
       <View style={[theme.flexDirectionRow, theme.alignItemsCenter]}>
         <Entypo
           name="chevron-left"
-          onPress={() => navigation.pop()}
+          onPress={prevEvent}
           size={theme.headerIconSize}
           color={theme.colors.purple}
         />
@@ -36,24 +44,20 @@ const MessengerChatHeader = (
             theme.ml2,
           ]}
         >
-          <Image source={image} style={[styles.image]} />
+          {!image ? (
+            <Image
+              source={require("../../assets/image/profile/default.jpg")}
+              style={[styles.image]}
+            />
+          ) : (
+            <Image
+              source={{ uri: API_URL + "/files/profile/" + image }}
+              style={[styles.image]}
+            />
+          )}
         </View>
         <View style={[theme.ml2]}>
           <BoldText style={[theme.fontXl, styles.name]}>{name}</BoldText>
-          <View style={[theme.flexDirectionRow, theme.alignItemsCenter]}>
-            <View
-              style={[
-                styles.state,
-                { backgroundColor: state ? "#1AB104" : "#777" },
-                theme.mr1,
-              ]}
-            ></View>
-            <RegularText
-              style={[{ color: state ? "#1AB104" : "#777" }, theme.fontBase]}
-            >
-              {state ? "활동중" : "다른 용무중"}
-            </RegularText>
-          </View>
         </View>
       </View>
     </View>
@@ -63,8 +67,8 @@ const MessengerChatHeader = (
 const styles = StyleSheet.create({
   container: {
     height: 70,
-    width : '100%',
-    paddingLeft : 0
+    width: "100%",
+    paddingLeft: 0,
   },
   imageContainer: {
     width: 50,
@@ -82,9 +86,9 @@ const styles = StyleSheet.create({
     zIndex: 10,
     borderRadius: 100,
   },
-  name : {
-    color : '#333'
-  }
+  name: {
+    color: "#333",
+  },
 });
 
 export default MessengerChatHeader;

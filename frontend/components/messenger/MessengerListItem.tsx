@@ -4,9 +4,11 @@ import { BoldText, RegularText } from "../Text";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import { ItemInterface } from "../../types/MessengerType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
+import { API_URL } from "@env";
 
 interface ListInterface extends ItemInterface {
   navigation: ProfileScreenNavigationProp;
+  userId : string | null;
 }
 
 // 사진 , 상태 , 이름 , 확인 , 시간 , 마지막 메신저
@@ -19,6 +21,7 @@ const MessengerListItem = ({
   time,
   content,
   navigation,
+  userId,
 }: ListInterface) => {
   const nowDate = new Date();
   const timeTxt =
@@ -31,7 +34,7 @@ const MessengerListItem = ({
         time.getMonth() === nowDate.getMonth()
       ? "Yesterday"
       : `${time.getMonth() + 1}월 ${time.getDate()}일`;
-
+        
   return (
     <TouchableOpacity
       style={[
@@ -44,7 +47,7 @@ const MessengerListItem = ({
         theme.container,
       ]}
       onPress={() => {
-        navigation.navigate("MessengerChat", { image, name, state });
+        navigation.navigate("MessengerChat", { image, name, state , userId });
       }}
     >
       <View style={[theme.positionRelative, styles.imgContainer]}>
@@ -55,14 +58,18 @@ const MessengerListItem = ({
             theme.alignItemsCenter,
           ]}
         >
-          <Image source={image} style={[styles.image]} />
+          {!image ? (
+            <Image
+              source={require("../../assets/image/profile/default.jpg")}
+              style={[styles.image]}
+            />
+          ) : (
+            <Image
+              source={{ uri: API_URL + "/files/profile/" + image }}
+              style={[styles.image]}
+            />
+          )}
         </View>
-        <View
-          style={[
-            styles.state,
-            { backgroundColor: state ? "#1AB104" : "#777" },
-          ]}
-        ></View>
       </View>
       <View
         style={[

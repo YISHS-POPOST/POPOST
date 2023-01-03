@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity, StyleSheet, FlatList } from "react-native";
+import { View, Image, TouchableOpacity, StyleSheet, FlatList, Alert } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Octicons from "react-native-vector-icons/Octicons";
 import { BoldText, RegularText } from "../Text";
@@ -7,6 +7,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "@env";
 import { SafeAreaView } from "react-native-safe-area-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
     id: number;
@@ -22,6 +23,17 @@ interface itemProps {
 type renderItemType = {item: itemProps}
 
 const renderItem = ({ item }: renderItemType) => {
+    const targetDeleteList = async (target_id: number) => {
+        AsyncStorage.getItem("user_id", (err, res) => {
+            const user_id = res;
+            axios.post(API_URL + "/community-applies/delete/comment", {target_id, user_id}).then(res => {
+                console.log(res.data);
+                Alert.alert("댓글", res.data.message, [{text: "확인"}]);
+            })
+            .catch(err => Alert.alert("댓글", err.response.data.message, [{text: "확인"}]));
+        })
+    }
+
     return (
         <View style={[theme.flexDirectionRow, theme.mb3]}>
             <View style={[theme.flexDirectionRow, theme.justifyContentBetween]}>
@@ -31,7 +43,7 @@ const renderItem = ({ item }: renderItemType) => {
                     <RegularText style={styles.contentText}>{item.content}</RegularText>
                 </View>
             </View>
-            <TouchableOpacity style={[theme.alignItemsEnd, {width: 20}]}>
+            <TouchableOpacity style={[theme.alignItemsEnd, {width: 20}]} onPress={() => targetDeleteList(item.id)}>
                 <Ionicons name="close" size={15} color={"#000"} />
             </TouchableOpacity>
         </View>
@@ -53,8 +65,6 @@ const CommunityApplyModalList = (props: Props) => {
     useEffect(() => {
         getApplyList();
     }, [])
-
-    console.log(applyList);
 
     return (
         <SafeAreaView>

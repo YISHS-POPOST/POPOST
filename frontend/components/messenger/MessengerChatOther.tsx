@@ -2,12 +2,13 @@ import { StyleSheet, View, Dimensions, Image } from "react-native";
 import theme from "../../theme";
 import { RegularText, BoldText, ThinText } from "../Text";
 import { ChatPropsType } from "../../types/MessengerType";
+import { API_URL } from "@env";
 
 const deviceWidth = Dimensions.get("window").width;
 
 interface Props extends ChatPropsType {
   time: Date;
-  content: string[];
+  content: string;
 }
 
 const MessengerChatOther = ({ image, name, time, content }: Props) => {
@@ -26,36 +27,36 @@ const MessengerChatOther = ({ image, name, time, content }: Props) => {
 
   return (
     <View style={[{ flex: 1 }]}>
-      <View
-        style={[
-          theme.justifyContentCenter,
-          theme.pt1,
-          styles.time,
-          theme.alignItemsCenter,
-        ]}
-      >
-        <RegularText style={{ color: "#666" }}>{timeTxt}</RegularText>
-      </View>
-      <View style={[styles.container, theme.flexDirectionRow, theme.mb1]}>
+      <View style={[styles.container, theme.flexDirectionRow, theme.mb1 ]}>
         <View style={[styles.profileContainer, theme.alignItemsCenter]}>
           <View style={[styles.profile]}>
-            <Image source={image} style={{ height: "100%", width: "100%" }} />
+            {!image ? (
+              <Image
+                source={require("../../assets/image/profile/default.jpg")}
+                style={{ height: "100%", width: "100%" }}
+              />
+            ) : (
+              <Image
+                source={{ uri: API_URL + "/files/profile/" + image }}
+                style={{ height: "100%", width: "100%" }}
+              />
+            )}
           </View>
         </View>
-        <View style={[styles.contentContainer, theme.ml2]}>
+        <View style={[styles.contentContainer, theme.ml2 ]}>
           <RegularText
             style={[theme.mb1, theme.mt1, styles.name, theme.fontBase]}
           >
             {name}
           </RegularText>
-          {content.map((item , idx) => (
+          <View style={[theme.alignItemsEnd, theme.flexDirectionRow]}>
             <BoldText
-              key={idx}
               style={[styles.text, theme.fontBase, theme.p2, theme.mb1]}
             >
-              {item}
+              {content}
             </BoldText>
-          ))}
+            <RegularText style={[{ color: "#666" } , theme.ml2]}>{timeTxt}</RegularText>
+          </View>
         </View>
       </View>
     </View>
@@ -83,7 +84,9 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.purple,
     borderWidth: 3,
   },
-  contentContainer: {},
+  contentContainer: {
+    maxWidth: deviceWidth - 200,
+  },
   name: {
     color: "#333",
   },

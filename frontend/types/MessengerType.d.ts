@@ -1,13 +1,15 @@
 import { StackNavigationProp } from "@react-navigation/stack";
 import { ImageSourcePropType } from "react-native";
+import { UserType } from "./User";
 
 export interface ItemInterface {
-  image: ImageSourcePropType;
+  image: string  | null;
   state: boolean;
   name: string;
   check: boolean;
   time: Date;
   content: string;
+  userId : string | null;
 }
 
 export interface ChatInterface {
@@ -16,7 +18,11 @@ export interface ChatInterface {
   state: boolean;
 }
 
-export interface ChatPropsType  {
-  image: ImageSourcePropType;
+export interface ChatPropsType {
+  image: string;
   name: string;
+}
+
+interface ListUserInterface extends UserType {
+  profile: string;
 }

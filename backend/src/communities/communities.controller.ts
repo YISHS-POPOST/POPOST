@@ -31,6 +31,8 @@ export class CommunitiesController {
       return res.status(201).send({message: "글 작성에 성공하였습니다."});
   }
 
+  
+
   // @Post()
   // create(@Body() createCommunityDto: CreateCommunityDto) {
   //   return this.communitiesService.create(createCommunityDto);
