@@ -32,6 +32,7 @@ import { Note } from "./notes/entities/note.entity";
       database: "popost",
       entities: [User, Community, Follow, CommunityApply , MessageRoom, Note],
       synchronize: false,
+      timezone: 'Z',
     }),
     ConfigModule.forRoot({
       envFilePath: ".env",

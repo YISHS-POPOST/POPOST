@@ -103,29 +103,32 @@ const MapMainContents = ({ modal }: Props) => {
                     longitudeDelta: 0.00103,
                 }}
             >
-                {markerList &&
-                    markerList.map((data) => (
-                        <Fragment key={data.id}>
-                            <Marker
-                                coordinate={{
-                                    latitude: Number(data.latitude) - 0.00004,
-                                    longitude: Number(data.longitude) + 0.00001,
-                                }}
-                                tracksViewChanges={false}
-                                icon={require("../../assets/image/post/post7.png")}
-                            ></Marker>
-                            <Circle
-                                center={{
-                                    latitude: Number(data.latitude),
-                                    longitude: Number(data.longitude),
-                                }}
-                                radius={20}
-                                strokeWidth={1}
-                                strokeColor="#d1d1d1"
-                                fillColor="#e4e2e2"
-                            />
-                        </Fragment>
-                    ))}
+            {
+                markerList && markerList.map((data) => (
+                    <Fragment key={data.id}>
+                        <Marker
+                            coordinate={{
+                                latitude: Number(data.latitude) - 0.00004,
+                                longitude: Number(data.longitude) + 0.00001,
+                            }}
+                            tracksViewChanges={false}
+                            icon={require("../../assets/image/post/post7.png")}
+                            onPress={() => null}
+                        >
+                        </Marker>
+                        <Circle
+                            center={{
+                                latitude: Number(data.latitude),
+                                longitude: Number(data.longitude),
+                            }}
+                            radius={18}
+                            strokeWidth={1}
+                            strokeColor="#d1d1d1"
+                            fillColor="#e4e2e2"
+                        />
+                    </Fragment>
+                ))
+            }
             </MapView>
             <MapPostAddModal
                 modal={{modalVisible, setModalVisible}}
