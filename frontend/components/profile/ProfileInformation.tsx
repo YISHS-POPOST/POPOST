@@ -18,7 +18,7 @@ const ProfileInformation = () => {
             users.profile
               ? // 백엔드 경로 설정 필요
                 {uri : API_URL + "/files/profile/" + users.profile}
-              : require("../../assets/image/profile/test_profile.jpg")
+              : require("../../assets/image/profile/default.jpg")
           }
           style={[styles.image]}
         />

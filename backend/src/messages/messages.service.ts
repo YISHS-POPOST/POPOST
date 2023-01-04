@@ -11,7 +11,7 @@ export class MessagesService {
     @InjectRepository(Message)
     private readonly MessageRepository: Repository<Message>
   ) {}
-    
+
   create(createMessageDto: CreateMessageDto) {
     const saveMessageObj = new Message();
     saveMessageObj.content = createMessageDto.content;
@@ -25,7 +25,14 @@ export class MessagesService {
     return `This action returns all messages`;
   }
 
-  findOne(id: number) {}
+  async findMessages(id: number) {
+    const findItems = await this.MessageRepository.find({
+      where: {
+        room_id: id,
+      },
+    });
+    return findItems;
+  }
 
   update(id: number, updateMessageDto: UpdateMessageDto) {
     return `This action updates a #${id} message`;

@@ -21,14 +21,14 @@ const MessengerChatScreen = ({ route }: any) => {
       .post(API_URL + "/message-rooms/room", postItem)
       .then(async res => {
         const roomData = res.data.room;
-        if (roomData.id) {
+        if (roomData) {
           setRoom(roomData.id);
         } else {
           setRoom(null);
         }
       });
   };
-
+  
   const joinRoom = async () => {
     socket.emit("join", room);
   };
@@ -49,7 +49,7 @@ const MessengerChatScreen = ({ route }: any) => {
         <MessengerChatStart userId={userId} checkChatRoom={checkChatRoom} />
       ) : (
         <>
-          <MessengerChatContent image={image} name={name} />
+          <MessengerChatContent image={image} name={name} room={room} />
           <MessengerChatBottom room={room} />
         </>
       )}

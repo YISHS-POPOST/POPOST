@@ -18,14 +18,40 @@ interface ChatContent {
 
 type renderItemType = { item: ChatContent };
 
-const MessengerChatContent = ({ image, name }: ChatPropsType) => {
+type getMessageDataItem = {
+  id: number;
+  created_at: Date;
+  user_id: string;
+  content: string;
+  room_id: number;
+  check: boolean;
+};
+
+const MessengerChatContent = ({ image, name, room }: ChatPropsType) => {
   const flatListRef = useRef<FlatList>(null);
   const [data, setData] = useState<ChatContent[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const socket = useSelector((state: StateInterface) => state.socket);
   const users = useSelector((state: StateInterface) => state.users);
-  
+
+  const getMessageData = async () => {
+    await axios.get(API_URL + "/messages/" + room).then(res => {
+      const manufactureDataItem = res.data.map((item: getMessageDataItem) => {
+        return {
+          time: new Date(item.created_at),
+          mine: users.id === item.user_id ? true : false,
+          content: item.content,
+        };
+      });
+      setData(manufactureDataItem);
+      // 로딩 해제
+      setIsLoading(true);
+      scrollDown();
+    });
+  };
+
   useEffect(() => {
+    getMessageData();
     socket.on("get message", (messageData: any) => {
       const contentPayload: ChatContent = {
         time: new Date(messageData.timeSet),
@@ -43,6 +69,8 @@ const MessengerChatContent = ({ image, name }: ChatPropsType) => {
 
   const renderItem = ({ item }: renderItemType) => {
     const { content, time, mine } = item;
+      scrollDown();
+    
     return mine ? (
       <MessengerChatMine time={time} content={content} />
     ) : (
@@ -51,6 +79,7 @@ const MessengerChatContent = ({ image, name }: ChatPropsType) => {
         image={image}
         time={time}
         content={content}
+        room={room}
       />
     );
   };

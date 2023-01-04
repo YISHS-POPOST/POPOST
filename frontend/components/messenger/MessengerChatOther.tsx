@@ -24,7 +24,7 @@ const MessengerChatOther = ({ image, name, time, content }: Props) => {
         time.getMonth() === nowDate.getMonth()
       ? "Yesterday"
       : `${time.getMonth() + 1}월 ${time.getDate()}일`;
-
+        
   return (
     <View style={[{ flex: 1 }]}>
       <View style={[styles.container, theme.flexDirectionRow, theme.mb1 ]}>

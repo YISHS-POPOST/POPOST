@@ -1,4 +1,5 @@
-import { Entity, PrimaryColumn, Column } from "typeorm/index";
+import { MessageRoom } from "src/message_rooms/entities/message_room.entity";
+import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm/index";
 
 @Entity({ name: "messages" })
 export class Message {
@@ -19,4 +20,6 @@ export class Message {
 
   @Column()
   check: boolean;
+
+  
 }

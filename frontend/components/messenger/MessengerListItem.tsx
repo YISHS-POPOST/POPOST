@@ -8,7 +8,7 @@ import { API_URL } from "@env";
 
 interface ListInterface extends ItemInterface {
   navigation: ProfileScreenNavigationProp;
-  userId : string | null;
+  userId: string | null;
 }
 
 // 사진 , 상태 , 이름 , 확인 , 시간 , 마지막 메신저
@@ -24,17 +24,18 @@ const MessengerListItem = ({
   userId,
 }: ListInterface) => {
   const nowDate = new Date();
-  const timeTxt =
-    time.getDate() === nowDate.getDate() &&
-    time.getMonth() === nowDate.getMonth()
-      ? `${time.getHours()}:${
-          time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()
-        }`
-      : time.getDate() === nowDate.getDate() - 1 &&
-        time.getMonth() === nowDate.getMonth()
-      ? "Yesterday"
-      : `${time.getMonth() + 1}월 ${time.getDate()}일`;
-        
+  const timeTxt = !time
+    ? ""
+    : time.getDate() === nowDate.getDate() &&
+      time.getMonth() === nowDate.getMonth()
+    ? `${time.getHours()}:${
+        time.getMinutes() < 10 ? `0${time.getMinutes()}` : time.getMinutes()
+      }`
+    : time.getDate() === nowDate.getDate() - 1 &&
+      time.getMonth() === nowDate.getMonth()
+    ? "Yesterday"
+    : `${time.getMonth() + 1}월 ${time.getDate()}일`;
+
   return (
     <TouchableOpacity
       style={[
@@ -47,7 +48,7 @@ const MessengerListItem = ({
         theme.container,
       ]}
       onPress={() => {
-        navigation.navigate("MessengerChat", { image, name, state , userId });
+        navigation.navigate("MessengerChat", { image, name, state, userId });
       }}
     >
       <View style={[theme.positionRelative, styles.imgContainer]}>
@@ -87,17 +88,21 @@ const MessengerListItem = ({
           ]}
         >
           <BoldText style={[styles.nameText, theme.fontXl]}>{name}</BoldText>
-          <View style={[theme.flexDirectionRow, theme.alignItemsCenter]}>
-            <MaterialCommunityIcons
-              name={check ? "check-circle" : "check-circle-outline"}
-              size={20}
-              style={[theme.mr1]}
-            />
-            <RegularText>{timeTxt}</RegularText>
-          </View>
+          {check === null ? (
+            <View></View>
+          ) : (
+            <View style={[theme.flexDirectionRow, theme.alignItemsCenter]}>
+              <MaterialCommunityIcons
+                name={check ? "check-circle" : "check-circle-outline"}
+                size={20}
+                style={[theme.mr1]}
+              />
+              <RegularText>{timeTxt}</RegularText>
+            </View>
+          )}
         </View>
         <RegularText style={[styles.contentText, theme.fontBase]}>
-          {content.length > 40 ? content.substring(0, 40) + "..." : content}
+          {content.length > 30 ? content.substring(0, 30) + "..." : content}
         </RegularText>
       </View>
     </TouchableOpacity>
