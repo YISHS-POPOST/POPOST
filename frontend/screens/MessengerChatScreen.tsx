@@ -11,7 +11,7 @@ import { StateInterface } from "../src/type/state";
 
 const MessengerChatScreen = ({ route }: any) => {
   const [room, setRoom] = useState<number | null>(null);
-  const { image, name, state, userId } = route.params;
+  const { image, name, userId } = route.params;
   const users = useSelector((state: StateInterface) => state.users);
   const socket = useSelector((state: StateInterface) => state.socket);
 
@@ -28,11 +28,11 @@ const MessengerChatScreen = ({ route }: any) => {
         }
       });
   };
-  
+
   const joinRoom = async () => {
-    socket.emit("join", room);
+    socket.emit("join", { room, userId: users.id });
   };
-  
+
   useEffect(() => {
     checkChatRoom();
   }, []);

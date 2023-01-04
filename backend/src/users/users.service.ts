@@ -7,12 +7,28 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ForbiddenException, HttpException } from "@nestjs/common/exceptions";
 import HttpError from "asset/HttpError";
 import { from, switchMap } from "rxjs";
+import { Follow } from "src/follows/entities/follow.entity";
+import { Community } from "src/communities/entities/community.entity";
+import { CommunityApply } from "src/community_applies/entities/community_apply.entity";
+
+// follow repository
+// community repository
+// community likes repository
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private readonly UsersRepository: Repository<User>
+    private readonly UsersRepository: Repository<User>,
+
+    @InjectRepository(Follow)
+    private readonly FollowRepository: Repository<Follow>,
+
+    @InjectRepository(Community)
+    private readonly CommunityRepository: Repository<Community>,
+
+    @InjectRepository(CommunityApply)
+    private readonly CommunityApplyRepository: Repository<CommunityApply>
   ) {}
 
   async findUserId(id: string) {
@@ -28,7 +44,7 @@ export class UsersService {
     user.email = email;
     user.name = name;
     user.phone = phone;
-    
+
     return await this.UsersRepository.save(user);
   }
 
@@ -38,6 +54,30 @@ export class UsersService {
 
   async updateUser(userId: string, updateUserDto: UpdateUserDto) {
     return this.UsersRepository.update(userId, updateUserDto);
+  }
+
+  async findProfile(userId: string) {
+    const followerCnt = await this.FollowRepository.count({
+      where: {
+        follow_id: userId,
+      },
+    });
+    const followingCnt = await this.FollowRepository.count({
+      where: {
+        follower_id: userId,
+      },
+    });
+    const communityCnt = await this.CommunityRepository.count({
+      where: {
+        user_id: userId,
+      },
+    });
+    const communityApplyCnt = await this.CommunityApplyRepository.count({
+      where: {
+        user_id: userId,
+      },
+    });
+    return { followerCnt, followingCnt, communityCnt, communityApplyCnt };
   }
 
   // create(createUserDto: CreateUserDto) {

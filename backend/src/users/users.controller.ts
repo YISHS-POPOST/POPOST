@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Res, UseInterceptors } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Body,
+  Res,
+  UseInterceptors,
+  Get,
+  Param,
+} from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { User } from "./entities/user.entity";
 import { ConfigService } from "@nestjs/config";
@@ -97,10 +105,10 @@ export class UsersController {
   //   return this.usersService.create(createUserDto);
   // }
 
-  // @Get()
-  // findAll() {
-  //   return this.usersService.findAll();
-  // }
+  @Get("/profile/:id")
+  async findProfile(@Param("id") id: string) {
+    return await this.UsersService.findProfile(id);
+  }
 
   // @Get(":id")
   // findOne(@Param("id") id: string) {
