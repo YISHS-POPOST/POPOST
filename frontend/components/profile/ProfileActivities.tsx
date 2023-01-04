@@ -1,14 +1,19 @@
 import { View, StyleSheet } from "react-native";
 import theme from "../../theme";
 import { BoldText, RegularText } from "../Text";
+import { ProfileItemPayload } from "../../types/User";
+
+type prop = {
+  profileItem: ProfileItemPayload;
+};
 
 // 좋아요 , 공유애 맞춘 섹션
-const ProfileActivities = () => {
+const ProfileActivities = ({ profileItem }: prop) => {
   return (
     <View style={[theme.mainContainer, theme.mb3]}>
       <View style={[styles.container, theme.p3, theme.sectionBorderRadius]}>
         <View style={[theme.pb2]}>
-          <BoldText style={[theme.fontXxxl , styles.title]}>나의 활동</BoldText>
+          <BoldText style={[theme.fontXxxl, styles.title]}>나의 활동</BoldText>
         </View>
         <View
           style={[
@@ -45,9 +50,11 @@ const ProfileActivities = () => {
             ]}
           >
             <RegularText style={[styles.activityTitle, theme.fontBase]}>
-              공유
+              댓글
             </RegularText>
-            <BoldText style={[styles.activitTotal, theme.fontXxl]}>0</BoldText>
+            <BoldText
+              style={[styles.activitTotal, theme.fontXxl]}
+            >{`${profileItem.communityApplyCnt}`}</BoldText>
           </View>
         </View>
       </View>
@@ -68,12 +75,12 @@ const styles = StyleSheet.create({
   activitTotal: {
     color: "#fff",
   },
-  activityContainer : {
-    backgroundColor : '#333',
+  activityContainer: {
+    backgroundColor: "#333",
   },
-  title : {
-    color : '#333',
-  }
+  title: {
+    color: "#333",
+  },
 });
 
 export default ProfileActivities;

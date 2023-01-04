@@ -11,6 +11,7 @@ import { API_URL } from "@env";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
 import { ListUserInterface } from "../../types/MessengerType";
+import MessengerListLoading from "../loading/MessengerListLoading";
 
 interface Message {
   id: number;
@@ -31,13 +32,14 @@ interface listType {
   user?: ListUserInterface;
   createUser?: ListUserInterface;
   inviteUser?: ListUserInterface;
-  message ?: Message;
+  message?: Message;
 }
 
 const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
   const [list, setList] = useState<listType[]>([]);
   const [tab, setTab] = useState<tabType>("message");
   const users = useSelector((state: StateInterface) => state.users);
+
   // first : list view
   // 유저 아이디 , 탭 타입
   const loadList = async () => {
@@ -73,7 +75,9 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
         name: item.createUser.name,
         check: !item.message ? false : item.message.check,
         time: !item.message ? null : new Date(item.message.created_at),
-        content: !item.message ? "메시지를 시작해주세요!" : item.message.content,
+        content: !item.message
+          ? "메시지를 시작해주세요!"
+          : item.message.content,
         userId: item.createUser.id,
       };
     } else if (item.inviteUser) {
@@ -83,7 +87,9 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
         name: item.inviteUser.name,
         check: !item.message ? false : item.message.check,
         time: !item.message ? null : new Date(item.message.created_at),
-        content: !item.message ? "메시지를 시작해주세요!" : item.message.content,
+        content: !item.message
+          ? "메시지를 시작해주세요!"
+          : item.message.content,
         userId: item.inviteUser.id,
       };
     }
@@ -105,6 +111,13 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
     );
   };
 
+  return (
+    <View style={[theme.mainContainer]}>
+      <MessengerHeader />
+      <MessengerListLoading />
+    </View>
+  );
+  
   return (
     <FlatList
       data={info}

@@ -18,6 +18,11 @@ interface MessagePayload {
   roomId: number;
 }
 
+interface RoomJoinPayload {
+  room: number;
+  userId: string;
+}
+
 @WebSocketGateway(80, {
   transports: ["websocket"],
   namespace: "messenger",
@@ -38,10 +43,13 @@ export class EventsGateway
   }
 
   @SubscribeMessage("join")
-  joinEvent(@MessageBody() data: number, @ConnectedSocket() client: Socket) {
-    client.join(`${data}`);
+  joinEvent(
+    @MessageBody() data: RoomJoinPayload,
+    @ConnectedSocket() client: Socket
+  ) {
+    client.join(`${data.room}`);
   }
-
+  
   @SubscribeMessage("exit")
   exitEvent(@ConnectedSocket() client: Socket) {
     const rooms = [...client.rooms];

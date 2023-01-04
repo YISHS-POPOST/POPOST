@@ -1,5 +1,5 @@
 import { Community } from 'src/communities/entities/community.entity';
-import { Entity, Column, PrimaryColumn, OneToMany, JoinColumn, ManyToOne } from 'typeorm/index';
+import { Entity, Column, PrimaryColumn, JoinColumn, ManyToOne } from 'typeorm/index';
 
 @Entity({ name: "community_applies" })
 export class CommunityApply {
