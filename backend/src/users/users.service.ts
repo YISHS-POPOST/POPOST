@@ -10,6 +10,8 @@ import { from, switchMap } from "rxjs";
 import { Follow } from "src/follows/entities/follow.entity";
 import { Community } from "src/communities/entities/community.entity";
 import { CommunityApply } from "src/community_applies/entities/community_apply.entity";
+import { Note } from "src/notes/entities/note.entity";
+import { CommunityLike } from "src/community_likes/entities/community_like.entity";
 
 // follow repository
 // community repository
@@ -28,7 +30,13 @@ export class UsersService {
     private readonly CommunityRepository: Repository<Community>,
 
     @InjectRepository(CommunityApply)
-    private readonly CommunityApplyRepository: Repository<CommunityApply>
+    private readonly CommunityApplyRepository: Repository<CommunityApply>,
+
+    @InjectRepository(Note)
+    private readonly NoteRepository: Repository<Note>,
+
+    @InjectRepository(CommunityLike)
+    private readonly CommunityLikeRepository: Repository<CommunityLike>
   ) {}
 
   async findUserId(id: string) {
@@ -56,6 +64,7 @@ export class UsersService {
     return this.UsersRepository.update(userId, updateUserDto);
   }
 
+  // 팔로워 , 팔로잉 , 커뮤니티 글 , 커뮤니티 댓글 , 좋아요 카운트
   async findProfile(userId: string) {
     const followerCnt = await this.FollowRepository.count({
       where: {
@@ -77,7 +86,28 @@ export class UsersService {
         user_id: userId,
       },
     });
-    return { followerCnt, followingCnt, communityCnt, communityApplyCnt };
+    const communityLikeCnt = await this.CommunityLikeRepository.count({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    return {
+      followerCnt,
+      followingCnt,
+      communityCnt,
+      communityApplyCnt,
+      communityLikeCnt,
+    };
+  }
+  
+  async getHomeItems(userId: string) {
+    const NoteCnt = await this.NoteRepository.count({
+      where: {
+        user_id: userId,
+      },
+    });
+    return { NoteCnt };
   }
 
   // create(createUserDto: CreateUserDto) {

@@ -30,7 +30,9 @@ const ProfileScreen = ({ navigation }: ProfileScreenNavigationProp) => {
     loadProfileItem();
   }, []);
 
-  return !isLoading ? (
+  return !users ? (
+    <ProfileLoadingScreen />
+  ) : !isLoading ? (
     <ProfileLoadingScreen />
   ) : !profileItem ? (
     <ProfileLoadingScreen />

@@ -100,21 +100,17 @@ export class UsersController {
     return res.status(200).send({ message: "프로필 편집이 완료되었습니다." });
   }
 
-  // @Post()
-  // create(@Body() createUserDto: CreateUserDto) {
-  //   return this.usersService.create(createUserDto);
-  // }
-
   @Get("/profile/:id")
   async findProfile(@Param("id") id: string) {
     return await this.UsersService.findProfile(id);
   }
 
-  // @Get(":id")
-  // findOne(@Param("id") id: string) {
-  //   return this.usersService.findOne(+id);
-  // }
-
+  @Get("/home/:id")
+  async findHomeItems(@Param("id") id: string) {
+    const profileItems = await this.UsersService.findProfile(id);
+    const getHomeItem = await this.UsersService.getHomeItems(id);
+    return { ...profileItems, ...getHomeItem };
+  }
   // @Patch(":id")
   // update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
   //   return this.usersService.update(+id, updateUserDto);
