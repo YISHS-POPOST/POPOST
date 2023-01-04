@@ -13,12 +13,12 @@ import { API_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface Props {
-    id: number;
+    setApplyList: any;
+    community_id: number;
 }
 
-const CommunityApplyModalInput = (props: Props) => {
+const CommunityApplyModalInput = ({setApplyList, community_id}: Props) => {
     const [content, setContent] = useState("");
-    const { id } = props;
 
     const postApply = async () => {
         AsyncStorage.getItem("user_id", (err, res) => {
@@ -26,12 +26,13 @@ const CommunityApplyModalInput = (props: Props) => {
             axios
                 .post(API_URL + "/community-applies/applyAdd", {
                     content,
-                    id,
+                    id : community_id,
                     user_id,
                 })
                 .then((res) => {
                     Alert.alert("댓글", res.data.message, [{ text: "확인" }]);
                     setContent("");
+                    setApplyList();
                 })
                 .catch((err) => console.log(err));
         });

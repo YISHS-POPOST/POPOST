@@ -15,10 +15,7 @@ import axios from "axios";
 import { API_URL } from "@env";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-type Props = {
-    id: number;
-};
+import { Dispatch, SetStateAction } from "react";
 
 interface itemProps {
     id: number;
@@ -28,6 +25,7 @@ interface itemProps {
 }
 
 type renderItemType = { item: itemProps };
+
 
 const renderItem = ({ item }: renderItemType) => {
     const targetDeleteList = async (target_id: number) => {
@@ -58,35 +56,23 @@ const renderItem = ({ item }: renderItemType) => {
                     <RegularText style={styles.contentText}>{item.content}</RegularText>
                 </View>
             </View>
-            <TouchableOpacity
+            {/* <TouchableOpacity
                 style={[theme.alignItemsEnd, { width: 20 }]}
                 onPress={() => {
                     targetDeleteList(item.id);
                 }}
             >
                 <Ionicons name="close" size={15} color={"#000"} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 };
 
-const CommunityApplyModalList = (props: Props) => {
-    const [applyList, setApplyList] = useState<any>([]);
-    const { id } = props;
 
-    const getApplyList = async () => {
-        await axios
-            .post(API_URL + "/community-applies/getList", { id })
-            .then((res) => {
-                setApplyList(res.data);
-            })
-            .catch((err) => console.log(err.response));
-    };
 
-    useEffect(() => {
-        getApplyList();
-    }, []);
-
+const CommunityApplyModalList = ({applyProps, getApplyList}: any) => {
+    const {applyList, setApplyList} = applyProps;
+    
     return (
         <SafeAreaView>
             <FlatList data={applyList} renderItem={renderItem} />
