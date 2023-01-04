@@ -19,7 +19,7 @@ export class MessageRoomsService {
     const messageRoom = new MessageRoom();
     messageRoom.create_user = createUserId;
     messageRoom.invite_user = inviteUserId;
-
+    
     return await this.MessageRoomRepository.save(messageRoom);
   }
 

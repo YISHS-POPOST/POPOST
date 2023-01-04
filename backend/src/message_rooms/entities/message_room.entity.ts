@@ -1,3 +1,4 @@
+import { Message } from "src/messages/entities/message.entity";
 import { User } from "src/users/entities/user.entity";
 import {
   Entity,
@@ -25,4 +26,8 @@ export class MessageRoom {
   @OneToOne(() => User)
   @JoinColumn({ name: "create_user" })
   createUser: User;
+
+  @OneToOne(() => Message, { nullable: true })
+  @JoinColumn({ name: "id", referencedColumnName: "room_id" })
+  message: Message;
 }
