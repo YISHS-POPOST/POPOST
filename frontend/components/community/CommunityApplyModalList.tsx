@@ -52,17 +52,10 @@ const renderItem = ({ item }: renderItemType) => {
     return (
         <View style={[theme.flexDirectionRow, theme.mb3]}>
             <View style={[theme.flexDirectionRow, theme.justifyContentBetween]}>
-                <Image
-                    source={require("../../assets/image/profile/default.jpg")}
-                    style={[styles.image, theme.mr2]}
-                />
-                <View>
-                    <BoldText style={[styles.userText]}>
-                        {item.user_id}
-                    </BoldText>
-                    <RegularText style={styles.contentText}>
-                        {item.content}
-                    </RegularText>
+                <Image source={require("../../assets/image/profile/default.jpg")} style={[styles.image, theme.mr2]} />
+                <View style={[styles.text]}>
+                    <BoldText style={[styles.userText]}>{item.user_id}</BoldText>
+                    <RegularText style={styles.contentText}>{item.content}</RegularText>
                 </View>
             </View>
             <TouchableOpacity
@@ -102,6 +95,9 @@ const CommunityApplyModalList = (props: Props) => {
 };
 
 const styles = StyleSheet.create({
+    text: {
+        width: 205,
+    },
     userText: {
         color: "#686868",
         letterSpacing: -0.5,
@@ -111,7 +107,7 @@ const styles = StyleSheet.create({
         color: "#000",
         letterSpacing: -0.5,
         fontSize: 12,
-        width: 220,
+        width: "100%", 
     },
     image: {
         borderWidth: 1,

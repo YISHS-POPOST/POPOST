@@ -1,15 +1,15 @@
 import { View, StyleSheet, Image, TouchableOpacity, Modal } from "react-native";
 import theme from "../../theme";
 import { BoldText, RegularText } from "../../components/Text";
-import AntDesign from "react-native-vector-icons/AntDesign";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import CommunityLinkPreview from "./CommunityLinkPreview";
 import { ItemInterface } from "../../types/CommunityType";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
 import { useState } from "react";
 import { API_URL } from "@env";
-import FollowsAction from "./CommunityFollows";
+import CommunityFollow from "./CommunityFollows";
 import CommunityCommentModal from "./CommunityApplyModal";
+import CommunityLike from "./CommunityLike";
 
 interface ListInterface extends ItemInterface {
   navigation: ProfileScreenNavigationProp;
@@ -83,27 +83,7 @@ const CommunityPostItem = ({
             </View>
           </View>
           <View style={[theme.justifyContentCenter]}>
-            {/* 프로필 뷰 기능으로 들어갈 예정. */}
-            <TouchableOpacity activeOpacity={0.8} onPress={() => FollowsAction(user_id)}
-              style={[
-                styles.button,
-                { backgroundColor: theme.colors.softBlue },
-                theme.p1,
-                theme.mb1,
-              ]}
-            >
-              <BoldText
-                style={[
-                  theme.fontSmall,
-                  theme.justifyContentEnd,
-                  theme.pl1,
-                  theme.pr1,
-                  { color: theme.colors.blue },
-                ]}
-              >
-                팔로우
-              </BoldText>
-            </TouchableOpacity>
+            <CommunityFollow follow_id={user_id}/>
           </View>
         </View>
         <View style={[theme.mt2, theme.mb2]}>
@@ -124,22 +104,15 @@ const CommunityPostItem = ({
           <RegularText style={[styles.text, styles.gray]}>{`조회 ${view}`}</RegularText>
         </View> */}
         <View style={[theme.mb2, theme.flexDirectionRow, theme.mt2]}>
-          <View
-            style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
-          >
-            <AntDesign name="like2" style={styles.icon} size={17} />
-            <BoldText style={[styles.icon, theme.fontSmall, theme.ml1]}>
-              좋아요
-            </BoldText>
-          </View>
-          <View
+          <CommunityLike community_id={id} />
+          {/* <View
             style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
           >
             <AntDesign name="sharealt" style={styles.icon} size={17} />
             <BoldText style={[styles.icon, theme.fontSmall, theme.ml1]}>
               공유
             </BoldText>
-          </View>
+          </View> */}
           <TouchableOpacity
             activeOpacity={1}
             onPress={() => {
@@ -210,13 +183,9 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 100,
   },
-  button: {
-    borderRadius: 5,
-    backgroundColor: theme.colors.softBlue,
-  },
   icon: {
     color: "#7e7e7e",
-  },
+},
 });
 
 export default CommunityPostItem;

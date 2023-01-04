@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import Octicons from "react-native-vector-icons/Octicons";
 import theme from "../../theme";
-import React, { useState } from "react";
+import React, { useState, createRef } from "react";
 import axios from "axios";
 import { API_URL } from "@env";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -31,6 +31,7 @@ const CommunityApplyModalInput = (props: Props) => {
                 })
                 .then((res) => {
                     Alert.alert("댓글", res.data.message, [{ text: "확인" }]);
+                    setContent("");
                 })
                 .catch((err) => console.log(err));
         });
@@ -57,7 +58,6 @@ const CommunityApplyModalInput = (props: Props) => {
                 style={[
                     theme.justifyContentCenter,
                     theme.alignItemsCenter,
-                    theme.mr1,
                 ]}
                 onPress={() => postApply()}
             >
@@ -69,7 +69,7 @@ const CommunityApplyModalInput = (props: Props) => {
 
 const styles = StyleSheet.create({
     input: {
-        width: 250,
+        width: 240,
         paddingLeft: 10,
         borderRadius: 6,
         backgroundColor: "#f3f3f3",
