@@ -6,7 +6,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const HomeCommunityContents = () => {
-    {/*컴포넌트화 2개 들어와야함*/}
     return (
         <View style={[theme.flexDirectionRow, theme.mb1, theme.justifyContentBetween, styles.container, theme.p1]}>
             <RegularText style={[styles.regText, theme.fontBase, theme.pl1]}>실시간 여수정보고 근황...</RegularText>
