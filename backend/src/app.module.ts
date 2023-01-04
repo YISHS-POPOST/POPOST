@@ -21,6 +21,8 @@ import { MessageRoom } from "./message_rooms/entities/message_room.entity";
 import { NotesModule } from './notes/notes.module';
 import { Note } from "./notes/entities/note.entity";
 import { Message } from "./messages/entities/message.entity";
+import { CommunityLikesModule } from './community_likes/community_likes.module';
+import { CommunityLike } from "./community_likes/entities/community_like.entity";
 
 @Module({
   imports: [
@@ -39,6 +41,7 @@ import { Message } from "./messages/entities/message.entity";
         MessageRoom,
         Note,
         Message,
+        CommunityLike,
       ],
       synchronize: false,
       timezone: "Z",
@@ -56,6 +59,7 @@ import { Message } from "./messages/entities/message.entity";
     MessagesModule,
     MessageRoomsModule,
     NotesModule,
+    CommunityLikesModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_FILTER, useClass: CatchException }],
