@@ -1,4 +1,4 @@
-import { StyleSheet, Dimensions, SafeAreaView } from "react-native";
+import { StyleSheet, Dimensions, SafeAreaView, View } from "react-native";
 import MapView, {
     PROVIDER_GOOGLE,
     Marker,
@@ -13,11 +13,7 @@ import MapPostAddModal from "./MapPostAddModal";
 import axios from "axios";
 import { API_URL } from "@env";
 import standardMode from "../map/customMapStyle/standardMode.json";
-
-interface Location {
-    latitude: number;
-    longitude: number;
-}
+import theme from "../../theme";
 
 interface MarkerList {
     id: number;
@@ -41,15 +37,17 @@ interface MarkerIdType {
     setMarkerId: Dispatch<SetStateAction<number>>;
 }
 
+
 type Props = {
     modal: ModalType;
     markerViewProps: MarkerViewType;
     markerIdProps: MarkerIdType;
+    locationProps: any;
 };
 
-const MapMainContents = ({ modal, markerViewProps, markerIdProps }: Props) => {
-    const [location, setLocation] = useState<Location | undefined>(undefined);
+const MapMainContents = ({ modal, markerViewProps, markerIdProps, locationProps }: Props) => {
     const [markerList, setMarkerList] = useState<MarkerList[]>();
+    const {location, setLocation} = locationProps;
     const {modalVisible, setModalVisible} = modal;
     const {setMarkerView} = markerViewProps;
     const {setMarkerId} = markerIdProps;
@@ -89,18 +87,16 @@ const MapMainContents = ({ modal, markerViewProps, markerIdProps }: Props) => {
             },
             (error) => {
                 console.log(error.code, error.message);
+            },
+            {
+                enableHighAccuracy: true,
             }
-            // 백그라운드 사용자 위치 추적
-            // {
-            //     enableHighAccuracy: true,
-            //     timeout: 15000,
-            //     maximumAge: 10000,
-            // }
         );
     }, []);
 
+
     return !location ? null : (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
             <MapView
                 toolbarEnabled={false}
                 customMapStyle={standardMode}
@@ -120,11 +116,11 @@ const MapMainContents = ({ modal, markerViewProps, markerIdProps }: Props) => {
                     <Fragment key={data.id}>
                         <Marker
                             coordinate={{
-                                latitude: Number(data.latitude) - 0.00004,
-                                longitude: Number(data.longitude) + 0.00001,
+                                latitude: Number(data.latitude),
+                                longitude: Number(data.longitude),
                             }}
                             tracksViewChanges={false}
-                            icon={require("../../assets/image/post/post7.png")}
+                            icon={require("../../assets/image/post/post8.png")}
                             onPress={() => {
                                 setMarkerView(true);
                                 setMarkerId(data.id);
@@ -138,8 +134,8 @@ const MapMainContents = ({ modal, markerViewProps, markerIdProps }: Props) => {
                             }}
                             radius={18}
                             strokeWidth={1}
-                            strokeColor="#d1d1d1"
-                            fillColor="#e4e2e2"
+                            strokeColor="#7C42FF"
+                            fillColor="#7b42ff42"
                         />
                     </Fragment>
                 ))
@@ -150,7 +146,7 @@ const MapMainContents = ({ modal, markerViewProps, markerIdProps }: Props) => {
                 location={location}
                 getNoteList={getNoteList}
             />
-        </SafeAreaView>
+        </View>
     );
 };
 

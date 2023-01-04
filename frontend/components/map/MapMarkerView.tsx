@@ -6,6 +6,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { Dispatch, SetStateAction } from "react";
 import axios from "axios";
 import { API_URL } from "@env";
+import { create, all } from 'mathjs';
+import AlertView from "../AlertView";
 
 interface MarkerViewType {
     markerView: boolean;
@@ -20,19 +22,42 @@ interface MarkerIdType {
 type Props = {
     markerViewProps: MarkerViewType;
     markerIdProps: MarkerIdType;
+    locationProps: any
 };
 
-const MapMarkerView = ({ markerViewProps, markerIdProps }: Props) => {
+const MapMarkerView = ({ markerViewProps, markerIdProps, locationProps }: Props) => {
     const { markerView, setMarkerView } = markerViewProps;
     const { markerId, setMarkerId } = markerIdProps;
-    const [ markerData, setMarkerData ] = useState();
+    const [ markerData, setMarkerData ] = useState<Boolean | object>();
+    const {location} = locationProps;
 
     const getNoteFindAction = async () => {
         if (markerView === false && markerId == 0) return;
 
-        await axios.post(API_URL + "/notes/find", {markerId}).then(async (res) => {
-            if(res.status === 200) {
+        await axios.post(API_URL + "/notes/find", {markerId}).then((res) => {
+            // 200 거리 안 / 201 거리 밖 0.00016
+            const note_latitude = res.data.latitude;
+            const note_longitude = res.data.longitude; 
+
+            const mathF = create(all, { number: 'Fraction' }) as math.MathJsStatic;
+
+            const mathjsCalc = (expr: string) => {
+                return mathF.number(mathF.evaluate(expr));
+            };
+            
+            // console.log(mathjsCalc(`${Number(note_latitude)} - ${0.00016}`) <= location.latitude);
+            // console.log(mathjsCalc(`${Number(note_latitude)} - ${0.00016}`), location.latitude);
+            
+            if(
+                mathjsCalc(`${Number(note_latitude)} + ${0.00016}`) >= location.latitude === 
+                mathjsCalc(`${Number(note_latitude)} - ${0.00016}`) <= location.latitude &&
+                mathjsCalc(`${Number(note_longitude)} + ${0.00016}`) >= location.longitude === 
+                mathjsCalc(`${Number(note_longitude)} - ${0.00016}`) <= location.longitude
+            ) {
                 setMarkerData(res.data);
+            }else{
+                AlertView("쪽지", '범위 내 쪽지만 확인할 수 있어요.');
+                setMarkerData(false);
             }
         })
         .catch(err => console.log(err.response));
