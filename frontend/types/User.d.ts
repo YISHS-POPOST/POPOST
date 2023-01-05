@@ -21,4 +21,5 @@ export interface ProfileItemPayload {
   communityCnt: number;
   followerCnt: number;
   followingCnt: number;
+  communityLikeCnt: number;
 }

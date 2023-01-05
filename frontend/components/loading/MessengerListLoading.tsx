@@ -1,4 +1,4 @@
-import { View, StyleSheet ,  } from "react-native";
+import { View, StyleSheet } from "react-native";
 import Skeleton from "../../assets/component/Skeleton";
 import theme from "../../theme";
 
@@ -12,7 +12,6 @@ const MessengerListLoadingItem = () => {
         theme.mt2,
         theme.mb2,
         theme.flexDirectionRow,
-        theme.container,
       ]}
     >
       <Skeleton width={70} height={70} style={[styles.imageBox]} />
@@ -33,15 +32,16 @@ const MessengerListLoadingItem = () => {
         >
           <Skeleton
             width={100}
-            height={50}
+            height={30}
             style={[theme.sectionBorderRadius]}
           />
           <Skeleton
-            width={100}
+            width={50}
             height={30}
             style={[theme.sectionBorderRadius]}
           />
         </View>
+        <Skeleton width={230} height={20} style={{borderRadius : 20,}} />
       </View>
     </View>
   );
@@ -49,13 +49,15 @@ const MessengerListLoadingItem = () => {
 
 const MessengerListLoading = () => {
   return (
-    <View
-      style={[
-        theme.alignItemsCenter,
-        theme.justifyContentCenter,
-        theme.flexDirectionColumn,
-      ]}
-    >
+    <View style={[theme.container, theme.flexDirectionColumn]}>
+      <MessengerListLoadingItem />
+      <MessengerListLoadingItem />
+      <MessengerListLoadingItem />
+      <MessengerListLoadingItem />
+      <MessengerListLoadingItem />
+      <MessengerListLoadingItem />
+      <MessengerListLoadingItem />
+      <MessengerListLoadingItem />
       <MessengerListLoadingItem />
     </View>
   );
@@ -63,8 +65,6 @@ const MessengerListLoading = () => {
 
 const styles = StyleSheet.create({
   item: {
-    height: 70,
-    flex: 1,
   },
   imageBox: {
     borderRadius: 100,

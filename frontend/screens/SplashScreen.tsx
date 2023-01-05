@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import { View, StyleSheet, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ProfileScreenNavigationProp } from "../types/NavigateType";
@@ -13,9 +13,11 @@ import { loginUser, erorrLogin } from "../src/actions/userAction";
 import { io } from "socket.io-client";
 import { setSocket } from "../src/actions/socketAction";
 import { StateInterface } from "../src/type/state";
+import { useFocusEffect } from "@react-navigation/native";
 
 const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   const dispatch = useDispatch<AppDispatch>();
+  const users = useSelector((state: StateInterface) => state.users);
 
   const loginAction = async (data: LoginUser) => {
     await axios
@@ -43,8 +45,7 @@ const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
     return navigation.replace("Main");
   };
 
-  //State for ActivityIndicator animation
-  useEffect(() => {
+  const connectCheck = async () => {
     setTimeout(async () => {
       //Check if user_id is set or not
       //If not then send for Authentication
@@ -53,10 +54,18 @@ const SplashScreen = ({ navigation }: ProfileScreenNavigationProp) => {
       const userPassword = await AsyncStorage.getItem("user_password").then(
         value => value
       );
-      if (!userId || !userPassword) return navigation.navigate("Auth");
-      loginAction({ id: userId, password: userPassword });
+      if (!userId || !userPassword) return await navigation.navigate("Auth");
+      await loginAction({ id: userId, password: userPassword });
     }, 1000);
-  }, []);
+  };
+
+  //State for ActivityIndicator animation
+  useFocusEffect(
+    useCallback(() => {
+      // Do something when the screen is focused
+      connectCheck();
+    }, [])
+  );
 
   return (
     <View style={styles.container}>

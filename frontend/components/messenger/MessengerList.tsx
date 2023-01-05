@@ -37,6 +37,7 @@ interface listType {
 
 const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
   const [list, setList] = useState<listType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tab, setTab] = useState<tabType>("message");
   const users = useSelector((state: StateInterface) => state.users);
 
@@ -50,6 +51,7 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
 
     await axios.post(API_URL + "/follows/follow/get", postVal).then(res => {
       setList(res.data.data);
+      setIsLoading(true);
     });
   };
 
@@ -111,14 +113,17 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
     );
   };
 
-  return (
+  return !isLoading ? (
     <View style={[theme.mainContainer]}>
       <MessengerHeader />
       <MessengerListLoading />
     </View>
-  );
-  
-  return (
+  ) : !list ? (
+    <View style={[theme.mainContainer]}>
+      <MessengerHeader />
+      <MessengerListLoading />
+    </View>
+  ) : (
     <FlatList
       data={info}
       renderItem={renderItem}

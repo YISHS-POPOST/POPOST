@@ -4,8 +4,33 @@ import HomeCommunity from "../components/home/HomeCommunity";
 import HomeMessenger from "../components/home/HomeMessenger";
 import HomeNote from "../components/home/HomeNote";
 import theme from "../theme";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { API_URL } from "@env";
+import { useSelector } from "react-redux";
+import { StateInterface } from "../src/type/state";
+import { ProfileItemPayload } from "../types/User";
+
+interface HomeItemPayload extends ProfileItemPayload {
+  NoteCnt: number;
+}
 
 const HomeScreen = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [homeItem, setHomeItem] = useState<HomeItemPayload | null>(null);
+  const users = useSelector((state: StateInterface) => state.users);
+
+  const loadData = async () => {
+    await axios.get(API_URL + "/users/home/" + users.id).then(res => {
+      setHomeItem(res.data);
+      setIsLoading(true);
+    });
+  };
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
   return (
     <ScrollView
       overScrollMode="never"

@@ -37,7 +37,9 @@ const ProfileActivities = ({ profileItem }: prop) => {
             <RegularText style={[styles.activityTitle, theme.fontBase]}>
               좋아요
             </RegularText>
-            <BoldText style={[styles.activitTotal, theme.fontXxl]}>0</BoldText>
+            <BoldText
+              style={[styles.activitTotal, theme.fontXxl]}
+            >{`${profileItem.communityLikeCnt}`}</BoldText>
           </View>
           <View
             style={[
