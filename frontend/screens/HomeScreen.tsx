@@ -10,9 +10,19 @@ import { API_URL } from "@env";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../src/type/state";
 import { ProfileItemPayload } from "../types/User";
+import { ListUserInterface } from "../types/MessengerType";
 
-interface HomeItemPayload extends ProfileItemPayload {
+export interface MessengerRooms {
+  id: number;
+  follow_id: string;
+  follower_id: string;
+  createUser?: ListUserInterface;
+  inviteUser?: ListUserInterface;
+}
+
+export interface HomeItemPayload extends ProfileItemPayload {
   NoteCnt: number;
+  MessengerRooms: MessengerRooms[];
 }
 
 const HomeScreen = () => {
@@ -31,7 +41,11 @@ const HomeScreen = () => {
     loadData();
   }, []);
 
-  return (
+  return !homeItem ? (
+    <View></View>
+  ) : !isLoading ? (
+    <View></View>
+  ) : (
     <ScrollView
       overScrollMode="never"
       showsVerticalScrollIndicator={false}
@@ -40,7 +54,7 @@ const HomeScreen = () => {
       <SafeAreaView style={[theme.mainContainer, styles.bg]}>
         <HomeWeather />
         <HomeCommunity />
-        <HomeMessenger />
+        <HomeMessenger homeItem={homeItem} />
       </SafeAreaView>
       <HomeNote />
     </ScrollView>

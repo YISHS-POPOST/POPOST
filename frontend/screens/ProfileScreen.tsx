@@ -12,7 +12,7 @@ import { API_URL } from "@env";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../src/type/state";
 import { ProfileItemPayload } from "../types/User";
-import ProfileLoadingScreen from "./loading/ProfileLoadingScreen";
+import ProfileLoadingScreen from "../components/loading/ProfileLoadingScreen";
 
 const ProfileScreen = ({ navigation }: ProfileScreenNavigationProp) => {
   const [profileItem, setProfileItem] = useState<ProfileItemPayload>();

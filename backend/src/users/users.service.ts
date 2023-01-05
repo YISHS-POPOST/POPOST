@@ -4,14 +4,12 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 import { Repository } from "typeorm";
 import { InjectRepository } from "@nestjs/typeorm";
-import { ForbiddenException, HttpException } from "@nestjs/common/exceptions";
-import HttpError from "asset/HttpError";
-import { from, switchMap } from "rxjs";
 import { Follow } from "src/follows/entities/follow.entity";
 import { Community } from "src/communities/entities/community.entity";
 import { CommunityApply } from "src/community_applies/entities/community_apply.entity";
 import { Note } from "src/notes/entities/note.entity";
 import { CommunityLike } from "src/community_likes/entities/community_like.entity";
+import { MessageRoom } from "src/message_rooms/entities/message_room.entity";
 
 // follow repository
 // community repository
@@ -36,7 +34,10 @@ export class UsersService {
     private readonly NoteRepository: Repository<Note>,
 
     @InjectRepository(CommunityLike)
-    private readonly CommunityLikeRepository: Repository<CommunityLike>
+    private readonly CommunityLikeRepository: Repository<CommunityLike>,
+
+    @InjectRepository(MessageRoom)
+    private readonly MessageRoomRepository: Repository<MessageRoom>
   ) {}
 
   async findUserId(id: string) {
@@ -100,14 +101,31 @@ export class UsersService {
       communityLikeCnt,
     };
   }
-  
+
   async getHomeItems(userId: string) {
     const NoteCnt = await this.NoteRepository.count({
       where: {
         user_id: userId,
       },
     });
-    return { NoteCnt };
+    const inviteUser = await this.MessageRoomRepository.find({
+      relations: ["inviteUser", "message"],
+      where: {
+        create_user: userId,
+      },
+      take: 3,
+    });
+
+    const createUser = await this.MessageRoomRepository.find({
+      relations: ["createUser", "message"],
+      where: {
+        invite_user: userId,
+      },
+      take: 3,
+    });
+
+    const MessengerRooms = [...inviteUser, ...createUser];
+    return { NoteCnt, MessengerRooms };
   }
 
   // create(createUserDto: CreateUserDto) {
