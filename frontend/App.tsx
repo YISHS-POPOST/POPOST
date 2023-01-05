@@ -139,6 +139,7 @@ const Main = ({ navigation }: ProfileScreenNavigationProp) => {
                             size={25}
                         />
                     ),
+                    unmountOnBlur: true,
                     headerShown: true,
                     headerShadowVisible: false,
                     headerTitle: CommunityHeader,
