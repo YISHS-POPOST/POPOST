@@ -28,11 +28,15 @@ export interface HomeItemPayload extends ProfileItemPayload {
 const HomeScreen = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [homeItem, setHomeItem] = useState<HomeItemPayload | null>(null);
+  const [communityItem, setCommunityItem] = useState([]);
   const users = useSelector((state: StateInterface) => state.users);
 
   const loadData = async () => {
     await axios.get(API_URL + "/users/home/" + users.id).then(res => {
       setHomeItem(res.data);
+    });
+    await axios.post(API_URL + "/users/home/community").then(res => {
+      setCommunityItem(res.data);
       setIsLoading(true);
     });
   };
@@ -41,10 +45,15 @@ const HomeScreen = () => {
     loadData();
   }, []);
 
-  return !homeItem ? (
-    <View></View>
+
+  return !homeItem || !communityItem ? (
+    <View>
+
+    </View>
   ) : !isLoading ? (
-    <View></View>
+    <View>
+
+    </View>
   ) : (
     <ScrollView
       overScrollMode="never"
@@ -52,8 +61,8 @@ const HomeScreen = () => {
       style={[{ backgroundColor: theme.colors.backgroundWhite }]}
     >
       <SafeAreaView style={[theme.mainContainer, styles.bg]}>
-        <HomeWeather />
-        <HomeCommunity />
+        {/* <HomeWeather /> */}
+        <HomeCommunity communityItem={communityItem} />
         <HomeMessenger homeItem={homeItem} />
       </SafeAreaView>
       <HomeNote />
