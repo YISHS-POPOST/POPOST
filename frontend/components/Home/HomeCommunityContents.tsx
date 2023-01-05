@@ -7,7 +7,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 
 const HomeCommunityContents = ({ item, idx }: any) => {
     return (
-        <View style={[theme.mt4]}>
+        <View style={idx === 0 ? null : theme.mt3}>
             <View style={[theme.flexDirectionRow]}>
                 <View style={[theme.flexDirectionRow, theme.alignItemsStart]}>
                     <BoldText style={[styles.title, theme.fontBase, theme.mr1]}>
