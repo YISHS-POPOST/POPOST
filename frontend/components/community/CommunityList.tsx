@@ -17,6 +17,7 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
     const getList = async () => {
         await axios.get(API_URL + "/communities").then(res => {
             setList(res.data.reverse());
+            
         }).catch(err => console.log(err.response))
     }
     
@@ -39,9 +40,12 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
                 comment={item.communityApply}
                 view={item.view}
                 navigation={navigation}
+                list={item.communityLike}
             />
         );
     }
+
+    console.log(list);
 
     return (
         <FlatList

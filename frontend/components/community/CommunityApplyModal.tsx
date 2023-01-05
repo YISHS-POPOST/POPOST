@@ -7,27 +7,40 @@ import {
     Image,
     ScrollView,
 } from "react-native";
-import React, { useState, useEffect, useRef } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import theme from "../../theme";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import Octicons from "react-native-vector-icons/Octicons";
 import { BoldText, RegularText } from "../Text";
 import CommunityApplyModalList from "./CommunityApplyModalList";
 import CommunityApplyModalInput from "./CommunityApplyModalInput";
 import axios from "axios";
 import { API_URL } from "@env";
+import { useState, useEffect, Dispatch } from "react";
 
 interface Props {
     id: number;
     modalVisible: boolean;
-    setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+    setModalVisible: Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CommunityCommentModal = (props: Props) => {
     const { modalVisible, setModalVisible } = props;
-    const [ applyList, setApplyList ] = useState<any>([]);
+    const [ applyList, setApplyList ] = useState([]);
     const { id } = props;
+
+    const getApplyList = async () => {
+        await axios
+            .post(API_URL + "/community-applies/getList", { id })
+            .then((res) => {
+                console.log(res.data);
+                setApplyList(res.data);
+            })
+            .catch((err) => console.log(err.response));
+    };
+
+    useEffect(() => {
+        getApplyList();
+    }, []);
 
     return (
         <SafeAreaView style={styles.modalView}>
@@ -61,9 +74,9 @@ const CommunityCommentModal = (props: Props) => {
                             </TouchableOpacity>
                         </View>
                         <View style={styles.commentList}>
-                            <CommunityApplyModalList id={id} />
+                            <CommunityApplyModalList applyProps={{applyList}} setApplyList={getApplyList} />
                         </View>
-                        <CommunityApplyModalInput id={id} />
+                        <CommunityApplyModalInput setApplyList={getApplyList} community_id={id}/>
                     </View>
                 </View>
             </Modal>

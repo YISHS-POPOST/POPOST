@@ -28,8 +28,10 @@ const CommunityPostItem = ({
   comment,
   view,
   navigation,
+  list
 }: ListInterface) => {
   const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View>
       <View style={[theme.mt2, styles.container]}>
@@ -104,7 +106,7 @@ const CommunityPostItem = ({
           <RegularText style={[styles.text, styles.gray]}>{`조회 ${view}`}</RegularText>
         </View> */}
         <View style={[theme.mb2, theme.flexDirectionRow, theme.mt2]}>
-          <CommunityLike community_id={id} />
+          <CommunityLike community_id={id} list={list} />
           {/* <View
             style={[theme.flexDirectionRow, theme.alignItemsCenter, theme.mr3]}
           >
