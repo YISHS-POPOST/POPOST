@@ -12,8 +12,9 @@ import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
 import { ListUserInterface } from "../../types/MessengerType";
 import MessengerListLoading from "../loading/MessengerListLoading";
+import MessengerListEmpty from "./MessengerListEmpty";
 
-interface Message {
+export interface Message {
   id: number;
   created_at: Date;
   user_id: string;
@@ -122,6 +123,12 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
     <View style={[theme.mainContainer]}>
       <MessengerHeader />
       <MessengerListLoading />
+    </View>
+  ) : list.length === 0 ? (
+    <View style={[theme.mainContainer]}>
+      <MessengerHeader />
+      <MessengerTab setTab={setTab} tab={tab} />
+      <MessengerListEmpty />
     </View>
   ) : (
     <FlatList
