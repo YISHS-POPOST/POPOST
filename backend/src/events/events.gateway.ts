@@ -10,11 +10,17 @@ import {
 } from "@nestjs/websockets";
 import { Server, Socket } from "socket.io";
 import { Logger } from "@nestjs/common";
+import { MessagesService } from "src/messages/messages.service";
 
 interface MessagePayload {
   userId: string;
   content: string;
   roomId: number;
+}
+
+interface RoomJoinPayload {
+  room: number;
+  userId: string;
 }
 
 @WebSocketGateway(80, {
@@ -24,7 +30,7 @@ interface MessagePayload {
 export class EventsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor() {}
+  constructor(private MessagesService: MessagesService) {}
 
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger("AppGateway");
@@ -37,10 +43,13 @@ export class EventsGateway
   }
 
   @SubscribeMessage("join")
-  joinEvent(@MessageBody() data: number, @ConnectedSocket() client: Socket) {
-    client.join(`${data}`);
+  joinEvent(
+    @MessageBody() data: RoomJoinPayload,
+    @ConnectedSocket() client: Socket
+  ) {
+    client.join(`${data.room}`);
   }
-
+  
   @SubscribeMessage("exit")
   exitEvent(@ConnectedSocket() client: Socket) {
     const rooms = [...client.rooms];
@@ -57,7 +66,18 @@ export class EventsGateway
     @ConnectedSocket() client: Socket
   ) {
     const { userId, content, roomId } = data;
-    this.server.to(`${roomId}`).emit("get message", { userId, content });
+    const currentTime = new Date();
+    const timeSet = `${currentTime.getFullYear()}-${
+      currentTime.getMonth() + 1
+    }-${currentTime.getDate()} ${currentTime.getHours()}:${currentTime.getMinutes()}:${currentTime.getSeconds()}`;
+    this.server
+      .to(`${roomId}`)
+      .emit("get message", { userId, content, timeSet });
+    this.MessagesService.create({
+      userId,
+      content,
+      roomId,
+    });
   }
 
   // 서버 초기화중 작동

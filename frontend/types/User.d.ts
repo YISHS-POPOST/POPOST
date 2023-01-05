@@ -15,3 +15,11 @@ export interface LoginUser {
 export interface DataSetInterface extends LoginUser {
   users: UserInterface;
 }
+
+export interface ProfileItemPayload {
+  communityApplyCnt: number;
+  communityCnt: number;
+  followerCnt: number;
+  followingCnt: number;
+  communityLikeCnt: number;
+}

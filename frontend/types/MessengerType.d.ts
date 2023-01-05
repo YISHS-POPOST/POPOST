@@ -6,8 +6,8 @@ export interface ItemInterface {
   image: string  | null;
   state: boolean;
   name: string;
-  check: boolean;
-  time: Date;
+  check: boolean | null;
+  time: Date | null;
   content: string;
   userId : string | null;
 }
@@ -21,6 +21,7 @@ export interface ChatInterface {
 export interface ChatPropsType {
   image: string;
   name: string;
+  room : number;
 }
 
 interface ListUserInterface extends UserType {

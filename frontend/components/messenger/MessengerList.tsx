@@ -1,7 +1,6 @@
 import { FlatList, View } from "react-native";
 import MessengerListItem from "./MessengerListItem";
 import { ItemInterface } from "../../types/MessengerType";
-import MessengerSearch from "./MessengerSearch";
 import MessengerHeader from "./MessengerHeader";
 import theme from "../../theme";
 import { ProfileScreenNavigationProp } from "../../types/NavigateType";
@@ -12,9 +11,21 @@ import { API_URL } from "@env";
 import { useSelector } from "react-redux";
 import { StateInterface } from "../../src/type/state";
 import { ListUserInterface } from "../../types/MessengerType";
+import MessengerListLoading from "../loading/MessengerListLoading";
+import MessengerListEmpty from "./MessengerListEmpty";
 
-type renderItemType = { item: ItemInterface };
+export interface Message {
+  id: number;
+  created_at: Date;
+  user_id: string;
+  content: string;
+  room_id: number;
+  check: boolean;
+}
+
+type renderItemType = { item: ItemInterface | null | undefined };
 type tabType = "message" | "following";
+
 interface listType {
   id: number;
   follow_id: string;
@@ -22,10 +33,12 @@ interface listType {
   user?: ListUserInterface;
   createUser?: ListUserInterface;
   inviteUser?: ListUserInterface;
+  message?: Message;
 }
 
 const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
   const [list, setList] = useState<listType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tab, setTab] = useState<tabType>("message");
   const users = useSelector((state: StateInterface) => state.users);
 
@@ -39,6 +52,7 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
 
     await axios.post(API_URL + "/follows/follow/get", postVal).then(res => {
       setList(res.data.data);
+      setIsLoading(true);
     });
   };
 
@@ -47,36 +61,45 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
   }, [tab]);
 
   const info = list.map(item => {
-    return {
-      image: item.user
-        ? item.user.profile
-        : item.createUser
-        ? item.createUser.profile
-        : item.inviteUser
-        ? item.inviteUser.profile
-        : null,
-      state: false,
-      name: item.user
-        ? item.user.name
-        : item.createUser
-        ? item.createUser.name
-        : item.inviteUser
-        ? item.inviteUser.name
-        : "",
-      check: false,
-      time: new Date(2022, 0, 12),
-      content: "",
-      userId: item.user
-        ? item.user.id
-        : item.createUser
-        ? item.createUser.id
-        : item.inviteUser
-        ? item.inviteUser.id
-        : null,
-    };
+    if (item.user) {
+      return {
+        image: item.user.profile,
+        state: false,
+        name: item.user.name,
+        check: null,
+        time: new Date(2022, 0, 12),
+        content: "",
+        userId: item.user.id,
+      };
+    } else if (item.createUser) {
+      return {
+        image: item.createUser.profile,
+        state: false,
+        name: item.createUser.name,
+        check: !item.message ? false : item.message.check,
+        time: !item.message ? null : new Date(item.message.created_at),
+        content: !item.message
+          ? "메시지를 시작해주세요!"
+          : item.message.content,
+        userId: item.createUser.id,
+      };
+    } else if (item.inviteUser) {
+      return {
+        image: item.inviteUser.profile,
+        state: false,
+        name: item.inviteUser.name,
+        check: !item.message ? false : item.message.check,
+        time: !item.message ? null : new Date(item.message.created_at),
+        content: !item.message
+          ? "메시지를 시작해주세요!"
+          : item.message.content,
+        userId: item.inviteUser.id,
+      };
+    }
   });
 
   const renderItem = ({ item }: renderItemType) => {
+    if (!item) return <View></View>;
     return (
       <MessengerListItem
         image={item.image}
@@ -91,7 +114,23 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
     );
   };
 
-  return (
+  return !isLoading ? (
+    <View style={[theme.mainContainer]}>
+      <MessengerHeader />
+      <MessengerListLoading />
+    </View>
+  ) : !list ? (
+    <View style={[theme.mainContainer]}>
+      <MessengerHeader />
+      <MessengerListLoading />
+    </View>
+  ) : list.length === 0 ? (
+    <View style={[theme.mainContainer]}>
+      <MessengerHeader />
+      <MessengerTab setTab={setTab} tab={tab} />
+      <MessengerListEmpty />
+    </View>
+  ) : (
     <FlatList
       data={info}
       renderItem={renderItem}
@@ -99,7 +138,6 @@ const MessengerList = ({ navigation }: ProfileScreenNavigationProp) => {
         return (
           <View style={[theme.mainContainer]}>
             <MessengerHeader />
-            <MessengerSearch />
             <MessengerTab setTab={setTab} tab={tab} />
           </View>
         );

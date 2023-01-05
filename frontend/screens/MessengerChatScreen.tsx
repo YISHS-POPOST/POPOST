@@ -11,7 +11,7 @@ import { StateInterface } from "../src/type/state";
 
 const MessengerChatScreen = ({ route }: any) => {
   const [room, setRoom] = useState<number | null>(null);
-  const { image, name, state, userId } = route.params;
+  const { image, name, userId } = route.params;
   const users = useSelector((state: StateInterface) => state.users);
   const socket = useSelector((state: StateInterface) => state.socket);
 
@@ -21,7 +21,7 @@ const MessengerChatScreen = ({ route }: any) => {
       .post(API_URL + "/message-rooms/room", postItem)
       .then(async res => {
         const roomData = res.data.room;
-        if (roomData.id) {
+        if (roomData) {
           setRoom(roomData.id);
         } else {
           setRoom(null);
@@ -30,9 +30,9 @@ const MessengerChatScreen = ({ route }: any) => {
   };
 
   const joinRoom = async () => {
-    socket.emit("join", room);
+    socket.emit("join", { room, userId: users.id });
   };
-  
+
   useEffect(() => {
     checkChatRoom();
   }, []);
@@ -49,7 +49,7 @@ const MessengerChatScreen = ({ route }: any) => {
         <MessengerChatStart userId={userId} checkChatRoom={checkChatRoom} />
       ) : (
         <>
-          <MessengerChatContent image={image} name={name} />
+          <MessengerChatContent image={image} name={name} room={room} />
           <MessengerChatBottom room={room} />
         </>
       )}

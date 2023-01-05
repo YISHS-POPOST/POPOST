@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Res, UseInterceptors } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Body,
+  Res,
+  UseInterceptors,
+  Get,
+  Param,
+} from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { User } from "./entities/user.entity";
 import { ConfigService } from "@nestjs/config";
@@ -92,21 +100,23 @@ export class UsersController {
     return res.status(200).send({ message: "프로필 편집이 완료되었습니다." });
   }
 
-  // @Post()
-  // create(@Body() createUserDto: CreateUserDto) {
-  //   return this.usersService.create(createUserDto);
-  // }
+  @Get("/profile/:id")
+  async findProfile(@Param("id") id: string) {
+    return await this.UsersService.findProfile(id);
+  }
 
-  // @Get()
-  // findAll() {
-  //   return this.usersService.findAll();
-  // }
+  @Get("/home/:id")
+  async findHomeItems(@Param("id") id: string) {
+    const profileItems = await this.UsersService.findProfile(id);
+    const getHomeItem = await this.UsersService.getHomeItems(id);
+    return { ...profileItems, ...getHomeItem };
+  }
 
-  // @Get(":id")
-  // findOne(@Param("id") id: string) {
-  //   return this.usersService.findOne(+id);
-  // }
-
+  @Post("/home/community")
+  async findHomeCommunityList() {
+    const communityList = await this.UsersService.findCommunity();
+    return communityList;
+  }
   // @Patch(":id")
   // update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
   //   return this.usersService.update(+id, updateUserDto);

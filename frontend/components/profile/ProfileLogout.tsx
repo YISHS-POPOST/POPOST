@@ -12,9 +12,9 @@ const ProfileLogout = ({ navigation }: ProfileScreenNavigationProp) => {
   
   const logout = async () => {
     try {
+      dispatch(userLogout());
       await AsyncStorage.removeItem("user_id");
       await AsyncStorage.removeItem("user_password");
-      dispatch(userLogout());
       Alert.alert("로그아웃이 완료되었습니다.");
       navigation.navigate("SplashScreen");
       return true;

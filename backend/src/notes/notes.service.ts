@@ -31,6 +31,19 @@ export class NotesService {
     return await this.NoteRepository.save(note);
   } 
 
+  async findNoteData(id: any) {
+    const {markerId} = id;
+    if(!markerId) return false;
+
+    const note = await this.NoteRepository.findOne({
+      relations: ['user'], 
+      where: {id: markerId},
+      
+    });
+    return note;
+  }
+
+
   // create(createNoteDto: CreateNoteDto) {
   //   return 'This action adds a new note';
   // }

@@ -20,6 +20,9 @@ import { MessageRoomsModule } from './message_rooms/message_rooms.module';
 import { MessageRoom } from "./message_rooms/entities/message_room.entity";
 import { NotesModule } from './notes/notes.module';
 import { Note } from "./notes/entities/note.entity";
+import { Message } from "./messages/entities/message.entity";
+import { CommunityLikesModule } from './community_likes/community_likes.module';
+import { CommunityLike } from "./community_likes/entities/community_like.entity";
 
 @Module({
   imports: [
@@ -30,9 +33,18 @@ import { Note } from "./notes/entities/note.entity";
       username: "root",
       password: "1234",
       database: "popost",
-      entities: [User, Community, Follow, CommunityApply , MessageRoom, Note],
+      entities: [
+        User,
+        Community,
+        Follow,
+        CommunityApply,
+        MessageRoom,
+        Note,
+        Message,
+        CommunityLike,
+      ],
       synchronize: false,
-      timezone: 'Z',
+      timezone: "Z",
     }),
     ConfigModule.forRoot({
       envFilePath: ".env",
@@ -47,6 +59,7 @@ import { Note } from "./notes/entities/note.entity";
     MessagesModule,
     MessageRoomsModule,
     NotesModule,
+    CommunityLikesModule,
   ],
   controllers: [AppController],
   providers: [AppService, { provide: APP_FILTER, useClass: CatchException }],

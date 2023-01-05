@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
+import { User } from "src/users/entities/user.entity";
 
 @Entity({name: "notes"})
 export class Note {
@@ -19,4 +20,8 @@ export class Note {
 
     @Column('datetime')
     created_at: string;
+
+    @OneToOne(() => User)
+    @JoinColumn({name: "user_id"})
+    user: User
 }

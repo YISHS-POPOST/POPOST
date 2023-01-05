@@ -1,4 +1,6 @@
+
 import { CommunityApply } from 'src/community_applies/entities/community_apply.entity';
+import { CommunityLike } from 'src/community_likes/entities/community_like.entity';
 import { User } from 'src/users/entities/user.entity';
 import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn, OneToMany, ManyToOne } from 'typeorm/index';
 
@@ -31,4 +33,7 @@ export class Community {
 
     @OneToMany(() => CommunityApply, (communityApply) => communityApply.community )
     communityApply: CommunityApply[];
+
+    @OneToMany(() => CommunityLike, (communityLike) => communityLike.community)
+    communityLike: CommunityLike;
 }
