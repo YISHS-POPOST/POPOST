@@ -136,6 +136,17 @@ export class UsersService {
     return { NoteCnt, MessengerRooms };
   }
 
+  async findCommunity() {
+    const lists = await this.CommunityRepository.find({
+      order: {
+        id: "DESC",
+      },
+      relations: ['user', 'communityApply', 'communityLike'],
+      take: 3, 
+    });
+    return lists;
+  }
+
   // create(createUserDto: CreateUserDto) {
   //   return 'This action adds a new user';
   // }

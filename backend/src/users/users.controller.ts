@@ -111,6 +111,12 @@ export class UsersController {
     const getHomeItem = await this.UsersService.getHomeItems(id);
     return { ...profileItems, ...getHomeItem };
   }
+
+  @Post("/home/community")
+  async findHomeCommunityList() {
+    const communityList = await this.UsersService.findCommunity();
+    return communityList;
+  }
   // @Patch(":id")
   // update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
   //   return this.usersService.update(+id, updateUserDto);
