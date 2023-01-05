@@ -32,7 +32,6 @@ const CommunityCommentModal = (props: Props) => {
         await axios
             .post(API_URL + "/community-applies/getList", { id })
             .then((res) => {
-                console.log(res.data);
                 setApplyList(res.data);
             })
             .catch((err) => console.log(err.response));

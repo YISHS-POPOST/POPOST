@@ -6,18 +6,21 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { API_URL } from '@env';
 import { useIsFocused } from '@react-navigation/native';
+import theme from "../../theme";
+import CommunityLoadingScreen from '../loading/CommunityLoadingScreen';
 
 type renderItemType = {item : ItemInterface }
 
 const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
-    const [list, setList] = useState();
+    const [list, setList] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const isFocused = useIsFocused();
 
     const getList = async () => {
         await axios.get(API_URL + "/communities").then(res => {
             setList(res.data.reverse());
-            
+            setIsLoading(true);
         }).catch(err => console.log(err.response))
     }
     
@@ -45,9 +48,15 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
         );
     }
 
-    console.log(list);
-
-    return (
+    return !isLoading ? (
+        <View style={theme.mainContainer}>
+            <CommunityLoadingScreen />
+        </View>
+    ) : !list ? (
+        <View style={theme.mainContainer}>
+            <CommunityLoadingScreen />
+        </View>
+    ) : (
         <FlatList
             data={list}
             renderItem={renderItem}
@@ -55,6 +64,8 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
             showsHorizontalScrollIndicator={false}
         />
     );
+
+
 }
 
 
