@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { StateInterface } from "../src/type/state";
 import { ProfileItemPayload } from "../types/User";
 import { ListUserInterface } from "../types/MessengerType";
+import { Message } from "../components/messenger/MessengerList";
 
 export interface MessengerRooms {
   id: number;
@@ -18,6 +19,7 @@ export interface MessengerRooms {
   follower_id: string;
   createUser?: ListUserInterface;
   inviteUser?: ListUserInterface;
+  message: null | Message;
 }
 
 export interface HomeItemPayload extends ProfileItemPayload {
@@ -56,7 +58,7 @@ const HomeScreen = () => {
         <HomeCommunity />
         <HomeMessenger homeItem={homeItem} />
       </SafeAreaView>
-      <HomeNote />
+      <HomeNote homeItem={homeItem} />
     </ScrollView>
   );
 };

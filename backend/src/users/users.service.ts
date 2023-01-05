@@ -109,22 +109,30 @@ export class UsersService {
       },
     });
     const inviteUser = await this.MessageRoomRepository.find({
-      relations: ["inviteUser", "message"],
+      relations: ["message", "inviteUser"],
       where: {
         create_user: userId,
       },
-      take: 3,
+      order: {
+        message: {
+          created_at: "DESC",
+        },
+      },
+      take : 3,
     });
-
     const createUser = await this.MessageRoomRepository.find({
       relations: ["createUser", "message"],
       where: {
         invite_user: userId,
       },
+      order: {
+        message: {
+          created_at: "DESC",
+        },
+      },
       take: 3,
     });
-
-    const MessengerRooms = [...inviteUser, ...createUser];
+    const MessengerRooms = [...inviteUser, ...createUser].splice(0,3);
     return { NoteCnt, MessengerRooms };
   }
 

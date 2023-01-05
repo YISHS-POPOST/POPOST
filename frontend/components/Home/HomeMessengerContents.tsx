@@ -2,6 +2,7 @@ import { View, StyleSheet, Image } from "react-native";
 import theme from "../../theme";
 import { BoldText, RegularText } from "../Text";
 import { MessengerRooms } from "../../screens/HomeScreen";
+import { API_URL } from "@env";
 
 interface Prop {
   contentItem: MessengerRooms;
@@ -20,15 +21,29 @@ const HomeMessengerContents = ({ contentItem }: Prop) => {
       >
         <View style={[theme.flexDirectionRow]}>
           <Image
-            source={require("../../assets/image/profile/test_profile.jpg")}
+            source={
+              contentItem.inviteUser.profile
+                ? // 백엔드 경로 설정 필요
+                  {
+                    uri:
+                      API_URL +
+                      "/files/profile/" +
+                      contentItem.inviteUser.profile,
+                  }
+                : require("../../assets/image/profile/default.jpg")
+            }
             style={[styles.image]}
           />
           <View style={[theme.ml2]}>
             <RegularText style={[styles.nameText, theme.fontSmall]}>
-              최시우스 주니오르
+              {contentItem.inviteUser.name}
             </RegularText>
             <BoldText style={[styles.contentText, theme.fontBase]}>
-              메세지 텍스트입니다...
+              {!contentItem.message
+                ? ""
+                : contentItem.message.content.length > 20
+                ? contentItem.message.content.substring(0, 25) + "..."
+                : contentItem.message.content}
             </BoldText>
           </View>
         </View>
@@ -46,15 +61,29 @@ const HomeMessengerContents = ({ contentItem }: Prop) => {
       >
         <View style={[theme.flexDirectionRow]}>
           <Image
-            source={require("../../assets/image/profile/test_profile.jpg")}
+            source={
+              contentItem.createUser.profile
+                ? // 백엔드 경로 설정 필요
+                  {
+                    uri:
+                      API_URL +
+                      "/files/profile/" +
+                      contentItem.createUser.profile,
+                  }
+                : require("../../assets/image/profile/default.jpg")
+            }
             style={[styles.image]}
           />
           <View style={[theme.ml2]}>
             <RegularText style={[styles.nameText, theme.fontSmall]}>
-              최시우스 주니오르
+              {contentItem.createUser.name}
             </RegularText>
             <BoldText style={[styles.contentText, theme.fontBase]}>
-              메세지 텍스트입니다...
+              {!contentItem.message
+                ? ""
+                : contentItem.message.content.length > 20
+                ? contentItem.message.content.substring(0,20) + "..."
+                : contentItem.message.content}
             </BoldText>
           </View>
         </View>
