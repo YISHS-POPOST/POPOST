@@ -15,8 +15,6 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
     const [list, setList] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-    const isFocused = useIsFocused();
-
     const getList = async () => {
         await axios.get(API_URL + "/communities").then(res => {
             setList(res.data.reverse());
@@ -26,7 +24,7 @@ const CommunityList = ({navigation} : ProfileScreenNavigationProp) => {
     
     useEffect(() => {
         getList();
-    }, [isFocused])
+    }, [])
 
     const renderItem = ({item}: renderItemType) => {
         return (
