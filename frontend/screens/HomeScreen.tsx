@@ -1,5 +1,4 @@
 import { SafeAreaView, StyleSheet, ScrollView, View } from "react-native";
-import HomeWeather from "../components/home/HomeWeather";
 import HomeCommunity from "../components/home/HomeCommunity";
 import HomeMessenger from "../components/home/HomeMessenger";
 import HomeNote from "../components/home/HomeNote";
@@ -12,6 +11,7 @@ import { StateInterface } from "../src/type/state";
 import { ProfileItemPayload } from "../types/User";
 import { ListUserInterface } from "../types/MessengerType";
 import { Message } from "../components/messenger/MessengerList";
+import HomeLoading from "../components/loading/HomeLoading";
 
 export interface MessengerRooms {
   id: number;
@@ -47,15 +47,10 @@ const HomeScreen = () => {
     loadData();
   }, []);
 
-
   return !homeItem || !communityItem ? (
-    <View>
-
-    </View>
+    <HomeLoading />
   ) : !isLoading ? (
-    <View>
-
-    </View>
+    <HomeLoading />
   ) : (
     <ScrollView
       overScrollMode="never"
@@ -63,7 +58,6 @@ const HomeScreen = () => {
       style={[{ backgroundColor: theme.colors.backgroundWhite }]}
     >
       <SafeAreaView style={[theme.mainContainer, styles.bg]}>
-        {/* <HomeWeather /> */}
         <HomeCommunity communityItem={communityItem} />
         <HomeMessenger homeItem={homeItem} />
       </SafeAreaView>
