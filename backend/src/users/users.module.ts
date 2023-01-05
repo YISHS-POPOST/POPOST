@@ -8,6 +8,7 @@ import { Follow } from "src/follows/entities/follow.entity";
 import { CommunityApply } from "src/community_applies/entities/community_apply.entity";
 import { Note } from "src/notes/entities/note.entity";
 import { CommunityLike } from "src/community_likes/entities/community_like.entity";
+import { MessageRoom } from "src/message_rooms/entities/message_room.entity";
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CommunityLike } from "src/community_likes/entities/community_like.entit
       CommunityApply,
       Note,
       CommunityLike,
+      MessageRoom
     ]),
   ],
   controllers: [UsersController],
