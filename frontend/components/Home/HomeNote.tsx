@@ -3,7 +3,9 @@ import { View, StyleSheet, ScrollView } from "react-native";
 import theme from "../../theme";
 import { BoldText, RegularText } from "../Text";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
 import { HomeItemPayload } from "../../screens/HomeScreen";
+import Feather from "react-native-vector-icons/Feather";
 
 interface Prop {
   homeItem: HomeItemPayload;
@@ -21,7 +23,7 @@ const HomeNote = ({ homeItem }: Prop) => {
       <View style={[styles.informationContainer, theme.ml2, theme.p3]}>
         <View>
           <RegularText style={[styles.regText, theme.fontSmall]}>
-            생성한 쪽지
+            내가 생성한 쪽지
           </RegularText>
           <BoldText style={[theme.fontXl, styles.boldText]}>
             {`${homeItem.NoteCnt}` + "개"}
@@ -31,8 +33,8 @@ const HomeNote = ({ homeItem }: Prop) => {
           <MaterialCommunityIcons
             name="notebook-plus-outline"
             size={30}
-            color={"#000"}
-            style={theme.icon}
+            color={"#32ce32"}
+            
           />
         </View>
       </View>
@@ -48,11 +50,10 @@ const HomeNote = ({ homeItem }: Prop) => {
           </BoldText>
         </View>
         <View style={theme.alignItemsEnd}>
-          <MaterialCommunityIcons
-            name="notebook-minus-outline"
+          <Feather
+            name="users"
             size={30}
-            color={"#000"}
-            style={theme.icon}
+            color={theme.colors.purple}
           />
         </View>
       </View>
@@ -66,18 +67,17 @@ const HomeNote = ({ homeItem }: Prop) => {
           </BoldText>
         </View>
         <View style={theme.alignItemsEnd}>
-          <MaterialCommunityIcons
-            name="notebook-check-outline"
+        <Feather
+            name="user-check"
             size={30}
-            color={"#000"}
-            style={theme.icon}
+            color={theme.colors.blue}
           />
         </View>
       </View>
       <View style={[styles.informationContainer, theme.mr2, theme.p3]}>
         <View>
           <RegularText style={[styles.regText, theme.fontSmall]}>
-            나의 댓글
+            댓글 작성한 갯수
           </RegularText>
           <BoldText style={[theme.fontXl, styles.boldText]}>
             {`${homeItem.communityApplyCnt}` + "개"}
@@ -85,17 +85,17 @@ const HomeNote = ({ homeItem }: Prop) => {
         </View>
         <View style={theme.alignItemsEnd}>
           <MaterialCommunityIcons
-            name="notebook-check-outline"
+            name="comment-multiple"
             size={30}
-            color={"#000"}
-            style={theme.icon}
+            color={"#e76209"}
+            
           />
         </View>
       </View>
       <View style={[styles.informationContainer, theme.mr2, theme.p3]}>
         <View>
           <RegularText style={[styles.regText, theme.fontSmall]}>
-            나의 게시글
+            글 작성한 갯수
           </RegularText>
           <BoldText style={[theme.fontXl, styles.boldText]}>
             {`${homeItem.communityCnt}` + "개"}
@@ -103,28 +103,28 @@ const HomeNote = ({ homeItem }: Prop) => {
         </View>
         <View style={theme.alignItemsEnd}>
           <MaterialCommunityIcons
-            name="notebook-check-outline"
+            name="book-open-variant"
             size={30}
-            color={"#000"}
-            style={theme.icon}
+            color={theme.colors.red}
+            
           />
         </View>
       </View>
       <View style={[styles.informationContainer, theme.mr2, theme.p3]}>
         <View>
           <RegularText style={[styles.regText, theme.fontSmall]}>
-            나의 좋아요
+            좋아요 누른 갯수
           </RegularText>
           <BoldText style={[theme.fontXl, styles.boldText]}>
             {`${homeItem.communityLikeCnt}` + "개"}
           </BoldText>
         </View>
         <View style={theme.alignItemsEnd}>
-          <MaterialCommunityIcons
-            name="notebook-check-outline"
+          <AntDesign
+            name="like1"
             size={30}
-            color={"#000"}
-            style={theme.icon}
+            color={"#0a55f7"}
+            
           />
         </View>
       </View>

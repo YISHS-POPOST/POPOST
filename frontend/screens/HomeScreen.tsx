@@ -2,6 +2,7 @@ import { SafeAreaView, StyleSheet, ScrollView, View } from "react-native";
 import HomeCommunity from "../components/home/HomeCommunity";
 import HomeMessenger from "../components/home/HomeMessenger";
 import HomeNote from "../components/home/HomeNote";
+import HomeCommunityWrite from "../components/home/HomeCommunityWrite";
 import theme from "../theme";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -58,6 +59,7 @@ const HomeScreen = () => {
       style={[{ backgroundColor: theme.colors.backgroundWhite }]}
     >
       <SafeAreaView style={[theme.mainContainer, styles.bg]}>
+        <HomeCommunityWrite />
         <HomeCommunity communityItem={communityItem} />
         <HomeMessenger homeItem={homeItem} />
       </SafeAreaView>
